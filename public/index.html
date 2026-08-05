@@ -254,14 +254,19 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
         <p class="hint" id="noPhoneHint" data-i18n="noPhoneHint" hidden>Without a phone, your locality is used instead to find your record next time — please fill it in carefully and the same way each time.</p>
         <div class="row">
           <label class="f"><span class="f-l" data-i18n="locality">Locality</span><input class="f-i" name="locality" data-i18n-ph="phLocality"></label>
-          <label class="f"><span class="f-l" data-i18n="province">Spiritual province or nation</span><input class="f-i" name="spiritual_province" data-i18n-ph="phProvince"></label>
+          <label class="f"><span class="f-l" data-i18n="nation">Spiritual nation</span><select class="f-i nation" name="spiritual_nation"></select></label>
         </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="province">Spiritual province</span><select class="f-i province" name="spiritual_province"></select></label>
+        </div>
+        <p class="hint" id="provinceHint" data-i18n="provinceHint">Only Cameroon is divided into spiritual provinces. Choose another nation and this stays empty.</p>
         <div class="row">
           <label class="f sm"><span class="f-l" data-i18n="trimester">Trimester</span>
             <select class="f-i" name="trimester_number"><option value=""></option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
           <label class="f sm"><span class="f-l" data-i18n="fromMonth">From the month of</span><select class="f-i month" name="month_from"></select></label>
           <label class="f sm"><span class="f-l" data-i18n="toMonth">To the month of</span><select class="f-i month" name="month_to"></select></label>
         </div>
+        <p class="hint" data-i18n="periodHint">Which trimester this report covers, and the months it runs from and to. Not your date of birth.</p>
       </div>
     </section>
 
@@ -438,6 +443,38 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
 // different in every country. Cameroon is pre-selected since most
 // submitters are expected to be there, but it's always visible and
 // changeable, never silently assumed.
+// The 22 spiritual provinces, read off the official CMFI map. Location names
+// only: the map also carries each province's leader, but the sheet asks where
+// a member is, not who leads them, and leaders change while provinces do not.
+// Four spellings here are still awaiting confirmation (Daouala/Douala,
+// Kadei/Kadey, Mbam, Nyon Ekele), which is why this is a plain list rather
+// than a database constraint: correcting one is a one-line edit.
+const CMR_PROVINCES = ["Adamaoua","Centre","Daouala","Donga Mantung","Est","Extreme Nord","Garoua",
+  "Kadei","Kanni Danai","Mbam","Moungo","Nord","Nord-Ouest","Nyon Ekele","Ouest","PSU","QG",
+  "Sanaga Maritime","Sud","Sud Ouest","Touboro","Yaounde"];
+
+// Amounts used to be stored with no unit at all. The currency follows the
+// country code the member already picked for their phone, so nobody has to
+// answer a second question to make the figures comparable. XAF and XOF are
+// both called "franc CFA" but they are different currencies.
+const CURRENCY_BY_CC = {
+  "237":"XAF","236":"XAF","235":"XAF","241":"XAF","242":"XAF","240":"XAF",
+  "221":"XOF","225":"XOF","229":"XOF","228":"XOF","226":"XOF","223":"XOF","227":"XOF","245":"XOF",
+  "234":"NGN","233":"GHS","220":"GMD","224":"GNF","238":"CVE","222":"MRU","231":"LRD","232":"SLE",
+  "243":"CDF","239":"STN","244":"AOA","258":"MZN","260":"ZMW","263":"ZWG","267":"BWP","264":"NAD",
+  "266":"LSL","268":"SZL","27":"ZAR","230":"MUR","248":"SCR","261":"MGA","254":"KES","255":"TZS",
+  "256":"UGX","250":"RWF","257":"BIF","251":"ETB","252":"SOS","253":"DJF","291":"ERN","211":"SSP",
+  "249":"SDG","20":"EGP","218":"LYD","216":"TND","213":"DZD","212":"MAD",
+  "1":"USD","44":"GBP","33":"EUR","49":"EUR","32":"EUR","31":"EUR","41":"CHF","39":"EUR","34":"EUR",
+  "351":"EUR","353":"EUR","46":"SEK","47":"NOK","45":"DKK","358":"EUR","48":"PLN","30":"EUR",
+  "90":"TRY","7":"RUB","380":"UAH","91":"INR","92":"PKR","880":"BDT","94":"LKR","977":"NPR",
+  "86":"CNY","81":"JPY","82":"KRW","852":"HKD","65":"SGD","60":"MYR","66":"THB","84":"VND",
+  "62":"IDR","63":"PHP","971":"AED","966":"SAR","974":"QAR","965":"KWD","962":"JOD","961":"LBP",
+  "972":"ILS","964":"IQD","98":"IRR","61":"AUD","64":"NZD","55":"BRL","54":"ARS","56":"CLP",
+  "57":"COP","52":"MXN","51":"PEN","58":"VES","593":"USD"
+};
+const currencyFor = cc => CURRENCY_BY_CC[String(cc)] || "";
+
 const COUNTRY_CODES = [
   ["237","Cameroon","🇨🇲"],["234","Nigeria","🇳🇬"],["233","Ghana","🇬🇭"],["221","Senegal","🇸🇳"],["225","Côte d'Ivoire","🇨🇮"],
   ["229","Benin","🇧🇯"],["228","Togo","🇹🇬"],["226","Burkina Faso","🇧🇫"],["223","Mali","🇲🇱"],["227","Niger","🇳🇪"],
@@ -510,8 +547,8 @@ const I18N = {
     typeGoalNoun:"goal",typeResultNoun:"result",
     duplicateSubmit:"Submit anyway",
     duplicateCancel:"Cancel, let me check",
-    name:"Name",phone:"Phone",phoneCode:"Country code",locality:"Locality",province:"Spiritual province or nation",
-    trimester:"Trimester",fromMonth:"From the month of",toMonth:"To the month of",
+    name:"Name",phone:"Phone",phoneCode:"Country code",locality:"Locality",province:"Spiritual province",nation:"Spiritual nation",provinceHint:"Only Cameroon is divided into spiritual provinces. Choose another nation and this stays empty.",
+    trimester:"Trimester",fromMonth:"From the month of",toMonth:"To the month of",periodHint:"Which trimester this report covers, and the months it runs from and to. Not your date of birth.",
     h1:"I gave the accounts of",a1:"My walk with God",a2:"My studies",a3:"My finances",a4:"My service to God",
     givenTo:"To",every:"Every",fDay:"Day",fWeek:"Week",fMonth:"Month",
     h2t:"Daily dynamic encounters with God",number:"Number",time:"Time",
@@ -528,8 +565,8 @@ const I18N = {
     h9t:"Fasts",wed:"Wednesday fasts",complete:"Complete fasts of 3 days or more",encouraged:"People you encouraged to fast",
     h10t:"Proclamation of the prophecy",h10h:"The entire prophecy of the overthrow of the satanic prince of Cameroon.",
     h11t:"Finances",giving:"Giving to God",pct:"Percentage (%)",faithful:"Faithfulness",
-    savings:"Savings",hasSav:"Do you have savings?",howMuch:"How much (FCFA)",
-    debts:"Debts",indebted:"Are you indebted?",debtAmt:"If yes, how much (FCFA)",reimb:"Reimbursed so far (FCFA)",
+    savings:"Savings",hasSav:"Do you have savings?",howMuch:"How much ({cur})",
+    debts:"Debts",indebted:"Are you indebted?",debtAmt:"If yes, how much ({cur})",reimb:"Reimbursed so far ({cur})",
     h12t:"Bertoua message",units:"Teaching units completed and marked",times:"Number of times you did them",
     h13t:"Uprooting of idols",idols:"Idols uprooted",h14t:"Proclamations",
     h15t:"Your involvement in the five year goal",h16t:"Distinct service to God and to man",h17t:"Making of disciples",
@@ -581,8 +618,8 @@ const I18N = {
     typeGoalNoun:"objectif",typeResultNoun:"résultat",
     duplicateSubmit:"Envoyer quand même",
     duplicateCancel:"Annuler, je vais vérifier",
-    name:"Nom",phone:"Téléphone",phoneCode:"Indicatif du pays",locality:"Localité",province:"Province spirituelle ou nation",
-    trimester:"Trimestre",fromMonth:"Du mois de",toMonth:"Au mois de",
+    name:"Nom",phone:"Téléphone",phoneCode:"Indicatif du pays",locality:"Localité",province:"Province spirituelle",nation:"Nation spirituelle",provinceHint:"Seul le Cameroun est divis\u00e9 en provinces spirituelles. Choisissez une autre nation et ce champ reste vide.",
+    trimester:"Trimestre",fromMonth:"Du mois de",toMonth:"Au mois de",periodHint:"Le trimestre que couvre cette fiche, et les mois de d\u00e9but et de fin. Ce n'est pas votre date de naissance.",
     h1:"J'ai rendu compte de",a1:"Ma marche avec Dieu",a2:"Mes études",a3:"Mes finances",a4:"Mon service pour Dieu",
     givenTo:"À",every:"Chaque",fDay:"Jour",fWeek:"Semaine",fMonth:"Mois",
     h2t:"Rencontres dynamiques quotidiennes avec Dieu",number:"Nombre",time:"Temps",
@@ -599,8 +636,8 @@ const I18N = {
     h9t:"Jeûnes",wed:"Jeûnes du mercredi",complete:"Jeûnes complets de 3 jours ou plus",encouraged:"Personnes encouragées à jeûner",
     h10t:"Proclamation de la prophétie",h10h:"Toute la prophétie du renversement du prince satanique du Cameroun.",
     h11t:"Finances",giving:"Donner à Dieu",pct:"Pourcentage (%)",faithful:"Fidélité",
-    savings:"Épargne",hasSav:"Avez-vous une épargne ?",howMuch:"De combien (FCFA)",
-    debts:"Dettes",indebted:"Êtes-vous endetté ?",debtAmt:"Si oui, de combien (FCFA)",reimb:"Montant déjà remboursé (FCFA)",
+    savings:"Épargne",hasSav:"Avez-vous une épargne ?",howMuch:"De combien ({cur})",
+    debts:"Dettes",indebted:"Êtes-vous endetté ?",debtAmt:"Si oui, de combien ({cur})",reimb:"Montant d\u00e9j\u00e0 rembours\u00e9 ({cur})",
     h12t:"Message de Bertoua",units:"Unités d'enseignement achevées et corrigées",times:"Nombre de fois que vous les avez faites",
     h13t:"Déracinement des idoles",idols:"Idoles déracinées",h14t:"Proclamations",
     h15t:"Votre implication dans l'objectif quinquennal",h16t:"Service distinct à Dieu et à l'homme",h17t:"Formation de disciples",
@@ -733,6 +770,24 @@ function applyLang(l){
     s.innerHTML = COUNTRY_CODES.map(c => '<option value="'+c[0]+'">'+c[2]+' +'+c[0]+' '+c[1]+'</option>').join('');
     s.value = k || '237';
   });
+  // Nation list reuses the phone country codes: the same 106 countries, same
+  // names, one source of truth. Province is Cameroon only, so it is gated on
+  // the nation rather than offered to everyone and quietly ignored.
+  $$('select.nation').forEach(sel => {
+    const keep = sel.value;
+    sel.innerHTML = '<option value=""></option>' +
+      COUNTRY_CODES.map(c => '<option value="' + c[1] + '">' + c[2] + ' ' + c[1] + '</option>').join('');
+    sel.value = keep || 'Cameroon';
+  });
+  $$('select.province').forEach(sel => {
+    const keep = sel.value;
+    sel.innerHTML = '<option value=""></option>' +
+      CMR_PROVINCES.map(n => '<option value="' + n + '">' + n + '</option>').join('');
+    sel.value = keep || '';
+  });
+  applyNation();
+  applyCurrency();
+
   $$('select.month').forEach(s => {
     const k = s.value;
     s.innerHTML = '<option value=""></option>' + t.months.map((m,i) => '<option value="'+(i+1)+'">'+m+'</option>').join('');
@@ -788,6 +843,8 @@ function collect(){
     pages: tr.querySelector('.lit-pages').value.trim(),
     author: tr.querySelector('.lit-author').value.trim()
   }));
+  p.currency = (!p.no_phone && currencyFor(p.phone_cc)) ||
+    currencyFor((COUNTRY_CODES.find(c => c[1] === p.spiritual_nation) || [])[0]) || null;
   p.phone = p.no_phone ? '' : combinePhone(p, 'phone_local', 'phone_cc');
   p.phone2 = p.no_phone ? '' : combinePhone(p, 'phone2_local', 'phone2_cc');
   return p;
@@ -802,6 +859,11 @@ function restore(p){
     else el.value = p[el.name];
   });
   applyNoPhone($('#noPhoneCheck').checked);
+  // A draft can carry a nation other than Cameroon, or a different country
+  // code. Without these the restored page would show an editable province for
+  // a member who has none, and money labels in the wrong currency.
+  applyNation();
+  applyCurrency();
   Array.from($('#litBody').children).forEach((tr,i) => {
     const r = (p.literature || [])[i];
     if (!r) return;
@@ -823,7 +885,52 @@ function saveDraft(){
 }
 function clearDraft(){ storage.remove(DRAFT_KEY); }
 
+// Province only means something for Cameroon. Rather than let a member from
+// Togo pick "Moungo", the field is disabled and cleared for every other
+// nation, so an impossible combination cannot be submitted at all.
+function applyNation(){
+  const nation = $('[name="spiritual_nation"]');
+  const prov = $('[name="spiritual_province"]');
+  if (!nation || !prov) return;
+  const isCameroon = nation.value === 'Cameroon';
+  prov.disabled = !isCameroon;
+  if (!isCameroon) prov.value = '';
+  const hint = $('#provinceHint');
+  if (hint) hint.hidden = isCameroon;
+  prov.closest('label').style.opacity = isCameroon ? '' : '.5';
+}
+
+// The money boxes say which currency they are in, taken from the country code
+// the member already chose for their phone. If the code is one we have no
+// currency for, the label simply drops the parenthetical rather than lying.
+function applyCurrency(){
+  const t = I18N[lang];
+  const cc = $('[name="phone_cc"]');
+  const nation = $('[name="spiritual_nation"]');
+  // The phone code is the better signal of where a member actually is, so it
+  // wins. But a member with no phone at all still picked a nation, and that
+  // is then the only country we know about them.
+  const noPhone = $('#noPhoneCheck') && $('#noPhoneCheck').checked;
+  let cur = (!noPhone && cc) ? currencyFor(cc.value) : '';
+  if (!cur && nation && nation.value) {
+    const row = COUNTRY_CODES.find(c => c[1] === nation.value);
+    if (row) cur = currencyFor(row[0]);
+  }
+  const put = (key, name) => {
+    const el = $('[name="' + name + '"]');
+    const label = el && el.closest('label') && el.closest('label').querySelector('.f-l');
+    if (label) label.textContent = (t[key] || '').replace('{cur}', cur).replace(' ()', '');
+  };
+  put('howMuch','savings_amount');
+  put('debtAmt','debt_amount');
+  put('reimb','debt_reimbursed');
+}
+
 function say(msg, tone){ const s = $('#status'); s.textContent = msg; s.dataset.tone = tone || ''; }
+document.addEventListener('change', e => {
+  if (e.target.name === 'spiritual_nation') { applyNation(); applyCurrency(); }
+  if (e.target.name === 'phone_cc' || e.target.id === 'noPhoneCheck') applyCurrency();
+});
 $('#beginBtn').addEventListener('click', () => $('#ident').scrollIntoView({ block:'start' }));
 $('#printBtn').addEventListener('click', () => window.print());
 $('#againBtn').addEventListener('click', () => { clearDraft(); location.reload(); });

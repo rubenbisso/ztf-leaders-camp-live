@@ -22,7 +22,9 @@ export const FIELD_LABELS = [
   ['phone', 'Phone'],
   ['phone2', 'Second Phone'],
   ['locality', 'Locality'],
-  ['spiritual_province', 'Spiritual Province or Nation'],
+  ['spiritual_nation', 'Spiritual Nation'],
+  ['spiritual_province', 'Spiritual Province'],
+  ['currency', 'Currency Of The Amounts'],
   ['trimester_number', 'Trimester'],
   ['month_from', 'From the Month Of'],
   ['month_to', 'To the Month Of'],
@@ -72,7 +74,7 @@ export const FIELD_LABELS = [
 ];
 
 export const COLUMNS = [
-  'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_province',
+  'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_nation', 'spiritual_province', 'currency',
   'trimester_number', 'month_from', 'month_to',
   'acct_walk_with_god', 'acct_studies', 'acct_finances', 'acct_service_to_god',
   'acct_given_to', 'acct_frequency',
@@ -139,10 +141,23 @@ const RANGES = {
 };
 for (const column of INTEGERS) if (!RANGES[column]) RANGES[column] = [0, INT_MAX];
 
+// The same 106 countries the form offers, so a request that bypasses the
+// page cannot invent a nation. Duplicated from COUNTRY_CODES in index.html
+// rather than shared, because the functions are bundled separately from the
+// page; if one list changes the other must change with it.
+export const NATIONS = ["Cameroon","Nigeria","Ghana","Senegal","Côte d'Ivoire","Benin","Togo","Burkina Faso","Mali","Niger","Gambia","Guinea","Guinea-Bissau","Cabo Verde","Mauritania","Liberia","Sierra Leone","Central African Republic","Chad","Gabon","Congo (Brazzaville)","Congo (DRC)","Equatorial Guinea","São Tomé and Príncipe","Angola","Mozambique","Zambia","Zimbabwe","Botswana","Namibia","Lesotho","Eswatini","South Africa","Mauritius","Seychelles","Madagascar","Kenya","Tanzania","Uganda","Rwanda","Burundi","Ethiopia","Somalia","Djibouti","Eritrea","South Sudan","Sudan","Egypt","Libya","Tunisia","Algeria","Morocco","United States / Canada","United Kingdom","France","Germany","Belgium","Netherlands","Switzerland","Italy","Spain","Portugal","Ireland","Sweden","Norway","Denmark","Finland","Poland","Greece","Türkiye","Russia / Kazakhstan","Ukraine","India","Pakistan","Bangladesh","Sri Lanka","Nepal","China","Japan","South Korea","Hong Kong","Singapore","Malaysia","Thailand","Vietnam","Indonesia","Philippines","United Arab Emirates","Saudi Arabia","Qatar","Kuwait","Jordan","Lebanon","Israel","Iraq","Iran","Australia","New Zealand","Brazil","Argentina","Chile","Colombia","Mexico","Peru","Venezuela","Ecuador"];
+
+// Mirrors CMR_PROVINCES in the form. Kept here too so a submission that
+// bypasses the page cannot invent a province, and kept as a list rather than
+// a database CHECK because four of these spellings are still unconfirmed.
+export const CMR_PROVINCES = ["Adamaoua","Centre","Daouala","Donga Mantung","Est","Extreme Nord",
+  "Garoua","Kadei","Kanni Danai","Mbam","Moungo","Nord","Nord-Ouest","Nyon Ekele","Ouest","PSU",
+  "QG","Sanaga Maritime","Sud","Sud Ouest","Touboro","Yaounde"];
+
 // Free-text columns the schema pins to a fixed vocabulary. The form uses a
-// dropdown, so these should never fail — but "should never" is what the
-// giving percentage looked like too, and an unexpected value here is the
-// same silent 500.
+// dropdown, so these should never fail, but "should never" is what the giving
+// percentage looked like too, and an unexpected value here is the same
+// silent 500.
 const ENUMS = {
   entry_type: ['goal', 'result'],
   acct_frequency: ['day', 'week', 'month']
@@ -164,6 +179,21 @@ export function validateRow(row) {
     if (value === null || value === undefined) continue;
     if (!allowed.includes(value)) {
       return { field: column, reason: 'not_allowed', allowed, received: value };
+    }
+  }
+
+  // Province is a subdivision of one nation, not a free-standing answer. A
+  // member outside Cameroon has no province, so a province without Cameroon
+  // is a contradiction rather than a typo.
+  if (row.spiritual_nation && !NATIONS.includes(row.spiritual_nation)) {
+    return { field: 'spiritual_nation', reason: 'not_allowed', received: row.spiritual_nation };
+  }
+  if (row.spiritual_province) {
+    if (!CMR_PROVINCES.includes(row.spiritual_province)) {
+      return { field: 'spiritual_province', reason: 'not_allowed', allowed: CMR_PROVINCES, received: row.spiritual_province };
+    }
+    if (row.spiritual_nation && row.spiritual_nation !== 'Cameroon') {
+      return { field: 'spiritual_province', reason: 'province_needs_cameroon', received: row.spiritual_nation };
     }
   }
   return null;

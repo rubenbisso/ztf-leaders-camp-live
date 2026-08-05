@@ -220,3 +220,63 @@ SELECT
     r.proclamations,
     r.idols_uprooted
 FROM accountability_returns r;
+
+-- ---------------------------------------------------------------------------
+-- Nation and province are two different questions.
+--
+-- The sheet asked "Spiritual province or nation" in one box, and 64% of the
+-- first 105 submissions answered it with a country. Only Cameroon is divided
+-- into spiritual provinces, so the province is a subdivision of one nation
+-- rather than a peer of it.
+--
+-- spiritual_province keeps its name and now holds one of the Cameroon
+-- provinces, or nothing. The original free text is preserved in
+-- spiritual_province_legacy so no answer is destroyed by the split and a
+-- misfiled one can still be recovered later.
+--
+-- No CHECK constraint on the province on purpose: four spellings on the
+-- official map are still unconfirmed, and a constraint would have to be
+-- migrated every time one is corrected. The list is enforced by the dropdown
+-- and by validateRow, both of which are one edit away.
+-- ---------------------------------------------------------------------------
+ALTER TABLE accountability_returns ADD COLUMN IF NOT EXISTS spiritual_nation TEXT;
+ALTER TABLE accountability_returns ADD COLUMN IF NOT EXISTS spiritual_province_legacy TEXT;
+
+-- Amounts were recorded with no unit at all. The form labels said FCFA, the
+-- schema said nothing, and a Togo member is already on file. XAF and XOF are
+-- both "franc CFA" but they are not the same currency.
+ALTER TABLE accountability_returns ADD COLUMN IF NOT EXISTS currency TEXT;
+
+CREATE INDEX IF NOT EXISTS idx_returns_nation ON accountability_returns (spiritual_nation);
+
+-- Keep the original answer before anything normalises the column. Runs once:
+-- the WHERE clause makes a second migration a no-op.
+UPDATE accountability_returns
+   SET spiritual_province_legacy = spiritual_province
+ WHERE spiritual_province_legacy IS NULL
+   AND spiritual_province IS NOT NULL;
+
+DROP VIEW IF EXISTS accountability_summary;
+CREATE VIEW accountability_summary AS
+SELECT
+    r.id,
+    r.submitted_at,
+    r.person_id,
+    r.entry_type,
+    r.full_name,
+    r.phone,
+    r.trimester_number,
+    r.locality,
+    r.spiritual_nation,
+    r.spiritual_province,
+    r.spiritual_province_legacy,
+    r.currency,
+    r.ddeg_number,
+    r.bible_chapters,
+    r.people_reached,
+    r.conversions,
+    r.added_to_church,
+    r.fasts_wednesday + r.fasts_complete_3days AS total_fasts,
+    r.proclamations,
+    r.idols_uprooted
+FROM accountability_returns r;
