@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imitators of ZTF Accountability Form</title>
+<meta name="description" content="Trimestral accountability form for the CMFI Leaders Camp 2026. School of Knowing and Serving God, Koume.">
+<meta name="theme-color" content="#7A1F2B">
+<meta property="og:title" content="Imitators of ZTF Accountability Form">
+<meta property="og:description" content="Leaders Camp 2026. Imitators of ZTF.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237A1F2B'/%3E%3Ctext x='16' y='21' font-family='Georgia,serif' font-weight='700' font-size='12' fill='%23FCFCFA' text-anchor='middle'%3EZTF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16211C; --paper:#FCFCFA; --band:#ECF2EA; --rule:#C3D4C4;
+  --seal:#7A1F2B; --seal-dark:#5E1621; --muted:#6C7A72; --canvas:#E7EBE5;
+  --display:"Newsreader",Georgia,serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --bar:56px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 3rem)}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--body);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+.topbar{position:sticky;top:0;z-index:60;height:var(--bar);
+  background:var(--paper);border-bottom:1px solid var(--rule)}
+.topbar .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{display:flex;align-items:baseline;gap:.7rem;min-width:0}
+.mark b{font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
+.mark span{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+@media(max-width:600px){.mark span{display:none}}
+.lang{display:flex;border:1px solid var(--ink);flex:0 0 auto}
+.lang button{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
+  padding:.4rem .85rem;background:none;border:0;cursor:pointer;color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lang button+button{border-left:1px solid var(--ink)}
+
+.hero{padding:5rem 0 3.5rem}
+@media(min-width:820px){.hero{padding:7rem 0 4.5rem}}
+.eyebrow{margin:0 0 .8rem;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--seal)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.3rem,6.5vw,4.6rem);
+  line-height:1;margin:0;letter-spacing:-.02em;max-width:15ch}
+h1 em{font-style:italic;color:var(--seal)}
+.scripture{margin-top:3rem;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:1.7rem 0;display:grid;grid-template-columns:minmax(0,1fr);gap:.9rem}
+@media(min-width:820px){.scripture{grid-template-columns:8rem minmax(0,1fr);gap:2.5rem;align-items:start}}
+.scripture .ref{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--seal);padding-top:.6rem}
+.scripture p{margin:0;font-family:var(--display);font-style:italic;
+  font-size:clamp(1.1rem,2.3vw,1.5rem);line-height:1.45;max-width:60ch}
+.begin{margin-top:2.5rem}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem;padding-bottom:1rem}
+@media(min-width:980px){.layout{grid-template-columns:5.5rem minmax(0,1fr);gap:2.5rem}}
+
+.rail{position:sticky;top:var(--bar);z-index:20;align-self:start;background:var(--canvas)}
+.rail-head,.rail-meter{display:none}
+.rail-list{display:flex;gap:.25rem;overflow-x:auto;padding:.6rem 0;scrollbar-width:none}
+.rail-list::-webkit-scrollbar{display:none}
+.rail-i{flex:0 0 auto;font-family:var(--mono);font-size:.72rem;width:2rem;height:2rem;
+  display:grid;place-items:center;border:1px solid var(--rule);background:var(--paper);
+  color:var(--muted);cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.rail-i:hover{border-color:var(--ink);color:var(--ink)}
+.rail-i[data-filled="true"]{background:var(--seal);border-color:var(--seal);color:#fff}
+.rail-i[data-here="true"]{outline:1px solid var(--ink);outline-offset:2px}
+.rail-i:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+@media(min-width:980px){
+  .rail{top:calc(var(--bar) + 2rem);background:none}
+  .rail-head{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+  .rail-list{flex-direction:column;overflow:visible;padding:0;gap:.3rem}
+  .rail-i{width:2.4rem;height:2.1rem}
+  .rail-meter{display:block;margin-top:1rem;width:2.4rem;border-top:1px solid var(--rule);
+    padding-top:.6rem;font-family:var(--mono);font-size:.72rem;color:var(--seal)}
+}
+
+.sheet{background:var(--paper);border:1px solid var(--rule)}
+.block{border-bottom:1px solid var(--rule)}
+.block:last-child{border-bottom:0}
+.block-body{padding:1.6rem 1.4rem}
+@media(min-width:700px){.block-body{padding:1.9rem 2.2rem}}
+.item{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:700px){.item{grid-template-columns:3.75rem minmax(0,1fr)}}
+.item:nth-of-type(even){background:var(--band)}
+.item-n{display:none;font-family:var(--mono);font-size:.78rem;color:var(--seal);
+  padding:1.95rem 0 0 1.1rem;border-right:1px solid rgba(122,31,43,.22)}
+@media(min-width:700px){.item-n{display:block}}
+.item-b{padding:1.6rem 1.4rem}
+@media(min-width:700px){.item-b{padding:1.7rem 2.2rem}}
+h2{font-family:var(--display);font-weight:600;font-size:1.15rem;margin:0 0 .35rem;letter-spacing:-.01em}
+h2 .n-inline{font-family:var(--mono);font-size:.8rem;color:var(--seal);margin-right:.5rem}
+@media(min-width:700px){h2 .n-inline{display:none}}
+.hint{margin:0 0 1rem;font-size:.82rem;color:var(--muted);max-width:64ch}
+.section-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+
+.row{display:flex;flex-wrap:wrap;gap:1.1rem 1.6rem}
+.row+.row{margin-top:1.1rem}
+.f{display:flex;flex-direction:column;gap:.3rem;flex:1 1 12rem}
+.f.sm{flex:0 1 auto}
+.f.lg{flex:1 1 100%}
+.f-l{font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.f.lg .f-l{white-space:normal}
+.f-i{font:inherit;font-family:var(--mono);font-size:.92rem;color:var(--ink);
+  background:transparent;border:0;border-bottom:1px solid var(--rule);
+  padding:.35rem .1rem;width:100%;border-radius:0;transition:border-color .16s,box-shadow .16s}
+.f-i::placeholder{color:#B4C0B6}
+.f-i:hover{border-bottom-color:var(--muted)}
+.f-i:focus{outline:0;border-bottom-color:var(--seal);box-shadow:0 1px 0 0 var(--seal)}
+select.f-i{appearance:none;cursor:pointer;padding-right:1.2rem;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 9px) 55%,calc(100% - 4px) 55%;
+  background-size:5px 5px;background-repeat:no-repeat}
+select.cc{max-width:11rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+textarea.f-i{font-family:var(--body);font-size:.95rem;line-height:2rem;min-height:8.5rem;
+  resize:vertical;border:1px solid var(--rule);padding:.35rem .7rem;
+  background-image:repeating-linear-gradient(transparent,transparent 1.94rem,var(--rule) 1.94rem,var(--rule) 2rem);
+  background-attachment:local}
+textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
+.ticks{display:flex;flex-wrap:wrap;gap:.65rem 1.6rem;margin-bottom:1.2rem}
+.tick{display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.92rem}
+.tick input{position:absolute;opacity:0;width:0;height:0}
+.tick .box{width:1.05rem;height:1.05rem;border:1px solid var(--ink);background:var(--paper);
+  display:grid;place-items:center;flex:0 0 auto}
+.tick .box::after{content:"";width:.55rem;height:.3rem;border-left:2px solid var(--seal);
+  border-bottom:2px solid var(--seal);transform:rotate(-45deg) scale(.4);opacity:0;
+  transition:opacity .14s,transform .14s}
+.tick input:checked+.box::after{opacity:1;transform:rotate(-45deg) scale(1)}
+.tick input:focus-visible+.box{outline:2px solid var(--seal);outline-offset:2px}
+.lit{width:100%;border-collapse:collapse;margin-bottom:.9rem;table-layout:fixed}
+.lit th{text-align:left;font-family:var(--mono);font-weight:400;font-size:.64rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  padding:0 .6rem .5rem 0;border-bottom:1px solid var(--rule)}
+.lit td{padding:.45rem .6rem .45rem 0;vertical-align:bottom}
+.lit td:first-child,.lit th:first-child{width:2.4rem;font-family:var(--mono);font-size:.78rem;color:var(--seal)}
+.add{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--muted);padding:.45rem .8rem;cursor:pointer}
+.add:hover{border-color:var(--ink);color:var(--ink)}
+
+.btn{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.95rem 1.9rem;border:1px solid var(--seal);background:var(--seal);color:#fff;
+  cursor:pointer;transition:background .16s,color .16s}
+.btn:hover{background:var(--seal-dark);border-color:var(--seal-dark)}
+.btn:disabled{opacity:.5;cursor:progress}
+.btn.ghost{background:none;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.foot{margin-top:2.5rem;padding-bottom:5rem;display:flex;flex-wrap:wrap;gap:1.2rem;
+  align-items:center;justify-content:space-between}
+.colophon{font-family:var(--display);font-style:italic;font-size:.95rem;color:var(--muted);
+  max-width:34ch;margin:0}
+.actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.status{font-size:.85rem;min-height:1.2rem;max-width:34ch}
+.status[data-tone="ok"]{color:#1E5B36}
+.status[data-tone="bad"]{color:var(--seal)}
+.draft{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);opacity:0;transition:opacity .4s}
+.draft[data-on="true"]{opacity:1}
+
+.done{display:none;background:var(--paper);border:1px solid var(--rule);
+  padding:4.5rem 2rem;text-align:center;margin-bottom:5rem}
+.done[data-on="true"]{display:block}
+.done h2{font-family:var(--display);font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:400;margin:0 0 1.4rem}
+.done p{color:var(--muted);margin:0 auto 2rem;max-width:44ch}
+.link-note{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--seal);margin:0 0 1.4rem}
+.confirm-panel{display:none;background:var(--band);border:1px solid var(--rule);
+  padding:1.4rem 1.6rem;margin:0 0 1.6rem;text-align:left}
+.confirm-panel[data-on="true"]{display:block}
+.confirm-panel p{margin:0 0 1rem;font-size:.88rem;color:var(--ink)}
+.confirm-choices{display:flex;flex-wrap:wrap;gap:.7rem}
+.confirm-choices button{font:inherit;font-size:.85rem;background:var(--paper);
+  border:1px solid var(--rule);padding:.6rem 1.1rem;cursor:pointer;transition:border-color .16s}
+.confirm-choices button:hover{border-color:var(--seal)}
+.confirm-choices button.none{color:var(--muted)}
+[hidden]{display:none!important}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  .topbar,.rail,.actions,.status,.begin,.draft{display:none}
+  .hero{padding:0 0 2rem}
+  .sheet{border:0}
+  .item:nth-of-type(even){background:none}
+  .layout{display:block}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="mark">
+      <b>Imitators of ZTF</b>
+      <span data-i18n="barSub">Leaders Camp 2026</span>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="org">Christian Missionary Fellowship International</p>
+    <h1><span data-i18n="titleA">Trimestral</span> <em data-i18n="titleB">Accountability</em> <span data-i18n="titleC">Form</span></h1>
+    <div class="scripture">
+      <div class="ref" data-i18n="ref">Hebrews 13:7-8</div>
+      <p data-i18n="verse">Remember them which have the rule over you, who have spoken unto you the word of God: whose faith follow, considering the end of their conversation. Jesus Christ the same yesterday, and to day, and for ever.</p>
+    </div>
+    <div class="begin"><button type="button" class="btn ghost" id="beginBtn" data-i18n="begin">Begin the form</button></div>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="layout" id="formArea">
+  <aside class="rail">
+    <div class="rail-head" data-i18n="railHead">Entries</div>
+    <div class="rail-list" id="rail"></div>
+    <div class="rail-meter"><span id="meter">0/17</span></div>
+  </aside>
+
+  <main class="sheet" id="sheet">
+
+    <section class="block" id="ident">
+      <div class="block-body">
+        <div class="section-label" data-i18n="identLabel">Identification</div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="name">Name</span><input class="f-i" name="full_name" data-i18n-ph="phName" autocomplete="name"></label>
+        </div>
+        <div id="phoneFields">
+          <div class="row">
+            <label class="f sm"><span class="f-l" data-i18n="phoneCode">Country code</span><select class="f-i cc" name="phone_cc"></select></label>
+            <label class="f"><span class="f-l" data-i18n="phone">Phone</span><input class="f-i" name="phone_local" data-i18n-ph="phPhone" type="tel" inputmode="tel" autocomplete="tel"></label>
+          </div>
+          <p class="hint" data-i18n="phoneHint">Your phone number links this report to your next one. Please use the same number every time.</p>
+          <div class="row">
+            <label class="f sm"><span class="f-l" data-i18n="phoneCode">Country code</span><select class="f-i cc" name="phone2_cc"></select></label>
+            <label class="f"><span class="f-l" data-i18n="phone2">Second phone number (optional)</span><input class="f-i" name="phone2_local" data-i18n-ph="phPhone" type="tel" inputmode="tel" autocomplete="tel"></label>
+          </div>
+          <p class="hint" data-i18n="phone2Hint">If you sometimes use a different number, add it here too — either one will find your record next time.</p>
+        </div>
+        <label class="tick" style="margin-bottom:1.2rem"><input type="checkbox" name="no_phone" id="noPhoneCheck"><span class="box"></span><span data-i18n="noPhone">I don't have any phone at all</span></label>
+        <p class="hint" id="noPhoneHint" data-i18n="noPhoneHint" hidden>Without a phone, your locality is used instead to find your record next time — please fill it in carefully and the same way each time.</p>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="locality">Locality</span><input class="f-i" name="locality" data-i18n-ph="phLocality"></label>
+          <label class="f"><span class="f-l" data-i18n="province">Spiritual province or nation</span><input class="f-i" name="spiritual_province" data-i18n-ph="phProvince"></label>
+        </div>
+        <div class="row">
+          <label class="f sm"><span class="f-l" data-i18n="trimester">Trimester</span>
+            <select class="f-i" name="trimester_number"><option value=""></option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+          <label class="f sm"><span class="f-l" data-i18n="fromMonth">From the month of</span><select class="f-i month" name="month_from"></select></label>
+          <label class="f sm"><span class="f-l" data-i18n="toMonth">To the month of</span><select class="f-i month" name="month_to"></select></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="block item" id="i1"><div class="item-n">01</div><div class="item-b">
+      <h2><span class="n-inline">01</span><span data-i18n="h1">I gave the accounts of</span></h2>
+      <div class="ticks">
+        <label class="tick"><input type="checkbox" name="acct_walk_with_god"><span class="box"></span><span data-i18n="a1">My walk with God</span></label>
+        <label class="tick"><input type="checkbox" name="acct_studies"><span class="box"></span><span data-i18n="a2">My studies</span></label>
+        <label class="tick"><input type="checkbox" name="acct_finances"><span class="box"></span><span data-i18n="a3">My finances</span></label>
+        <label class="tick"><input type="checkbox" name="acct_service_to_god"><span class="box"></span><span data-i18n="a4">My service to God</span></label>
+      </div>
+      <div class="row">
+        <label class="f"><span class="f-l" data-i18n="givenTo">To</span><input class="f-i" name="acct_given_to" data-i18n-ph="phGivenTo"></label>
+        <label class="f sm"><span class="f-l" data-i18n="every">Every</span><select class="f-i freq" name="acct_frequency"></select></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i2"><div class="item-n">02</div><div class="item-b">
+      <h2><span class="n-inline">02</span><span data-i18n="h2t">Daily dynamic encounters with God</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="ddeg_number" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="time">Time</span><input class="f-i" name="ddeg_time" data-i18n-ph="phTime"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i3"><div class="item-n">03</div><div class="item-b">
+      <h2><span class="n-inline">03</span><span data-i18n="h3t">Bible reading</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="chapters">Chapters read</span><input class="f-i" name="bible_chapters" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="timeReading">Time spent reading</span><input class="f-i" name="bible_time" data-i18n-ph="phTime"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i4"><div class="item-n">04</div><div class="item-b">
+      <h2><span class="n-inline">04</span><span data-i18n="h4t">Bible memorisation</span></h2>
+      <div class="row"><label class="f lg"><span class="f-l" data-i18n="passages">Passages memorised</span><input class="f-i" name="bible_memorisation" data-i18n-ph="phMemo"></label></div>
+    </div></section>
+
+    <section class="block item" id="i5"><div class="item-n">05</div><div class="item-b">
+      <h2><span class="n-inline">05</span><span data-i18n="h5t">Reading of Christian literature</span></h2>
+      <p class="hint" data-i18n="h5h">Title of each book read, the number of pages, and the author.</p>
+      <table class="lit"><thead><tr><th></th><th data-i18n="lTitle">Title</th><th style="width:5rem" data-i18n="lPages">Pages</th><th data-i18n="lAuthor">Author</th></tr></thead><tbody id="litBody"></tbody></table>
+      <button type="button" class="add" id="addLit" data-i18n="addRow">Add a book</button>
+    </div></section>
+
+    <section class="block item" id="i6"><div class="item-n">06</div><div class="item-b">
+      <h2><span class="n-inline">06</span><span data-i18n="h6t">Prayer alone</span></h2>
+      <div class="row">
+        <label class="f"><span class="f-l" data-i18n="timeAlone">Time spent praying alone</span><input class="f-i" name="prayer_alone_time" data-i18n-ph="phTime"></label>
+        <label class="f sm"><span class="f-l" data-i18n="retreats">15 minute retreats</span><input class="f-i" name="retreats_15min" data-i18n-ph="phCount"></label>
+      </div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="thanks">Thanksgiving topics recorded</span><input class="f-i" name="thanksgiving_topics" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="topics">Prayer topics recorded</span><input class="f-i" name="prayer_topics" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="answered">Prayers answered</span><input class="f-i" name="prayers_answered" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i7"><div class="item-n">07</div><div class="item-b">
+      <h2><span class="n-inline">07</span><span data-i18n="h7t">Prayer with others, the house church or the local church</span></h2>
+      <div class="row"><label class="f lg"><span class="f-l" data-i18n="h7l">Frequency, duration and setting</span><input class="f-i" name="prayer_with_others" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i8"><div class="item-n">08</div><div class="item-b">
+      <h2><span class="n-inline">08</span><span data-i18n="h8t">Soul winning</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="reached">People reached with the gospel</span><input class="f-i" name="people_reached" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="conv">Conversions</span><input class="f-i" name="conversions" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="bapW">Baptised in water</span><input class="f-i" name="baptised_water" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="bapH">Baptised in the Holy Spirit</span><input class="f-i" name="baptised_holy_spirit" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="added">Added to the church</span><input class="f-i" name="added_to_church" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="planted">Churches planted</span><input class="f-i" name="churches_planted" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="perChurch">Members per church</span><input class="f-i" name="members_per_church" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i9"><div class="item-n">09</div><div class="item-b">
+      <h2><span class="n-inline">09</span><span data-i18n="h9t">Fasts</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="wed">Wednesday fasts</span><input class="f-i" name="fasts_wednesday" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="complete">Complete fasts of 3 days or more</span><input class="f-i" name="fasts_complete_3days" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="encouraged">People you encouraged to fast</span><input class="f-i" name="people_encouraged_to_fast" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i10"><div class="item-n">10</div><div class="item-b">
+      <h2><span class="n-inline">10</span><span data-i18n="h10t">Proclamation of the prophecy</span></h2>
+      <p class="hint" data-i18n="h10h">The entire prophecy of the overthrow of the satanic prince of Cameroon.</p>
+      <div class="row"><label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="prophecy_proclamations" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i11"><div class="item-n">11</div><div class="item-b">
+      <h2><span class="n-inline">11</span><span data-i18n="h11t">Finances</span></h2>
+      <div class="section-label" data-i18n="giving">Giving to God</div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="pct">Percentage (%)</span><input class="f-i" name="giving_percentage" data-i18n-ph="phPct"></label>
+        <label class="f sm"><span class="f-l" data-i18n="faithful">Faithfulness</span><select class="f-i yesno" name="giving_faithful"></select></label>
+      </div>
+      <div class="section-label" style="margin-top:1.7rem" data-i18n="savings">Savings</div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="hasSav">Do you have savings?</span><select class="f-i yesno" name="has_savings"></select></label>
+        <label class="f sm"><span class="f-l" data-i18n="howMuch">How much (FCFA)</span><input class="f-i" name="savings_amount" data-i18n-ph="phMoney"></label>
+      </div>
+      <div class="section-label" style="margin-top:1.7rem" data-i18n="debts">Debts</div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="indebted">Are you indebted?</span><select class="f-i yesno" name="is_indebted"></select></label>
+        <label class="f sm"><span class="f-l" data-i18n="debtAmt">If yes, how much (FCFA)</span><input class="f-i" name="debt_amount" data-i18n-ph="phMoney"></label>
+        <label class="f sm"><span class="f-l" data-i18n="reimb">Reimbursed so far (FCFA)</span><input class="f-i" name="debt_reimbursed" data-i18n-ph="phMoney"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i12"><div class="item-n">12</div><div class="item-b">
+      <h2><span class="n-inline">12</span><span data-i18n="h12t">Bertoua message</span></h2>
+      <div class="row">
+        <label class="f"><span class="f-l" data-i18n="units">Teaching units completed and marked</span><input class="f-i" name="bertoua_units_completed" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="times">Number of times you did them</span><input class="f-i" name="bertoua_times_done" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i13"><div class="item-n">13</div><div class="item-b">
+      <h2><span class="n-inline">13</span><span data-i18n="h13t">Uprooting of idols</span></h2>
+      <div class="row"><label class="f sm"><span class="f-l" data-i18n="idols">Idols uprooted</span><input class="f-i" name="idols_uprooted" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i14"><div class="item-n">14</div><div class="item-b">
+      <h2><span class="n-inline">14</span><span data-i18n="h14t">Proclamations</span></h2>
+      <div class="row"><label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="proclamations" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i15"><div class="item-n">15</div><div class="item-b">
+      <h2><span class="n-inline">15</span><span data-i18n="h15t">Your involvement in the five year goal</span></h2>
+      <textarea class="f-i" name="five_year_goal" data-i18n-ph="phText" rows="5"></textarea>
+    </div></section>
+
+    <section class="block item" id="i16"><div class="item-n">16</div><div class="item-b">
+      <h2><span class="n-inline">16</span><span data-i18n="h16t">Distinct service to God and to man</span></h2>
+      <textarea class="f-i" name="distinct_service" data-i18n-ph="phText" rows="5"></textarea>
+    </div></section>
+
+    <section class="block item" id="i17"><div class="item-n">17</div><div class="item-b">
+      <h2><span class="n-inline">17</span><span data-i18n="h17t">Making of disciples</span></h2>
+      <textarea class="f-i" name="making_disciples" data-i18n-ph="phText" rows="5"></textarea>
+    </div></section>
+
+  </main>
+</div>
+
+<div class="done" id="done" data-on="false">
+  <h2 data-i18n="doneTitle">Your accounts are recorded</h2>
+  <p class="link-note" id="linkNote"></p>
+  <button type="button" class="btn ghost" id="againBtn" data-i18n="again">Fill another form</button>
+</div>
+
+<div class="confirm-panel" id="confirmPanel" data-on="false">
+  <p id="confirmPromptText"></p>
+  <div class="confirm-choices" id="confirmChoices"></div>
+</div>
+
+<footer class="foot" id="foot">
+  <p class="colophon" data-i18n="colophon">School of Knowing and Serving God. Koume, 28 July 2026.</p>
+  <div class="actions">
+    <span class="draft" id="draft" data-on="false" data-i18n="draftSaved">Draft saved</span>
+    <span class="status" id="status" role="status"></span>
+    <button type="button" class="btn ghost" id="printBtn" data-i18n="print">Print</button>
+    <button type="button" class="btn" id="submitBtn" data-i18n="submit">Submit the form</button>
+  </div>
+</footer>
+</div>
+
+<script>
+// Country calling codes. Explicit and picked by the submitter — guessing a
+// default from a bare local number isn't safe once submitters come from
+// more than one country, since a 9-digit local number means something
+// different in every country. Cameroon is pre-selected since most
+// submitters are expected to be there, but it's always visible and
+// changeable, never silently assumed.
+const COUNTRY_CODES = [
+  ["237","Cameroon","🇨🇲"],["234","Nigeria","🇳🇬"],["233","Ghana","🇬🇭"],["221","Senegal","🇸🇳"],["225","Côte d'Ivoire","🇨🇮"],
+  ["229","Benin","🇧🇯"],["228","Togo","🇹🇬"],["226","Burkina Faso","🇧🇫"],["223","Mali","🇲🇱"],["227","Niger","🇳🇪"],
+  ["220","Gambia","🇬🇲"],["224","Guinea","🇬🇳"],["245","Guinea-Bissau","🇬🇼"],["238","Cabo Verde","🇨🇻"],["222","Mauritania","🇲🇷"],
+  ["231","Liberia","🇱🇷"],["232","Sierra Leone","🇸🇱"],["236","Central African Republic","🇨🇫"],["235","Chad","🇹🇩"],
+  ["241","Gabon","🇬🇦"],["242","Congo (Brazzaville)","🇨🇬"],["243","Congo (DRC)","🇨🇩"],["240","Equatorial Guinea","🇬🇶"],
+  ["239","São Tomé and Príncipe","🇸🇹"],["244","Angola","🇦🇴"],["258","Mozambique","🇲🇿"],["260","Zambia","🇿🇲"],
+  ["263","Zimbabwe","🇿🇼"],["267","Botswana","🇧🇼"],["264","Namibia","🇳🇦"],["266","Lesotho","🇱🇸"],["268","Eswatini","🇸🇿"],
+  ["27","South Africa","🇿🇦"],["230","Mauritius","🇲🇺"],["248","Seychelles","🇸🇨"],["261","Madagascar","🇲🇬"],
+  ["254","Kenya","🇰🇪"],["255","Tanzania","🇹🇿"],["256","Uganda","🇺🇬"],["250","Rwanda","🇷🇼"],["257","Burundi","🇧🇮"],
+  ["251","Ethiopia","🇪🇹"],["252","Somalia","🇸🇴"],["253","Djibouti","🇩🇯"],["291","Eritrea","🇪🇷"],["211","South Sudan","🇸🇸"],
+  ["249","Sudan","🇸🇩"],["20","Egypt","🇪🇬"],["218","Libya","🇱🇾"],["216","Tunisia","🇹🇳"],["213","Algeria","🇩🇿"],["212","Morocco","🇲🇦"],
+  ["1","United States / Canada","🇺🇸"],["44","United Kingdom","🇬🇧"],["33","France","🇫🇷"],["49","Germany","🇩🇪"],
+  ["32","Belgium","🇧🇪"],["31","Netherlands","🇳🇱"],["41","Switzerland","🇨🇭"],["39","Italy","🇮🇹"],["34","Spain","🇪🇸"],
+  ["351","Portugal","🇵🇹"],["353","Ireland","🇮🇪"],["46","Sweden","🇸🇪"],["47","Norway","🇳🇴"],["45","Denmark","🇩🇰"],
+  ["358","Finland","🇫🇮"],["48","Poland","🇵🇱"],["30","Greece","🇬🇷"],["90","Türkiye","🇹🇷"],["7","Russia / Kazakhstan","🇷🇺"],
+  ["380","Ukraine","🇺🇦"],["91","India","🇮🇳"],["92","Pakistan","🇵🇰"],["880","Bangladesh","🇧🇩"],["94","Sri Lanka","🇱🇰"],
+  ["977","Nepal","🇳🇵"],["86","China","🇨🇳"],["81","Japan","🇯🇵"],["82","South Korea","🇰🇷"],["852","Hong Kong","🇭🇰"],
+  ["65","Singapore","🇸🇬"],["60","Malaysia","🇲🇾"],["66","Thailand","🇹🇭"],["84","Vietnam","🇻🇳"],["62","Indonesia","🇮🇩"],
+  ["63","Philippines","🇵🇭"],["971","United Arab Emirates","🇦🇪"],["966","Saudi Arabia","🇸🇦"],["974","Qatar","🇶🇦"],
+  ["965","Kuwait","🇰🇼"],["962","Jordan","🇯🇴"],["961","Lebanon","🇱🇧"],["972","Israel","🇮🇱"],["964","Iraq","🇮🇶"],["98","Iran","🇮🇷"],
+  ["61","Australia","🇦🇺"],["64","New Zealand","🇳🇿"],["55","Brazil","🇧🇷"],["54","Argentina","🇦🇷"],["56","Chile","🇨🇱"],
+  ["57","Colombia","🇨🇴"],["52","Mexico","🇲🇽"],["51","Peru","🇵🇪"],["58","Venezuela","🇻🇪"],["593","Ecuador","🇪🇨"]
+];
+const CC_LIST = [...new Set(COUNTRY_CODES.map(c => c[0]))].sort((a,b) => b.length - a.length);
+
+// Someone typing (or pasting) their whole number as one blob — "+237677123456"
+// — instead of using the dropdown is the common case, not the exception.
+// Detect a leading country code so it isn't blindly duplicated on top of
+// whatever the dropdown happens to be set to. A "+"/"00" prefix is treated
+// as certain; a long bare digit string (more than a plausible local number)
+// is also checked, but a short one is left alone rather than guessed at.
+function detectCountryCode(raw){
+  let s = String(raw || '').trim();
+  if (s.startsWith('00')) s = '+' + s.slice(2);
+  let digits;
+  if (s.startsWith('+')) {
+    digits = s.slice(1).replace(/\D/g, '');
+  } else {
+    const stripped = s.replace(/\D/g, '');
+    if (stripped.length <= 10) return null;
+    digits = stripped;
+  }
+  for (const code of CC_LIST) {
+    if (digits.startsWith(code) && digits.length - code.length >= 6) {
+      return { cc: code, local: digits.slice(code.length) };
+    }
+  }
+  return null;
+}
+
+const I18N = {
+  en:{
+    barSub:"Leaders Camp 2026",
+    org:"Christian Missionary Fellowship International",
+    titleA:"Trimestral",titleB:"Accountability",titleC:"Form",
+    ref:"Hebrews 13:7-8",
+    verse:"Remember them which have the rule over you, who have spoken unto you the word of God: whose faith follow, considering the end of their conversation. Jesus Christ the same yesterday, and to day, and for ever.",
+    begin:"Begin the form",railHead:"Entries",identLabel:"Identification",
+    phoneHint:"Your phone number links this report to your next one. Please use the same number every time.",
+    phone2:"Second phone number (optional)",
+    phone2Hint:"If you sometimes use a different number, add it here too — either one will find your record next time.",
+    noPhone:"I don't have any phone at all",
+    noPhoneHint:"Without a phone, your locality is used instead to find your record next time — please fill it in carefully and the same way each time.",
+    confirmPrompt:"We found other reports using this phone number. Which of these is you?",
+    confirmNone:"None of these — this is my first report",
+    newPersonNote:"A new record was created for you.",
+    linkedNote:"Linked to your existing record.",
+    duplicatePrompt:"You already have a {type} for Trimester {n}, from {date}. Submit this one anyway?",
+    typeGoalNoun:"goal",typeResultNoun:"result",
+    duplicateSubmit:"Submit anyway",
+    duplicateCancel:"Cancel, let me check",
+    name:"Name",phone:"Phone",phoneCode:"Country code",locality:"Locality",province:"Spiritual province or nation",
+    trimester:"Trimester",fromMonth:"From the month of",toMonth:"To the month of",
+    h1:"I gave the accounts of",a1:"My walk with God",a2:"My studies",a3:"My finances",a4:"My service to God",
+    givenTo:"To",every:"Every",fDay:"Day",fWeek:"Week",fMonth:"Month",
+    h2t:"Daily dynamic encounters with God",number:"Number",time:"Time",
+    h3t:"Bible reading",chapters:"Chapters read",timeReading:"Time spent reading",
+    h4t:"Bible memorisation",passages:"Passages memorised",
+    h5t:"Reading of Christian literature",h5h:"Title of each book read, the number of pages, and the author.",
+    lTitle:"Title",lPages:"Pages",lAuthor:"Author",addRow:"Add a book",
+    h6t:"Prayer alone",timeAlone:"Time spent praying alone",retreats:"15 minute retreats",
+    thanks:"Thanksgiving topics recorded",topics:"Prayer topics recorded",answered:"Prayers answered",
+    h7t:"Prayer with others, the house church or the local church",h7l:"Frequency, duration and setting",
+    h8t:"Soul winning",reached:"People reached with the gospel",conv:"Conversions",
+    bapW:"Baptised in water",bapH:"Baptised in the Holy Spirit",added:"Added to the church",
+    planted:"Churches planted",perChurch:"Members per church",
+    h9t:"Fasts",wed:"Wednesday fasts",complete:"Complete fasts of 3 days or more",encouraged:"People you encouraged to fast",
+    h10t:"Proclamation of the prophecy",h10h:"The entire prophecy of the overthrow of the satanic prince of Cameroon.",
+    h11t:"Finances",giving:"Giving to God",pct:"Percentage (%)",faithful:"Faithfulness",
+    savings:"Savings",hasSav:"Do you have savings?",howMuch:"How much (FCFA)",
+    debts:"Debts",indebted:"Are you indebted?",debtAmt:"If yes, how much (FCFA)",reimb:"Reimbursed so far (FCFA)",
+    h12t:"Bertoua message",units:"Teaching units completed and marked",times:"Number of times you did them",
+    h13t:"Uprooting of idols",idols:"Idols uprooted",h14t:"Proclamations",
+    h15t:"Your involvement in the five year goal",h16t:"Distinct service to God and to man",h17t:"Making of disciples",
+    colophon:"School of Knowing and Serving God. Koume, 28 July 2026.",
+    print:"Print",submit:"Submit the form",sending:"Sending",draftSaved:"Draft saved",
+    yes:"Yes",no:"No",
+    doneTitle:"Your accounts are recorded",
+    again:"Fill another form",
+    errName:"Enter your name before submitting.",
+    errPhone:"Enter your phone number before submitting — it's what links this report to your next one.",
+    errLocality:"Enter your locality before submitting — without a phone, it's what links this report to your next one.",
+    errNet:"The form could not be sent. Check your connection and try again. Your answers are still here.",
+    phCount:"e.g. 12",
+    phTime:"e.g. 30 min a day",
+    phPct:"e.g. 10 (a number from 0 to 100, not an amount)",
+    phMoney:"e.g. 25000",
+    phName:"First name and surname",
+    phPhone:"6XX XX XX XX",
+    phLocality:"e.g. Yaounde",
+    phProvince:"e.g. Cameroun",
+    phGivenTo:"Name of the person you give accounts to",
+    phMemo:"e.g. Psalm 23, Romans 8",
+    phText:"In a few words",
+    errTooBig:"\u00ab {label} \u00bb: that number is too large. Check you have not typed a phone number or an amount in this box.",
+    errRange:"\u00ab {label} \u00bb: enter a number between {min} and {max}. Your answers are still here.",
+    errPct:"\u00ab {label} \u00bb: this is a percentage, so a number from 0 to 100. If you wrote an amount in FCFA, replace it with the percentage you give.",
+    errChoice:"\u00ab {label} \u00bb: choose one of the options offered.",
+    errField:"\u00ab {label} \u00bb was refused. Please check that line and try again. Your answers are still here.",
+    errServer:"Something went wrong on our end — this isn't a connection problem. Please try submitting again; your answers are still here.",
+    months:["January","February","March","April","May","June","July","August","September","October","November","December"]
+  },
+  fr:{
+    barSub:"Camp des Leaders 2026",
+    org:"Communion Missionnaire Chrétienne Internationale",
+    titleA:"Fiche de Compte Rendu",titleB:"Trimestrielle",titleC:"Imitateurs De ZTF",
+    ref:"Hébreux 13:7-8",
+    verse:"Souvenez-vous de vos conducteurs qui vous ont annoncé la parole de Dieu ; considérez quelle a été la fin de leur vie, et imitez leur foi. Jésus-Christ est le même hier, aujourd'hui, et éternellement.",
+    begin:"Commencer la fiche",railHead:"Rubriques",identLabel:"Identification",
+    phoneHint:"Votre numéro de téléphone relie cette fiche à la prochaine. Utilisez le même numéro à chaque fois.",
+    phone2:"Deuxième numéro de téléphone (facultatif)",
+    phone2Hint:"Si vous utilisez parfois un autre numéro, ajoutez-le aussi ici — l'un ou l'autre retrouvera votre dossier la prochaine fois.",
+    noPhone:"Je n'ai aucun téléphone",
+    noPhoneHint:"Sans téléphone, votre localité est utilisée à la place pour retrouver votre dossier la prochaine fois — veuillez la remplir avec soin et de la même façon à chaque fois.",
+    confirmPrompt:"Nous avons trouvé d'autres fiches utilisant ce numéro de téléphone. Laquelle est la vôtre ?",
+    confirmNone:"Aucune de celles-ci — c'est ma première fiche",
+    newPersonNote:"Un nouveau dossier a été créé pour vous.",
+    linkedNote:"Lié à votre dossier existant.",
+    duplicatePrompt:"Vous avez déjà un {type} pour le trimestre {n}, daté du {date}. Envoyer quand même ?",
+    typeGoalNoun:"objectif",typeResultNoun:"résultat",
+    duplicateSubmit:"Envoyer quand même",
+    duplicateCancel:"Annuler, je vais vérifier",
+    name:"Nom",phone:"Téléphone",phoneCode:"Indicatif du pays",locality:"Localité",province:"Province spirituelle ou nation",
+    trimester:"Trimestre",fromMonth:"Du mois de",toMonth:"Au mois de",
+    h1:"J'ai rendu compte de",a1:"Ma marche avec Dieu",a2:"Mes études",a3:"Mes finances",a4:"Mon service pour Dieu",
+    givenTo:"À",every:"Chaque",fDay:"Jour",fWeek:"Semaine",fMonth:"Mois",
+    h2t:"Rencontres dynamiques quotidiennes avec Dieu",number:"Nombre",time:"Temps",
+    h3t:"Lecture de la Bible",chapters:"Chapitres lus",timeReading:"Temps consacré à la lecture",
+    h4t:"Mémorisation de la Bible",passages:"Passages mémorisés",
+    h5t:"Lecture de la littérature chrétienne",h5h:"Titre de chaque livre lu, le nombre de pages et l'auteur.",
+    lTitle:"Titre",lPages:"Pages",lAuthor:"Auteur",addRow:"Ajouter un livre",
+    h6t:"Prière seul",timeAlone:"Temps passé à prier seul",retreats:"Retraites de 15 minutes",
+    thanks:"Sujets d'action de grâce enregistrés",topics:"Sujets de prière enregistrés",answered:"Prières exaucées",
+    h7t:"Prière avec d'autres, l'église de maison ou l'église locale",h7l:"Fréquence, durée et cadre",
+    h8t:"Gagner des âmes",reached:"Personnes atteintes par l'évangile",conv:"Conversions",
+    bapW:"Baptisées d'eau",bapH:"Baptisées du Saint-Esprit",added:"Ajoutées à l'église",
+    planted:"Églises implantées",perChurch:"Membres par église",
+    h9t:"Jeûnes",wed:"Jeûnes du mercredi",complete:"Jeûnes complets de 3 jours ou plus",encouraged:"Personnes encouragées à jeûner",
+    h10t:"Proclamation de la prophétie",h10h:"Toute la prophétie du renversement du prince satanique du Cameroun.",
+    h11t:"Finances",giving:"Donner à Dieu",pct:"Pourcentage (%)",faithful:"Fidélité",
+    savings:"Épargne",hasSav:"Avez-vous une épargne ?",howMuch:"De combien (FCFA)",
+    debts:"Dettes",indebted:"Êtes-vous endetté ?",debtAmt:"Si oui, de combien (FCFA)",reimb:"Montant déjà remboursé (FCFA)",
+    h12t:"Message de Bertoua",units:"Unités d'enseignement achevées et corrigées",times:"Nombre de fois que vous les avez faites",
+    h13t:"Déracinement des idoles",idols:"Idoles déracinées",h14t:"Proclamations",
+    h15t:"Votre implication dans l'objectif quinquennal",h16t:"Service distinct à Dieu et à l'homme",h17t:"Formation de disciples",
+    colophon:"École de la Connaissance et du Service de Dieu. Koumé, le 28 juillet 2026.",
+    print:"Imprimer",submit:"Envoyer la fiche",sending:"Envoi en cours",draftSaved:"Brouillon enregistré",
+    yes:"Oui",no:"Non",
+    doneTitle:"Vos comptes sont enregistrés",
+    again:"Remplir une autre fiche",
+    errName:"Entrez votre nom avant d'envoyer.",
+    errPhone:"Entrez votre numéro de téléphone avant d'envoyer — c'est ce qui relie cette fiche à la prochaine.",
+    errLocality:"Entrez votre localité avant d'envoyer — sans téléphone, c'est ce qui relie cette fiche à la prochaine.",
+    errNet:"La fiche n'a pas pu être envoyée. Vérifiez votre connexion et réessayez. Vos réponses sont conservées.",
+    phCount:"ex : 12",
+    phTime:"ex : 30 min par jour",
+    phPct:"ex : 10 (un nombre de 0 \u00e0 100, pas un montant)",
+    phMoney:"ex : 25000",
+    phName:"Pr\u00e9nom et nom",
+    phPhone:"6XX XX XX XX",
+    phLocality:"ex : Yaound\u00e9",
+    phProvince:"ex : Cameroun",
+    phGivenTo:"Nom de la personne \u00e0 qui vous rendez compte",
+    phMemo:"ex : Psaume 23, Romains 8",
+    phText:"En quelques mots",
+    errTooBig:"\u00ab {label} \u00bb : ce nombre est trop grand. V\u00e9rifiez que vous n'avez pas saisi un num\u00e9ro de t\u00e9l\u00e9phone ou un montant dans cette case.",
+    errRange:"\u00ab {label} \u00bb : entrez un nombre entre {min} et {max}. Vos r\u00e9ponses sont conserv\u00e9es.",
+    errPct:"\u00ab {label} \u00bb : c'est un pourcentage, donc un nombre de 0 \u00e0 100. Si vous avez \u00e9crit un montant en FCFA, remplacez-le par le pourcentage que vous donnez.",
+    errChoice:"\u00ab {label} \u00bb : choisissez l'une des options propos\u00e9es.",
+    errField:"\u00ab {label} \u00bb a \u00e9t\u00e9 refus\u00e9. V\u00e9rifiez cette ligne et r\u00e9essayez. Vos r\u00e9ponses sont conserv\u00e9es.",
+    errServer:"Une erreur s'est produite de notre côté — ce n'est pas un problème de connexion. Veuillez réessayer d'envoyer ; vos réponses sont conservées.",
+    months:["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]
+  }
+};
+
+const DRAFT_KEY = 'cmfi-draft-v1';
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+let lang = (navigator.language || 'en').toLowerCase().startsWith('fr') ? 'fr' : 'en';
+
+// localStorage throws in some browsers/embedded webviews (Safari private
+// mode, in-app browsers like WhatsApp or Facebook's — common for links
+// shared this way) instead of just being unavailable. An unguarded call
+// anywhere at the top level halts the whole script before a single event
+// listener attaches, which breaks everything on the page, not just
+// drafts/stickiness — so every access goes through this wrapper instead of
+// calling localStorage directly.
+const storage = {
+  get(key){ try { return localStorage.getItem(key); } catch (e) { return null; } },
+  set(key, val){ try { localStorage.setItem(key, val); } catch (e) {} },
+  remove(key){ try { localStorage.removeItem(key); } catch (e) {} }
+};
+
+// entry_type is never shown or chosen on the form — it's an internal
+// distinction for us, not something a submitter should have to think about.
+// Staff doing the paper-to-digital goal transcription open the form with
+// ?entry=goal on the link; everyone else gets the default 'result' with
+// nothing on screen either way. Sticky per device (separate from the
+// per-answer draft, which clears after every submit) so staff don't need
+// the query string on every reload during a long bulk-entry session.
+const ENTRY_TYPE_KEY = 'cmfi-entrytype-v1';
+const urlEntryType = new URLSearchParams(location.search).get('entry');
+let entryType = urlEntryType === 'goal' || urlEntryType === 'result'
+  ? urlEntryType
+  : (storage.get(ENTRY_TYPE_KEY) === 'goal' ? 'goal' : 'result');
+function applyEntryType(t){
+  entryType = t === 'goal' ? 'goal' : 'result';
+  storage.set(ENTRY_TYPE_KEY, entryType);
+}
+applyEntryType(entryType);
+
+const ROMAN = ['i','ii','iii','iv','v','vi','vii','viii'];
+function litRow(i){
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>' + (ROMAN[i] || i+1) + '</td>' +
+    '<td><input class="f-i lit-title"></td>' +
+    '<td><input class="f-i lit-pages"></td>' +
+    '<td><input class="f-i lit-author"></td>';
+  return tr;
+}
+function setLitRows(n){
+  const b = $('#litBody');
+  while (b.children.length < n) b.appendChild(litRow(b.children.length));
+}
+setLitRows(4);
+$('#addLit').addEventListener('click', () => {
+  const b = $('#litBody');
+  if (b.children.length < 8) setLitRows(b.children.length + 1);
+});
+
+const rail = $('#rail');
+for (let i = 1; i <= 17; i++){
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'rail-i';
+  b.dataset.target = 'i' + i;
+  b.textContent = String(i).padStart(2,'0');
+  b.setAttribute('aria-label', 'Entry ' + i);
+  b.addEventListener('click', () => $('#i'+i).scrollIntoView({ block:'start' }));
+  rail.appendChild(b);
+}
+function refreshRail(){
+  let done = 0;
+  for (let i = 1; i <= 17; i++){
+    const sec = $('#i'+i);
+    const filled = Array.from(sec.querySelectorAll('input,select,textarea'))
+      .some(el => el.type === 'checkbox' ? el.checked : el.value.trim() !== '');
+    $('.rail-i[data-target="i'+i+'"]').dataset.filled = filled;
+    if (filled) done++;
+  }
+  $('#meter').textContent = done + '/17';
+}
+if ('IntersectionObserver' in window){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const btn = $('.rail-i[data-target="'+e.target.id+'"]');
+      if (btn) btn.dataset.here = e.isIntersecting;
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  for (let i = 1; i <= 17; i++) io.observe($('#i'+i));
+}
+
+function applyLang(l){
+  lang = l;
+  const t = I18N[l];
+  document.documentElement.lang = l;
+  $$('[data-i18n]').forEach(el => { if (t[el.dataset.i18n] !== undefined) el.textContent = t[el.dataset.i18n]; });
+  $$('[data-i18n-ph]').forEach(el => { if (t[el.dataset.i18nPh] !== undefined) el.placeholder = t[el.dataset.i18nPh]; });
+  $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+  $$('select.cc').forEach(s => {
+    const k = s.value;
+    s.innerHTML = COUNTRY_CODES.map(c => '<option value="'+c[0]+'">'+c[2]+' +'+c[0]+' '+c[1]+'</option>').join('');
+    s.value = k || '237';
+  });
+  $$('select.month').forEach(s => {
+    const k = s.value;
+    s.innerHTML = '<option value=""></option>' + t.months.map((m,i) => '<option value="'+(i+1)+'">'+m+'</option>').join('');
+    s.value = k;
+  });
+  $$('select.yesno').forEach(s => {
+    const k = s.value;
+    s.innerHTML = '<option value=""></option><option value="yes">'+t.yes+'</option><option value="no">'+t.no+'</option>';
+    s.value = k;
+  });
+  $$('select.freq').forEach(s => {
+    const k = s.value;
+    s.innerHTML = '<option value=""></option><option value="day">'+t.fDay+'</option><option value="week">'+t.fWeek+'</option><option value="month">'+t.fMonth+'</option>';
+    s.value = k;
+  });
+  document.title = l === 'fr'
+    ? 'Fiche de compte rendu trimestrielle imitateurs de ZTF'
+    : 'Imitators of ZTF Accountability Form';
+}
+$$('.lang button').forEach(b => b.addEventListener('click', () => { applyLang(b.dataset.lang); saveDraft(); }));
+
+function wirePhoneBlur(localName, ccName){
+  $('[name="' + localName + '"]').addEventListener('blur', function(){
+    const detected = detectCountryCode(this.value);
+    if (detected) {
+      $('[name="' + ccName + '"]').value = detected.cc;
+      this.value = detected.local;
+      saveDraft();
+    }
+  });
+}
+wirePhoneBlur('phone_local', 'phone_cc');
+wirePhoneBlur('phone2_local', 'phone2_cc');
+
+function applyNoPhone(on){
+  $('#phoneFields').hidden = on;
+  $('#noPhoneHint').hidden = !on;
+}
+$('#noPhoneCheck').addEventListener('change', function(){ applyNoPhone(this.checked); saveDraft(); });
+
+function combinePhone(p, localKey, ccKey){
+  const detected = detectCountryCode(p[localKey]);
+  const cc = detected ? detected.cc : p[ccKey];
+  const localDigits = (detected ? detected.local : (p[localKey] || '')).replace(/\D/g, '');
+  return localDigits ? ('+' + cc + localDigits) : '';
+}
+
+function collect(){
+  const p = { entry_type: entryType };
+  $$('#sheet [name]').forEach(el => { p[el.name] = el.type === 'checkbox' ? el.checked : el.value; });
+  p.literature = Array.from($('#litBody').children).map(tr => ({
+    title: tr.querySelector('.lit-title').value.trim(),
+    pages: tr.querySelector('.lit-pages').value.trim(),
+    author: tr.querySelector('.lit-author').value.trim()
+  }));
+  p.phone = p.no_phone ? '' : combinePhone(p, 'phone_local', 'phone_cc');
+  p.phone2 = p.no_phone ? '' : combinePhone(p, 'phone2_local', 'phone2_cc');
+  return p;
+}
+function restore(p){
+  if (!p) return;
+  if (p.entry_type) applyEntryType(p.entry_type);
+  if (Array.isArray(p.literature)) setLitRows(Math.max(4, p.literature.length));
+  $$('#sheet [name]').forEach(el => {
+    if (p[el.name] === undefined) return;
+    if (el.type === 'checkbox') el.checked = !!p[el.name];
+    else el.value = p[el.name];
+  });
+  applyNoPhone($('#noPhoneCheck').checked);
+  Array.from($('#litBody').children).forEach((tr,i) => {
+    const r = (p.literature || [])[i];
+    if (!r) return;
+    tr.querySelector('.lit-title').value = r.title || '';
+    tr.querySelector('.lit-pages').value = r.pages || '';
+    tr.querySelector('.lit-author').value = r.author || '';
+  });
+}
+
+let draftTimer;
+function saveDraft(){
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(() => {
+    storage.set(DRAFT_KEY, JSON.stringify(collect()));
+    const d = $('#draft');
+    d.dataset.on = 'true';
+    setTimeout(() => { d.dataset.on = 'false'; }, 1800);
+  }, 700);
+}
+function clearDraft(){ storage.remove(DRAFT_KEY); }
+
+function say(msg, tone){ const s = $('#status'); s.textContent = msg; s.dataset.tone = tone || ''; }
+$('#beginBtn').addEventListener('click', () => $('#ident').scrollIntoView({ block:'start' }));
+$('#printBtn').addEventListener('click', () => window.print());
+$('#againBtn').addEventListener('click', () => { clearDraft(); location.reload(); });
+
+function showDone(data){
+  const t = I18N[lang];
+  clearDraft();
+  say('', '');
+  $('#confirmPanel').dataset.on = 'false';
+  $('#formArea').hidden = true;
+  $('#foot').hidden = true;
+  $('#linkNote').textContent = data.is_new_person ? t.newPersonNote : t.linkedNote;
+  $('#done').dataset.on = 'true';
+  window.scrollTo({ top: 0 });
+}
+
+async function submitReturn(extra){
+  const t = I18N[lang];
+  const btn = $('#submitBtn');
+  btn.disabled = true;
+  say(t.sending, '');
+
+  // A thrown fetch means the request never reached the server at all — a
+  // genuine connectivity problem, and the only case where "check your
+  // connection" is actually the right message.
+  let res;
+  try {
+    res = await fetch('/api/returns', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...collect(), ...extra })
+    });
+  } catch (e) {
+    say(t.errNet, 'bad');
+    btn.disabled = false;
+    return;
+  }
+
+  if (res.ok) {
+    showDone(await res.json());
+    return;
+  }
+
+  let errBody = null;
+  try { errBody = await res.json(); } catch (e) {}
+
+  if (res.status === 409 && errBody?.error === 'confirm_person') {
+    say('', '');
+    $('#confirmPromptText').textContent = t.confirmPrompt;
+    const choices = $('#confirmChoices');
+    choices.innerHTML = '';
+    errBody.candidates.forEach(c => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = c.full_name;
+      b.addEventListener('click', () => submitReturn({ person_id: c.id }));
+      choices.appendChild(b);
+    });
+    const none = document.createElement('button');
+    none.type = 'button';
+    none.className = 'none';
+    none.textContent = t.confirmNone;
+    none.addEventListener('click', () => submitReturn({ new_person: true }));
+    choices.appendChild(none);
+    $('#confirmPanel').dataset.on = 'true';
+    $('#confirmPanel').scrollIntoView({ block: 'center' });
+    btn.disabled = false;
+    return;
+  }
+
+  if (res.status === 409 && errBody?.error === 'duplicate_trimester') {
+    say('', '');
+    const dateStr = new Date(errBody.existing.submitted_at).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB');
+    $('#confirmPromptText').textContent = t.duplicatePrompt
+      .replace('{type}', errBody.entry_type === 'goal' ? t.typeGoalNoun : t.typeResultNoun)
+      .replace('{n}', errBody.trimester_number)
+      .replace('{date}', dateStr);
+    const choices = $('#confirmChoices');
+    choices.innerHTML = '';
+    const again = document.createElement('button');
+    again.type = 'button';
+    again.textContent = t.duplicateSubmit;
+    again.addEventListener('click', () => submitReturn({ ...extra, confirm_duplicate: true }));
+    choices.appendChild(again);
+    const cancel = document.createElement('button');
+    cancel.type = 'button';
+    cancel.className = 'none';
+    cancel.textContent = t.duplicateCancel;
+    cancel.addEventListener('click', () => { $('#confirmPanel').dataset.on = 'false'; });
+    choices.appendChild(cancel);
+    $('#confirmPanel').dataset.on = 'true';
+    $('#confirmPanel').scrollIntoView({ block: 'center' });
+    btn.disabled = false;
+    return;
+  }
+
+  // A validation error the server caught that client-side checks should
+  // have already prevented — point at the actual field instead of the
+  // misleading "check your connection", since the request did reach the
+  // server fine.
+  const fieldErrors = {
+    missing_name: ['full_name', t.errName],
+    missing_phone: ['phone_local', t.errPhone],
+    missing_locality: ['locality', t.errLocality]
+  };
+  const mapped = fieldErrors[errBody?.error];
+  if (mapped) {
+    say(mapped[1], 'bad');
+    const field = $('[name="' + mapped[0] + '"]');
+    if (field) { field.scrollIntoView({ block: 'center' }); field.focus(); }
+    btn.disabled = false;
+    return;
+  }
+
+  // One answer is outside what the sheet accepts. The server names the
+  // column; the question wording is read back out of the page itself so it
+  // matches whichever language is showing and can never drift out of step
+  // with the labels above.
+  if (errBody?.error === 'field_invalid' && errBody.field) {
+    const input = $('[name="' + errBody.field + '"]');
+    const labelEl = input && input.closest('label') && input.closest('label').querySelector('.f-l');
+    const label = labelEl ? labelEl.textContent.trim() : errBody.field;
+
+    let msg;
+    if (errBody.field === 'giving_percentage') {
+      // The single most common mistake: the paper form labels this box only
+      // "Pourcentage (%)", so a member giving 5000 FCFA writes 5000.
+      msg = t.errPct.replace('{label}', label);
+    } else if (errBody.reason === 'out_of_range' && errBody.max >= 2147483647) {
+      // The only way to clear this bound is to put something that is not a
+      // count in a counting box, and a phone number is how it happens.
+      // Quoting the actual limit back at a member helps nobody.
+      msg = t.errTooBig.replace('{label}', label);
+    } else if (errBody.reason === 'out_of_range') {
+      msg = t.errRange.replace('{label}', label)
+                      .replace('{min}', errBody.min).replace('{max}', errBody.max);
+    } else if (errBody.reason === 'not_allowed') {
+      msg = t.errChoice.replace('{label}', label);
+    } else {
+      msg = t.errField.replace('{label}', label);
+    }
+
+    say(msg, 'bad');
+    if (input) { input.scrollIntoView({ block: 'center' }); input.focus(); }
+    btn.disabled = false;
+    return;
+  }
+
+  // Reached the server, but something failed there in a way not covered
+  // above (db error, stale confirm-panel state, etc). Distinct from the
+  // network message on purpose — this is not a connectivity problem.
+  say(t.errServer, 'bad');
+  btn.disabled = false;
+}
+
+$('#submitBtn').addEventListener('click', () => {
+  const t = I18N[lang];
+  const nameField = $('[name="full_name"]');
+  if (!nameField.value.trim()){
+    say(t.errName, 'bad');
+    nameField.scrollIntoView({ block:'center' });
+    nameField.focus();
+    return;
+  }
+  if ($('#noPhoneCheck').checked) {
+    const localityField = $('[name="locality"]');
+    if (!localityField.value.trim()){
+      say(t.errLocality, 'bad');
+      localityField.scrollIntoView({ block:'center' });
+      localityField.focus();
+      return;
+    }
+  } else {
+    const phoneField = $('[name="phone_local"]');
+    if (!phoneField.value.trim()){
+      say(t.errPhone, 'bad');
+      phoneField.scrollIntoView({ block:'center' });
+      phoneField.focus();
+      return;
+    }
+  }
+  submitReturn({});
+});
+
+document.addEventListener('input', () => { refreshRail(); saveDraft(); });
+document.addEventListener('change', () => { refreshRail(); saveDraft(); });
+
+applyLang(lang);
+try {
+  const saved = storage.get(DRAFT_KEY);
+  if (saved) { restore(JSON.parse(saved)); refreshRail(); }
+} catch (e) {}
+refreshRail();
+</script>
+</body>
+</html>
