@@ -23,7 +23,7 @@ export const FIELD_LABELS = [
   ['phone2', 'Second Phone'],
   ['locality', 'Locality'],
   ['spiritual_province', 'Spiritual Province or Nation'],
-  ['trimester_number', 'Trimester'],
+  ['month_number', 'Month'],
   ['month_from', 'From the Month Of'],
   ['month_to', 'To the Month Of'],
   ['acct_walk_with_god', 'I Gave Accounts Of: My Walk With God'],
@@ -73,7 +73,7 @@ export const FIELD_LABELS = [
 
 export const COLUMNS = [
   'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_province',
-  'trimester_number', 'month_from', 'month_to',
+  'month_number', 'month_from', 'month_to',
   'acct_walk_with_god', 'acct_studies', 'acct_finances', 'acct_service_to_god',
   'acct_given_to', 'acct_frequency',
   'ddeg_number', 'ddeg_time',
@@ -93,7 +93,7 @@ export const COLUMNS = [
 ];
 
 const INTEGERS = new Set([
-  'trimester_number', 'month_from', 'month_to', 'ddeg_number', 'bible_chapters',
+  'month_number', 'month_from', 'month_to', 'ddeg_number', 'bible_chapters',
   'retreats_15min', 'thanksgiving_topics', 'prayer_topics', 'prayers_answered',
   'people_reached', 'conversions', 'baptised_water', 'baptised_holy_spirit',
   'added_to_church', 'churches_planted', 'fasts_wednesday', 'fasts_complete_3days',
@@ -138,9 +138,9 @@ export function coerce(column, raw) {
   }
   if (raw === '' || raw === undefined || raw === null) {
     // 0 means "not specified" — a real, comparable value rather than null,
-    // so two blank-trimester submissions from the same person still trip
+    // so two blank-month submissions from the same person still trip
     // the duplicate check instead of silently skipping it.
-    return column === 'trimester_number' ? 0 : null;
+    return column === 'month_number' ? 0 : null;
   }
   if (INTEGERS.has(column)) {
     const n = parseInt(raw, 10);
@@ -160,6 +160,64 @@ export function buildRow(body) {
   return row;
 }
 
+// Same idea as FIELD_LABELS/COLUMNS/coerce/buildRow above, but for the
+// independent "Imitators of ZTF in Finances" monthly form — its own table,
+// its own column set, no person linkage.
+export const FINANCE_FIELD_LABELS = [
+  ['submitted_at', 'Date Submitted'],
+  ['full_name', 'Name'],
+  ['locality', 'Locality'],
+  ['phone', 'Phone'],
+  ['email', 'Email'],
+  ['nation', 'Nation'],
+  ['disciple_maker', 'Disciple Maker'],
+  ['month', 'Month'],
+  ['tithe_commitment', 'Commits To Giving The Tithe (10%)'],
+  ['offering_commitment', 'Commits To Adding An Offering'],
+  ['has_savings', 'Has Savings'],
+  ['planned_savings_percentage', 'Planned Savings Percentage (If No Savings)'],
+  ['is_indebted', 'Is Indebted'],
+  ['fasting_commitment', 'Commits To Fasting Three Complete Days Each Month'],
+  ['fasting_encourage_count', 'People Encouraged To Fast Three Days']
+];
+
+export const FINANCE_COLUMNS = [
+  'full_name', 'locality', 'phone', 'email', 'nation', 'disciple_maker', 'month',
+  'tithe_commitment', 'offering_commitment', 'has_savings', 'planned_savings_percentage',
+  'is_indebted', 'fasting_commitment', 'fasting_encourage_count'
+];
+
+const FINANCE_INTEGERS = new Set(['month', 'fasting_encourage_count']);
+const FINANCE_DECIMALS = new Set(['planned_savings_percentage']);
+// Yes / no dropdowns, all nullable: left blank is a real, distinct answer.
+const FINANCE_TRISTATE = new Set([
+  'tithe_commitment', 'offering_commitment', 'has_savings', 'is_indebted', 'fasting_commitment'
+]);
+
+export function coerceFinance(column, raw) {
+  if (FINANCE_TRISTATE.has(column)) {
+    if (raw === true || raw === 'true' || raw === 'yes') return true;
+    if (raw === false || raw === 'false' || raw === 'no') return false;
+    return null;
+  }
+  if (raw === '' || raw === undefined || raw === null) return null;
+  if (FINANCE_INTEGERS.has(column)) {
+    const n = parseInt(raw, 10);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+  if (FINANCE_DECIMALS.has(column)) {
+    const n = parseFloat(String(raw).replace(/[\s,]/g, ''));
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+  return String(raw).trim().slice(0, TEXT_LIMIT);
+}
+
+export function buildFinanceRow(body) {
+  const row = {};
+  for (const c of FINANCE_COLUMNS) row[c] = coerceFinance(c, body[c]);
+  return row;
+}
+
 // Digits only, so "+237 600 000 001" and "237-600-000-001" match as the same
 // phone. The form always sends an explicit country code (the submitter
 // picks it from a dropdown), so this only needs to normalise formatting —
@@ -173,7 +231,7 @@ export function normPhone(raw) {
 }
 
 // Case/whitespace-insensitive, so retyping a name slightly differently
-// between trimesters still counts as the same name.
+// between months still counts as the same name.
 export const normName = raw => String(raw ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
 
 export const json = (data, status = 200) =>

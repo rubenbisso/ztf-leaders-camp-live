@@ -33,6 +33,11 @@ tr.person-row:hover td{background:var(--band)}
 .name-cell{font-weight:600}
 .count{color:var(--muted)}
 .back{display:inline-block;margin-bottom:1.2rem;font-family:var(--mono);font-size:.8rem;color:var(--seal);cursor:pointer;background:none;border:0;padding:0}
+.tabs{display:flex;gap:.5rem;margin-bottom:1.4rem}
+.tabs button{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--paper);border:1px solid var(--rule);color:var(--muted);padding:.5rem 1rem;cursor:pointer}
+.tabs button[aria-pressed="true"]{border-color:var(--seal);color:var(--seal)}
+.wide-table{overflow-x:auto}
 .detail h2{font-family:var(--display);font-weight:600;font-size:1.6rem;margin:0 0 .3rem}
 .detail .phones{color:var(--muted);font-family:var(--mono);font-size:.85rem;margin:0 0 1.6rem}
 .entry{background:var(--paper);border:1px solid var(--rule);margin-bottom:1.2rem}
@@ -58,13 +63,20 @@ tr.person-row:hover td{background:var(--band)}
     <div><button id="tokenGo">View records</button></div>
     <div class="msg" id="gateMsg"></div>
   </div>
+  <div id="tabs" class="tabs" hidden>
+    <button type="button" id="tabPeople" aria-pressed="true">People</button>
+    <button type="button" id="tabFinances" aria-pressed="false">Finances</button>
+  </div>
   <div id="listView" hidden></div>
   <div id="detailView" class="detail" hidden></div>
+  <div id="financeListView" hidden></div>
 </main>
 <script>
 const $ = s => document.querySelector(s);
 let token = new URLSearchParams(location.search).get('token') || '';
 let peopleCache = null;
+let activeTab = 'people';
+const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 function api(path){
   return fetch(path + (path.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(token))
@@ -73,8 +85,10 @@ function api(path){
 
 function showGate(msg){
   $('#gate').hidden = false;
+  $('#tabs').hidden = true;
   $('#listView').hidden = true;
   $('#detailView').hidden = true;
+  $('#financeListView').hidden = true;
   $('#gateMsg').textContent = msg || '';
 }
 
@@ -82,21 +96,76 @@ function renderList(people){
   peopleCache = people;
   const rows = people.map(p => {
     const phones = (p.phones || []).map(ph => '+' + ph).join(', ') || '—';
-    const trimesters = (p.trimesters || []).slice().sort((a,b)=>a-b).join(', ') || '—';
+    const months = (p.months || []).slice().sort((a,b)=>a-b).map(m => MONTH_NAMES[m - 1]).join(', ') || '—';
     return '<tr class="person-row" data-id="' + p.id + '">' +
       '<td class="name-cell">' + escapeHtml(p.full_name) + '</td>' +
       '<td>' + escapeHtml(phones) + '</td>' +
-      '<td class="count">' + escapeHtml(trimesters) + '</td>' +
+      '<td class="count">' + escapeHtml(months) + '</td>' +
       '</tr>';
   }).join('');
   $('#listView').innerHTML = people.length
-    ? '<table><thead><tr><th>Name</th><th>Phone Number(s)</th><th>Trimesters</th></tr></thead><tbody>' + rows + '</tbody></table>'
+    ? '<table><thead><tr><th>Name</th><th>Phone Number(s)</th><th>Months</th></tr></thead><tbody>' + rows + '</tbody></table>'
     : '<p class="empty">No submissions yet.</p>';
   $$rows();
   $('#gate').hidden = true;
+  $('#tabs').hidden = false;
   $('#listView').hidden = false;
   $('#detailView').hidden = true;
+  $('#financeListView').hidden = true;
 }
+
+// Flat list, unlike renderList() above — finance_returns has no person
+// linkage to group by, so each submission is just its own row.
+function renderFinances(rows){
+  const cells = rows.map(r => {
+    const dateStr = new Date(r.submitted_at).toLocaleDateString('en-GB');
+    const yn = v => v === true ? 'Yes' : v === false ? 'No' : '—';
+    return '<tr>' +
+      '<td class="name-cell">' + escapeHtml(r.full_name) + '</td>' +
+      '<td>' + escapeHtml(dateStr) + '</td>' +
+      '<td>' + escapeHtml(r.locality || '—') + '</td>' +
+      '<td>' + escapeHtml(r.phone ? '+' + r.phone : '—') + '</td>' +
+      '<td>' + escapeHtml(r.email || '—') + '</td>' +
+      '<td>' + escapeHtml(r.nation || '—') + '</td>' +
+      '<td>' + escapeHtml(r.disciple_maker || '—') + '</td>' +
+      '<td>' + escapeHtml(r.month != null ? MONTH_NAMES[r.month - 1] : '—') + '</td>' +
+      '<td>' + yn(r.tithe_commitment) + '</td>' +
+      '<td>' + yn(r.offering_commitment) + '</td>' +
+      '<td>' + yn(r.has_savings) + '</td>' +
+      '<td>' + escapeHtml(r.planned_savings_percentage != null ? r.planned_savings_percentage + '%' : '—') + '</td>' +
+      '<td>' + yn(r.is_indebted) + '</td>' +
+      '<td>' + yn(r.fasting_commitment) + '</td>' +
+      '<td>' + escapeHtml(r.fasting_encourage_count != null ? String(r.fasting_encourage_count) : '—') + '</td>' +
+      '</tr>';
+  }).join('');
+  $('#financeListView').innerHTML = rows.length
+    ? '<div class="wide-table"><table><thead><tr>' +
+      '<th>Name</th><th>Date</th><th>Locality</th><th>Phone</th><th>Email</th><th>Nation</th><th>Disciple Maker</th><th>Month</th>' +
+      '<th>Tithe</th><th>Offering</th><th>Savings</th><th>Planned %</th><th>Indebted</th><th>Fasting</th><th>Encouraged</th>' +
+      '</tr></thead><tbody>' + cells + '</tbody></table></div>'
+    : '<p class="empty">No submissions yet.</p>';
+  $('#gate').hidden = true;
+  $('#tabs').hidden = false;
+  $('#listView').hidden = true;
+  $('#detailView').hidden = true;
+  $('#financeListView').hidden = false;
+}
+
+function loadFinances(){
+  api('/api/finances').then(renderFinances).catch(err => {
+    showGate(err?.error === 'forbidden' ? 'Wrong token.' : 'Could not load records.');
+  });
+}
+
+function setTab(name){
+  activeTab = name;
+  $('#tabPeople').setAttribute('aria-pressed', String(name === 'people'));
+  $('#tabFinances').setAttribute('aria-pressed', String(name === 'finances'));
+  if (name === 'people') { peopleCache ? renderList(peopleCache) : loadList(); }
+  else loadFinances();
+}
+$('#tabPeople').addEventListener('click', () => setTab('people'));
+$('#tabFinances').addEventListener('click', () => setTab('finances'));
 
 function $$rows(){
   document.querySelectorAll('.person-row').forEach(tr => {
@@ -125,7 +194,7 @@ function loadDetail(id){
         '<div class="field"><span class="label">' + escapeHtml(f.label) + '</span><span class="value">' + escapeHtml(formatValue(f.value)) + '</span></div>'
       ).join('');
       return '<div class="entry">' +
-        '<div class="entry-head"><span>Trimester ' + (e.trimester_number ? e.trimester_number : 'Not specified') + ' · ' + dateStr + '</span>' +
+        '<div class="entry-head"><span>' + (e.month_number ? MONTH_NAMES[e.month_number - 1] : 'Not specified') + ' · ' + dateStr + '</span>' +
         '<span class="type">' + (e.entry_type === 'goal' ? 'GOAL' : 'RESULT') + '</span></div>' +
         '<div class="entry-fields">' + (fields || '<p class="empty">No fields recorded.</p>') + '</div>' +
         '</div>';

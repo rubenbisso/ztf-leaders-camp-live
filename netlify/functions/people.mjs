@@ -2,7 +2,7 @@ import sql, { json, FIELD_LABELS } from './_db.mjs';
 
 // Fields already shown as headline info on a person's detail page, so they
 // aren't repeated again inside each entry's field list.
-const HEADLINE_FIELDS = new Set(['full_name', 'phone', 'phone2', 'entry_type', 'trimester_number', 'submitted_at']);
+const HEADLINE_FIELDS = new Set(['full_name', 'phone', 'phone2', 'entry_type', 'month_number', 'submitted_at']);
 
 function isBlank(v) {
   return v === null || v === undefined || v === '' || (Array.isArray(v) && v.length === 0);
@@ -14,7 +14,7 @@ async function listPeople() {
       p.id,
       p.full_name,
       array_remove(array_agg(DISTINCT pp.phone), NULL) AS phones,
-      array_remove(array_agg(DISTINCT NULLIF(r.trimester_number, 0)), NULL) AS trimesters
+      array_remove(array_agg(DISTINCT NULLIF(r.month_number, 0)), NULL) AS months
     FROM people p
     LEFT JOIN person_phones pp ON pp.person_id = p.id
     LEFT JOIN accountability_returns r ON r.person_id = p.id
@@ -31,12 +31,12 @@ async function personDetail(id) {
   const returns = await sql`
     SELECT * FROM accountability_returns
     WHERE person_id = ${id}
-    ORDER BY trimester_number NULLS LAST, entry_type, submitted_at
+    ORDER BY month_number NULLS LAST, entry_type, submitted_at
   `;
 
   const entries = returns.map(r => ({
     id: r.id,
-    trimester_number: r.trimester_number,
+    month_number: r.month_number,
     entry_type: r.entry_type,
     submitted_at: r.submitted_at,
     fields: FIELD_LABELS
