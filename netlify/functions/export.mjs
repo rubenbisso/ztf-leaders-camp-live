@@ -6,11 +6,7 @@ import sql, { json, FIELD_LABELS } from './_db.mjs';
 //
 // id and person_id are internal row-linking plumbing with no meaning to a
 // reader, so they're left out entirely; a row is already identified by
-<<<<<<< HEAD
 // name, month, entry type and date.
-=======
-// name, trimester, entry type and date.
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
 function csvEscape(v) {
   if (v === null || v === undefined) return '';
   let s;
