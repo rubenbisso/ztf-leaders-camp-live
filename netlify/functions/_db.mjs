@@ -25,7 +25,7 @@ export const FIELD_LABELS = [
   ['spiritual_nation', 'Spiritual Nation'],
   ['spiritual_province', 'Spiritual Province'],
   ['currency', 'Currency Of The Amounts'],
-  ['month_number', 'Month'],
+  ['trimester_number', 'Trimester'],
   ['month_from', 'From the Month Of'],
   ['month_to', 'To the Month Of'],
   ['acct_walk_with_god', 'I Gave Accounts Of: My Walk With God'],
@@ -75,7 +75,7 @@ export const FIELD_LABELS = [
 
 export const COLUMNS = [
   'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_nation', 'spiritual_province', 'currency',
-  'month_number', 'month_from', 'month_to',
+  'trimester_number', 'month_from', 'month_to',
   'acct_walk_with_god', 'acct_studies', 'acct_finances', 'acct_service_to_god',
   'acct_given_to', 'acct_frequency',
   'ddeg_number', 'ddeg_time',
@@ -95,7 +95,7 @@ export const COLUMNS = [
 ];
 
 const INTEGERS = new Set([
-  'month_number', 'month_from', 'month_to', 'ddeg_number', 'bible_chapters',
+  'trimester_number', 'month_from', 'month_to', 'ddeg_number', 'bible_chapters',
   'retreats_15min', 'thanksgiving_topics', 'prayer_topics', 'prayers_answered',
   'people_reached', 'conversions', 'baptised_water', 'baptised_holy_spirit',
   'added_to_church', 'churches_planted', 'fasts_wednesday', 'fasts_complete_3days',
@@ -130,7 +130,7 @@ const TEXT_LIMIT = 4000;
 // and a member who gives 5000 FCFA writes 5000.
 const INT_MAX = 2147483647;
 const RANGES = {
-  month_number: [0, 12],
+  trimester_number: [0, 4],
   month_from: [1, 12],
   month_to: [1, 12],
   giving_percentage: [0, 100],
@@ -233,9 +233,9 @@ export function coerce(column, raw) {
   }
   if (raw === '' || raw === undefined || raw === null) {
     // 0 means "not specified" — a real, comparable value rather than null,
-    // so two blank-month submissions from the same person still trip
+    // so two blank-trimester submissions from the same person still trip
     // the duplicate check instead of silently skipping it.
-    return column === 'month_number' ? 0 : null;
+    return column === 'trimester_number' ? 0 : null;
   }
   if (INTEGERS.has(column)) {
     const n = parseInt(raw, 10);

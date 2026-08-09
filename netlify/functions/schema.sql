@@ -43,11 +43,7 @@ CREATE TABLE IF NOT EXISTS accountability_returns (
     id                          BIGSERIAL PRIMARY KEY,
     submitted_at                TIMESTAMPTZ NOT NULL DEFAULT now(),
 
-<<<<<<< HEAD
-    -- A month has two distinct entries: the goal set beforehand and
-=======
     -- A trimester has two distinct entries: the goal set beforehand and
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
     -- the actual result reported afterwards. They are a pair, not
     -- duplicates of each other. Never shown or chosen on the form itself —
     -- an internal distinction, set only via a hidden URL flag staff use.
@@ -58,13 +54,8 @@ CREATE TABLE IF NOT EXISTS accountability_returns (
     phone                       TEXT,
     phone2                      TEXT,
     -- 0 means "not specified", not unknown/missing — a real, comparable
-<<<<<<< HEAD
-    -- value so the duplicate-month check still applies to it.
-    month_number                SMALLINT NOT NULL DEFAULT 0 CHECK (month_number BETWEEN 0 AND 12),
-=======
     -- value so the duplicate-trimester check still applies to it.
-    trimester_number             SMALLINT NOT NULL DEFAULT 0 CHECK (trimester_number BETWEEN 0 AND 4),
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
+    trimester_number            SMALLINT NOT NULL DEFAULT 0 CHECK (trimester_number BETWEEN 0 AND 4),
     locality                    TEXT,
     spiritual_province          TEXT,
     month_from                  SMALLINT CHECK (month_from BETWEEN 1 AND 12),
@@ -163,36 +154,37 @@ ALTER TABLE accountability_returns
     CHECK (entry_type IN ('goal', 'result'));
 ALTER TABLE accountability_returns ADD COLUMN IF NOT EXISTS phone2 TEXT;
 
-<<<<<<< HEAD
--- Renamed from trimester_number: the form moved from a trimestral to a
--- monthly cadence. Guarded by an existence check so a fresh database
--- (whose CREATE TABLE above already creates month_number directly) is a
--- no-op here.
+-- ---------------------------------------------------------------------------
+-- The accountability period is a trimester, and the column is
+-- trimester_number.
+--
+-- A branch briefly renamed it to month_number and widened the range to 0-12,
+-- on the reading that the form had moved to a monthly cadence. It hadn't: the
+-- monthly form is the separate "Imitators of ZTF in Finances" sheet, which has
+-- its own finance_returns.month column further down this file. The two were
+-- never the same question, so the accountability column is named back here.
+--
+-- Guarded both ways. A fresh database already has trimester_number from the
+-- CREATE TABLE above and skips this; a database that ran the month_number
+-- migration is renamed back; running it twice does nothing.
+-- ---------------------------------------------------------------------------
 DO $$
 BEGIN
   IF EXISTS (
     SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'accountability_returns' AND column_name = 'month_number'
+  ) AND NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
     WHERE table_name = 'accountability_returns' AND column_name = 'trimester_number'
   ) THEN
-    ALTER TABLE accountability_returns RENAME COLUMN trimester_number TO month_number;
+    ALTER TABLE accountability_returns RENAME COLUMN month_number TO trimester_number;
   END IF;
 END $$;
 
--- 0 now means "not specified" instead of leaving month_number null, so
--- the duplicate check still applies to blank-month submissions. The old
--- constraint (0-4, from the trimester era) must go first, or the UPDATE
--- below that sets 0 would violate it. Dropped by scanning for it rather
--- than by a fixed expected name — an earlier table rebuild left this one
--- under an auto-suffixed name (a naming collision at the time), not the
--- plain one.
-=======
--- 0 now means "not specified" instead of leaving trimester_number null,
--- so the duplicate check still applies to blank-trimester submissions.
--- The old constraint (1-4 only) must go first, or the UPDATE below that
--- sets 0 would violate it. Dropped by scanning for it rather than by a
--- fixed expected name — an earlier table rebuild left this one under an
--- auto-suffixed name (a naming collision at the time), not the plain one.
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
+-- The old constraint must go before the values are narrowed, or the UPDATE
+-- below would violate it. Dropped by scanning rather than by a fixed name: an
+-- earlier table rebuild left one under an auto-suffixed name, and a database
+-- that ran the month_number migration carries that name instead.
 DO $$
 DECLARE con record;
 BEGIN
@@ -200,28 +192,33 @@ BEGIN
     SELECT conname FROM pg_constraint
     WHERE conrelid = 'accountability_returns'::regclass
       AND contype = 'c'
-<<<<<<< HEAD
-      AND pg_get_constraintdef(oid) LIKE '%month_number%'
-=======
-      AND pg_get_constraintdef(oid) LIKE '%trimester_number%'
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
+      AND (pg_get_constraintdef(oid) LIKE '%trimester_number%'
+        OR pg_get_constraintdef(oid) LIKE '%month_number%')
   LOOP
     EXECUTE 'ALTER TABLE accountability_returns DROP CONSTRAINT ' || quote_ident(con.conname);
   END LOOP;
 END $$;
-<<<<<<< HEAD
-UPDATE accountability_returns SET month_number = 0 WHERE month_number IS NULL;
-ALTER TABLE accountability_returns ALTER COLUMN month_number SET DEFAULT 0;
-ALTER TABLE accountability_returns ALTER COLUMN month_number SET NOT NULL;
-ALTER TABLE accountability_returns ADD CONSTRAINT accountability_returns_month_number_check
-    CHECK (month_number BETWEEN 0 AND 12);
-=======
+
+-- If the monthly form was ever live, rows may hold 5-12, which no trimester
+-- can represent. Those answers are kept in trimester_number_legacy rather than
+-- rewritten to a guessed trimester — the same rule the province split follows:
+-- narrowing a column never destroys what was already answered. The row itself
+-- falls back to 0 ("not specified"), and a recovered value can be refiled by
+-- hand later.
+ALTER TABLE accountability_returns ADD COLUMN IF NOT EXISTS trimester_number_legacy SMALLINT;
+UPDATE accountability_returns
+   SET trimester_number_legacy = trimester_number
+ WHERE trimester_number > 4
+   AND trimester_number_legacy IS NULL;
+UPDATE accountability_returns SET trimester_number = 0 WHERE trimester_number > 4;
+
+-- 0 now means "not specified" instead of leaving trimester_number null,
+-- so the duplicate check still applies to blank-trimester submissions.
 UPDATE accountability_returns SET trimester_number = 0 WHERE trimester_number IS NULL;
 ALTER TABLE accountability_returns ALTER COLUMN trimester_number SET DEFAULT 0;
 ALTER TABLE accountability_returns ALTER COLUMN trimester_number SET NOT NULL;
 ALTER TABLE accountability_returns ADD CONSTRAINT accountability_returns_trimester_number_check
     CHECK (trimester_number BETWEEN 0 AND 4);
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
 
 -- Not useful data for tracking anyone's progress — dropped, the EN/FR
 -- toggle on the form itself is untouched, this only stops recording it.
@@ -230,94 +227,19 @@ ALTER TABLE accountability_returns DROP COLUMN IF EXISTS form_language;
 CREATE INDEX IF NOT EXISTS idx_returns_name
     ON accountability_returns (lower(full_name));
 CREATE INDEX IF NOT EXISTS idx_returns_period
-<<<<<<< HEAD
-    ON accountability_returns (month_number, submitted_at DESC);
-=======
     ON accountability_returns (trimester_number, submitted_at DESC);
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
 CREATE INDEX IF NOT EXISTS idx_returns_province
     ON accountability_returns (spiritual_province);
 CREATE INDEX IF NOT EXISTS idx_returns_person
     ON accountability_returns (person_id, submitted_at DESC);
-<<<<<<< HEAD
--- Superseded by idx_returns_person_month_type below (renamed along with
--- the column); dropped by old name so an upgraded database doesn't keep
--- both.
-DROP INDEX IF EXISTS idx_returns_person_trimester_type;
-CREATE INDEX IF NOT EXISTS idx_returns_person_month_type
-    ON accountability_returns (person_id, month_number, entry_type);
-=======
+-- Dropped by the month_number-era name so a database that ran that migration
+-- doesn't keep both indexes on the same column.
+DROP INDEX IF EXISTS idx_returns_person_month_type;
 CREATE INDEX IF NOT EXISTS idx_returns_person_trimester_type
     ON accountability_returns (person_id, trimester_number, entry_type);
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
 CREATE INDEX IF NOT EXISTS idx_people_phone
     ON people (phone);
 
--- Convenience view for the province secretaries.
--- Dropped and recreated (rather than CREATE OR REPLACE) because the column
--- list has changed shape since the view was first created, which CREATE OR
--- REPLACE VIEW does not allow.
-DROP VIEW IF EXISTS accountability_summary;
-CREATE VIEW accountability_summary AS
-SELECT
-    r.id,
-    r.submitted_at,
-    r.person_id,
-    r.entry_type,
-    r.full_name,
-    r.phone,
-<<<<<<< HEAD
-    r.month_number,
-=======
-    r.trimester_number,
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
-    r.locality,
-    r.spiritual_province,
-    r.ddeg_number,
-    r.bible_chapters,
-    r.people_reached,
-    r.conversions,
-    r.added_to_church,
-    r.fasts_wednesday + r.fasts_complete_3days AS total_fasts,
-    r.proclamations,
-    r.idols_uprooted
-FROM accountability_returns r;
-
-<<<<<<< HEAD
--- Monthly "Imitators of ZTF in Finances" form. Deliberately independent of
--- people/accountability_returns — not matched or linked to any existing
--- record, each submission just stands on its own.
-CREATE TABLE IF NOT EXISTS finance_returns (
-    id                          BIGSERIAL PRIMARY KEY,
-    submitted_at                TIMESTAMPTZ NOT NULL DEFAULT now(),
-
-    full_name                   TEXT NOT NULL,
-    locality                    TEXT,
-    phone                       TEXT,
-    email                       TEXT,
-    nation                      TEXT,
-    disciple_maker              TEXT,
-    month                       SMALLINT CHECK (month BETWEEN 1 AND 12),
-
-    tithe_commitment            BOOLEAN,
-    offering_commitment         BOOLEAN,
-    has_savings                 BOOLEAN,
-    planned_savings_percentage  NUMERIC(5,2) CHECK (planned_savings_percentage >= 0 AND planned_savings_percentage <= 100),
-    is_indebted                 BOOLEAN,
-    fasting_commitment          BOOLEAN,
-    fasting_encourage_count     INTEGER CHECK (fasting_encourage_count >= 0)
-);
-
--- Idempotent for any environment where finance_returns was already created
--- before this column existed (a fresh database already has it via the
--- CREATE TABLE above).
-ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS month SMALLINT CHECK (month BETWEEN 1 AND 12);
-
-CREATE INDEX IF NOT EXISTS idx_finance_returns_name
-    ON finance_returns (lower(full_name));
-CREATE INDEX IF NOT EXISTS idx_finance_returns_period
-    ON finance_returns (submitted_at DESC);
-=======
 -- ---------------------------------------------------------------------------
 -- Nation and province are two different questions.
 --
@@ -353,6 +275,10 @@ UPDATE accountability_returns
  WHERE spiritual_province_legacy IS NULL
    AND spiritual_province IS NOT NULL;
 
+-- Convenience view for the province secretaries.
+-- Dropped and recreated (rather than CREATE OR REPLACE) because the column
+-- list has changed shape since the view was first created, which CREATE OR
+-- REPLACE VIEW does not allow.
 DROP VIEW IF EXISTS accountability_summary;
 CREATE VIEW accountability_summary AS
 SELECT
@@ -377,4 +303,37 @@ SELECT
     r.proclamations,
     r.idols_uprooted
 FROM accountability_returns r;
->>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
+
+-- Monthly "Imitators of ZTF in Finances" form. Deliberately independent of
+-- people/accountability_returns — not matched or linked to any existing
+-- record, each submission just stands on its own.
+CREATE TABLE IF NOT EXISTS finance_returns (
+    id                          BIGSERIAL PRIMARY KEY,
+    submitted_at                TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    full_name                   TEXT NOT NULL,
+    locality                    TEXT,
+    phone                       TEXT,
+    email                       TEXT,
+    nation                      TEXT,
+    disciple_maker              TEXT,
+    month                       SMALLINT CHECK (month BETWEEN 1 AND 12),
+
+    tithe_commitment            BOOLEAN,
+    offering_commitment         BOOLEAN,
+    has_savings                 BOOLEAN,
+    planned_savings_percentage  NUMERIC(5,2) CHECK (planned_savings_percentage >= 0 AND planned_savings_percentage <= 100),
+    is_indebted                 BOOLEAN,
+    fasting_commitment          BOOLEAN,
+    fasting_encourage_count     INTEGER CHECK (fasting_encourage_count >= 0)
+);
+
+-- Idempotent for any environment where finance_returns was already created
+-- before this column existed (a fresh database already has it via the
+-- CREATE TABLE above).
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS month SMALLINT CHECK (month BETWEEN 1 AND 12);
+
+CREATE INDEX IF NOT EXISTS idx_finance_returns_name
+    ON finance_returns (lower(full_name));
+CREATE INDEX IF NOT EXISTS idx_finance_returns_period
+    ON finance_returns (submitted_at DESC);
