@@ -22,7 +22,9 @@ export const FIELD_LABELS = [
   ['phone', 'Phone'],
   ['phone2', 'Second Phone'],
   ['locality', 'Locality'],
-  ['spiritual_province', 'Spiritual Province or Nation'],
+  ['spiritual_nation', 'Spiritual Nation'],
+  ['spiritual_province', 'Spiritual Province'],
+  ['currency', 'Currency Of The Amounts'],
   ['month_number', 'Month'],
   ['month_from', 'From the Month Of'],
   ['month_to', 'To the Month Of'],
@@ -72,7 +74,7 @@ export const FIELD_LABELS = [
 ];
 
 export const COLUMNS = [
-  'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_province',
+  'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_nation', 'spiritual_province', 'currency',
   'month_number', 'month_from', 'month_to',
   'acct_walk_with_god', 'acct_studies', 'acct_finances', 'acct_service_to_god',
   'acct_given_to', 'acct_frequency',
@@ -115,6 +117,99 @@ const CHECKBOXES = new Set([
 const TRISTATE = new Set(['giving_faithful', 'has_savings', 'is_indebted']);
 
 const TEXT_LIMIT = 4000;
+
+// Every bound the database enforces, restated here so a value that would
+// break a CHECK is caught while we still know which question it came from.
+// Postgres only tells us the constraint name after the fact, and only for
+// the first failure; the submitter needs the field, not the constraint.
+//
+// The upper bounds are not decoration. INTEGER stops at 2147483647, and a
+// phone number typed into a counting box clears that easily, which is one
+// of the two ways submissions were being lost. NUMERIC(5,2) with a 0-100
+// CHECK is the other: the paper form labels the box only "Pourcentage (%)"
+// and a member who gives 5000 FCFA writes 5000.
+const INT_MAX = 2147483647;
+const RANGES = {
+  month_number: [0, 12],
+  month_from: [1, 12],
+  month_to: [1, 12],
+  giving_percentage: [0, 100],
+  // NUMERIC(14,2): twelve digits before the decimal point.
+  savings_amount: [0, 999999999999.99],
+  debt_amount: [0, 999999999999.99],
+  debt_reimbursed: [0, 999999999999.99]
+};
+for (const column of INTEGERS) if (!RANGES[column]) RANGES[column] = [0, INT_MAX];
+
+// The same 106 countries the form offers, so a request that bypasses the
+// page cannot invent a nation. Duplicated from COUNTRY_CODES in index.html
+// rather than shared, because the functions are bundled separately from the
+// page; if one list changes the other must change with it.
+export const NATIONS = ["Cameroon","Nigeria","Ghana","Senegal","Côte d'Ivoire","Benin","Togo","Burkina Faso","Mali","Niger","Gambia","Guinea","Guinea-Bissau","Cabo Verde","Mauritania","Liberia","Sierra Leone","Central African Republic","Chad","Gabon","Congo (Brazzaville)","Congo (DRC)","Equatorial Guinea","São Tomé and Príncipe","Angola","Mozambique","Zambia","Zimbabwe","Botswana","Namibia","Lesotho","Eswatini","South Africa","Mauritius","Seychelles","Madagascar","Kenya","Tanzania","Uganda","Rwanda","Burundi","Ethiopia","Somalia","Djibouti","Eritrea","South Sudan","Sudan","Egypt","Libya","Tunisia","Algeria","Morocco","United States / Canada","United Kingdom","France","Germany","Belgium","Netherlands","Switzerland","Italy","Spain","Portugal","Ireland","Sweden","Norway","Denmark","Finland","Poland","Greece","Türkiye","Russia / Kazakhstan","Ukraine","India","Pakistan","Bangladesh","Sri Lanka","Nepal","China","Japan","South Korea","Hong Kong","Singapore","Malaysia","Thailand","Vietnam","Indonesia","Philippines","United Arab Emirates","Saudi Arabia","Qatar","Kuwait","Jordan","Lebanon","Israel","Iraq","Iran","Australia","New Zealand","Brazil","Argentina","Chile","Colombia","Mexico","Peru","Venezuela","Ecuador"];
+
+// Mirrors CMR_PROVINCES in the form. Kept here too so a submission that
+// bypasses the page cannot invent a province, and kept as a list rather than
+// a database CHECK because four of these spellings are still unconfirmed.
+export const CMR_PROVINCES = ["Adamaoua","Centre","Daouala","Donga Mantung","Est","Extreme Nord",
+  "Garoua","Kadei","Kanni Danai","Mbam","Moungo","Nord","Nord-Ouest","Nyon Ekele","Ouest","PSU",
+  "QG","Sanaga Maritime","Sud","Sud Ouest","Touboro","Yaounde"];
+
+// Free-text columns the schema pins to a fixed vocabulary. The form uses a
+// dropdown, so these should never fail, but "should never" is what the giving
+// percentage looked like too, and an unexpected value here is the same
+// silent 500.
+const ENUMS = {
+  entry_type: ['goal', 'result'],
+  acct_frequency: ['day', 'week', 'month']
+};
+
+// Returns the first problem found, or null. Shape is deliberately small and
+// serialisable: the client needs the field name to focus the right input and
+// the bounds to tell the member what to type instead.
+export function validateRow(row) {
+  for (const [column, [min, max]] of Object.entries(RANGES)) {
+    const value = row[column];
+    if (value === null || value === undefined) continue;
+    if (value < min || value > max) {
+      return { field: column, reason: 'out_of_range', min, max, received: value };
+    }
+  }
+  for (const [column, allowed] of Object.entries(ENUMS)) {
+    const value = row[column];
+    if (value === null || value === undefined) continue;
+    if (!allowed.includes(value)) {
+      return { field: column, reason: 'not_allowed', allowed, received: value };
+    }
+  }
+
+  // Province is a subdivision of one nation, not a free-standing answer. A
+  // member outside Cameroon has no province, so a province without Cameroon
+  // is a contradiction rather than a typo.
+  if (row.spiritual_nation && !NATIONS.includes(row.spiritual_nation)) {
+    return { field: 'spiritual_nation', reason: 'not_allowed', received: row.spiritual_nation };
+  }
+  if (row.spiritual_province) {
+    if (!CMR_PROVINCES.includes(row.spiritual_province)) {
+      return { field: 'spiritual_province', reason: 'not_allowed', allowed: CMR_PROVINCES, received: row.spiritual_province };
+    }
+    if (row.spiritual_nation && row.spiritual_nation !== 'Cameroon') {
+      return { field: 'spiritual_province', reason: 'province_needs_cameroon', received: row.spiritual_nation };
+    }
+  }
+  return null;
+}
+
+// Last line of defence. If a constraint still fires — because the schema
+// moved and this file did not — recover the column from the constraint name
+// so the member is told which line to fix instead of being handed a blank
+// "something went wrong on our side".
+export function fieldFromDbError(err) {
+  const name = err?.constraint_name || err?.constraint || '';
+  const match = /^accountability_returns_(.+?)_check$/.exec(name);
+  if (match && COLUMNS.includes(match[1])) return match[1];
+  if (err?.column_name && COLUMNS.includes(err.column_name)) return err.column_name;
+  return null;
+}
 
 export function coerce(column, raw) {
   if (column === 'literature') {

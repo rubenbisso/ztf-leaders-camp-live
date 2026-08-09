@@ -1,13 +1,18 @@
 # Imitators of ZTF — Accountability Form
 
+<<<<<<< HEAD
 *[Lire en français](README.fr.md)*
 
 A bilingual (English / French) monthly accountability form for
+=======
+A bilingual (English / French) trimestral accountability form for
+>>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
 Leaders Camp 2026. Each person's report is linked to their own record by
 phone number, so their reports build into one running history over time
 rather than sitting as disconnected entries.
 
 **Fill in your form:** https://ztf-imitators-leaders-camp-2026.netlify.app
+<<<<<<< HEAD
 
 ## Forms
 
@@ -78,3 +83,5 @@ The deployed site needs `DATABASE_URL` and `MIGRATE_TOKEN` set in the
 Netlify site's environment variables (Site configuration → Environment
 variables), then the same one-time `/api/migrate?token=...` call against
 the production URL to create the tables.
+=======
+>>>>>>> 5f716de578f6494cce7ba0d86e20cf7bb0d493ea
