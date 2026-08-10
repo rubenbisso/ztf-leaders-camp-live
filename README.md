@@ -11,7 +11,7 @@ rather than sitting as disconnected entries.
 
 ## Forms
 
-- **Monthly Accountability Form** — 17 sections covering walk with God,
+- **Monthly Accountability Form** — 16 sections covering walk with God,
   Bible reading, prayer, soul winning, fasting, finances, and more.
   Submissions are matched to an existing person by phone number (or by
   name + locality when no phone is available), so a person's monthly

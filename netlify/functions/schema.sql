@@ -58,8 +58,6 @@ CREATE TABLE IF NOT EXISTS accountability_returns (
     month_number                SMALLINT NOT NULL DEFAULT 0 CHECK (month_number BETWEEN 0 AND 12),
     locality                    TEXT,
     spiritual_province          TEXT,
-    month_from                  SMALLINT CHECK (month_from BETWEEN 1 AND 12),
-    month_to                    SMALLINT CHECK (month_to BETWEEN 1 AND 12),
 
     -- Links each return to a person (see people table above) so their
     -- trimestral reports stack up into one history instead of
@@ -197,6 +195,12 @@ ALTER TABLE accountability_returns ADD CONSTRAINT accountability_returns_month_n
 -- toggle on the form itself is untouched, this only stops recording it.
 ALTER TABLE accountability_returns DROP COLUMN IF EXISTS form_language;
 
+-- Rubrique 1 ("I gave the accounts of") was removed from the form, and
+-- with it the "from the month of" / "to the month of" fields — only the
+-- single Month field (month_number) remains, on the first form only.
+ALTER TABLE accountability_returns DROP COLUMN IF EXISTS month_from;
+ALTER TABLE accountability_returns DROP COLUMN IF EXISTS month_to;
+
 CREATE INDEX IF NOT EXISTS idx_returns_name
     ON accountability_returns (lower(full_name));
 CREATE INDEX IF NOT EXISTS idx_returns_period
@@ -262,8 +266,8 @@ CREATE TABLE IF NOT EXISTS finance_returns (
     email                       TEXT,
     nation                      TEXT,
     disciple_maker              TEXT,
-    month                       SMALLINT CHECK (month BETWEEN 1 AND 12),
 
+    budget_commitment           BOOLEAN,
     tithe_commitment            BOOLEAN,
     offering_commitment         BOOLEAN,
     has_savings                 BOOLEAN,
@@ -273,10 +277,14 @@ CREATE TABLE IF NOT EXISTS finance_returns (
     fasting_encourage_count     INTEGER CHECK (fasting_encourage_count >= 0)
 );
 
+-- Month lives only on the first (accountability) form now — removed here
+-- so the two forms don't ask for it twice.
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS month;
+
 -- Idempotent for any environment where finance_returns was already created
 -- before this column existed (a fresh database already has it via the
 -- CREATE TABLE above).
-ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS month SMALLINT CHECK (month BETWEEN 1 AND 12);
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS budget_commitment BOOLEAN;
 
 CREATE INDEX IF NOT EXISTS idx_finance_returns_name
     ON finance_returns (lower(full_name));

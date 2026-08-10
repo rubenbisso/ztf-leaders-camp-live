@@ -11,7 +11,7 @@ en un historique continu plutôt que de rester des entrées isolées.
 
 ## Fiches
 
-- **Fiche de Compte Rendu Mensuelle** — 17 rubriques couvrant la marche
+- **Fiche de Compte Rendu Mensuelle** — 16 rubriques couvrant la marche
   avec Dieu, la lecture de la Bible, la prière, le gain d'âmes, le jeûne,
   les finances, et plus encore. Chaque soumission est reliée à une
   personne existante par son numéro de téléphone (ou par nom + localité

@@ -128,7 +128,7 @@ function renderFinances(rows){
       '<td>' + escapeHtml(r.email || '—') + '</td>' +
       '<td>' + escapeHtml(r.nation || '—') + '</td>' +
       '<td>' + escapeHtml(r.disciple_maker || '—') + '</td>' +
-      '<td>' + escapeHtml(r.month != null ? MONTH_NAMES[r.month - 1] : '—') + '</td>' +
+      '<td>' + yn(r.budget_commitment) + '</td>' +
       '<td>' + yn(r.tithe_commitment) + '</td>' +
       '<td>' + yn(r.offering_commitment) + '</td>' +
       '<td>' + yn(r.has_savings) + '</td>' +
@@ -140,8 +140,8 @@ function renderFinances(rows){
   }).join('');
   $('#financeListView').innerHTML = rows.length
     ? '<div class="wide-table"><table><thead><tr>' +
-      '<th>Name</th><th>Date</th><th>Locality</th><th>Phone</th><th>Email</th><th>Nation</th><th>Disciple Maker</th><th>Month</th>' +
-      '<th>Tithe</th><th>Offering</th><th>Savings</th><th>Planned %</th><th>Indebted</th><th>Fasting</th><th>Encouraged</th>' +
+      '<th>Name</th><th>Date</th><th>Locality</th><th>Phone</th><th>Email</th><th>Nation</th><th>Disciple Maker</th>' +
+      '<th>Budget</th><th>Tithe</th><th>Offering</th><th>Savings</th><th>Planned %</th><th>Indebted</th><th>Fasting</th><th>Encouraged</th>' +
       '</tr></thead><tbody>' + cells + '</tbody></table></div>'
     : '<p class="empty">No submissions yet.</p>';
   $('#gate').hidden = true;

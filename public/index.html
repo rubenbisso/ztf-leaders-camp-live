@@ -138,6 +138,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
   transition:opacity .14s,transform .14s}
 .tick input:checked+.box::after{opacity:1;transform:rotate(-45deg) scale(1)}
 .tick input:focus-visible+.box{outline:2px solid var(--seal);outline-offset:2px}
+.yn{display:flex;gap:1.4rem;align-items:center;padding-top:.15rem}
 .lit{width:100%;border-collapse:collapse;margin-bottom:.9rem;table-layout:fixed}
 .lit th{text-align:left;font-family:var(--mono);font-weight:400;font-size:.64rem;
   letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
@@ -234,7 +235,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
   <aside class="rail">
     <div class="rail-head" data-i18n="railHead">Entries</div>
     <div class="rail-list" id="rail"></div>
-    <div class="rail-meter"><span id="meter">0/17</span></div>
+    <div class="rail-meter"><span id="meter">0/16</span></div>
   </aside>
 
   <main class="sheet" id="sheet">
@@ -270,57 +271,41 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
         <div class="row">
           <label class="f sm"><span class="f-l" data-i18n="monthNumber">Month</span>
             <select class="f-i month" name="month_number"></select></label>
-          <label class="f sm"><span class="f-l" data-i18n="fromMonth">From the month of</span><select class="f-i month" name="month_from"></select></label>
-          <label class="f sm"><span class="f-l" data-i18n="toMonth">To the month of</span><select class="f-i month" name="month_to"></select></label>
         </div>
-        <p class="hint" data-i18n="periodHint">Which month this report covers, and the months it runs from and to. Not your date of birth.</p>
+        <p class="hint" data-i18n="periodHint">Which month this report covers. Not your date of birth.</p>
       </div>
     </section>
 
     <section class="block item" id="i1"><div class="item-n">01</div><div class="item-b">
-      <h2><span class="n-inline">01</span><span data-i18n="h1">I gave the accounts of</span></h2>
-      <div class="ticks">
-        <label class="tick"><input type="checkbox" name="acct_walk_with_god"><span class="box"></span><span data-i18n="a1">My walk with God</span></label>
-        <label class="tick"><input type="checkbox" name="acct_studies"><span class="box"></span><span data-i18n="a2">My studies</span></label>
-        <label class="tick"><input type="checkbox" name="acct_finances"><span class="box"></span><span data-i18n="a3">My finances</span></label>
-        <label class="tick"><input type="checkbox" name="acct_service_to_god"><span class="box"></span><span data-i18n="a4">My service to God</span></label>
-      </div>
-      <div class="row">
-        <label class="f"><span class="f-l" data-i18n="givenTo">To</span><input class="f-i" name="acct_given_to" data-i18n-ph="phGivenTo"></label>
-        <label class="f sm"><span class="f-l" data-i18n="every">Every</span><select class="f-i freq" name="acct_frequency"></select></label>
-      </div>
-    </div></section>
-
-    <section class="block item" id="i2"><div class="item-n">02</div><div class="item-b">
-      <h2><span class="n-inline">02</span><span data-i18n="h2t">Daily dynamic encounters with God</span></h2>
+      <h2><span class="n-inline">01</span><span data-i18n="h2t">Daily dynamic encounters with God</span></h2>
       <div class="row">
         <label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="ddeg_number" data-i18n-ph="phCount"></label>
         <label class="f"><span class="f-l" data-i18n="time">Time</span><input class="f-i" name="ddeg_time" data-i18n-ph="phTime"></label>
       </div>
     </div></section>
 
-    <section class="block item" id="i3"><div class="item-n">03</div><div class="item-b">
-      <h2><span class="n-inline">03</span><span data-i18n="h3t">Bible reading</span></h2>
+    <section class="block item" id="i2"><div class="item-n">02</div><div class="item-b">
+      <h2><span class="n-inline">02</span><span data-i18n="h3t">Bible reading</span></h2>
       <div class="row">
         <label class="f sm"><span class="f-l" data-i18n="chapters">Chapters read</span><input class="f-i" name="bible_chapters" data-i18n-ph="phCount"></label>
         <label class="f"><span class="f-l" data-i18n="timeReading">Time spent reading</span><input class="f-i" name="bible_time" data-i18n-ph="phTime"></label>
       </div>
     </div></section>
 
-    <section class="block item" id="i4"><div class="item-n">04</div><div class="item-b">
-      <h2><span class="n-inline">04</span><span data-i18n="h4t">Bible memorisation</span></h2>
+    <section class="block item" id="i3"><div class="item-n">03</div><div class="item-b">
+      <h2><span class="n-inline">03</span><span data-i18n="h4t">Bible memorisation</span></h2>
       <div class="row"><label class="f lg"><span class="f-l" data-i18n="passages">Passages memorised</span><input class="f-i" name="bible_memorisation" data-i18n-ph="phMemo"></label></div>
     </div></section>
 
-    <section class="block item" id="i5"><div class="item-n">05</div><div class="item-b">
-      <h2><span class="n-inline">05</span><span data-i18n="h5t">Reading of Christian literature</span></h2>
+    <section class="block item" id="i4"><div class="item-n">04</div><div class="item-b">
+      <h2><span class="n-inline">04</span><span data-i18n="h5t">Reading of Christian literature</span></h2>
       <p class="hint" data-i18n="h5h">Title of each book read, the number of pages, and the author.</p>
       <table class="lit"><thead><tr><th></th><th data-i18n="lTitle">Title</th><th style="width:5rem" data-i18n="lPages">Pages</th><th data-i18n="lAuthor">Author</th></tr></thead><tbody id="litBody"></tbody></table>
       <button type="button" class="add" id="addLit" data-i18n="addRow">Add a book</button>
     </div></section>
 
-    <section class="block item" id="i6"><div class="item-n">06</div><div class="item-b">
-      <h2><span class="n-inline">06</span><span data-i18n="h6t">Prayer alone</span></h2>
+    <section class="block item" id="i5"><div class="item-n">05</div><div class="item-b">
+      <h2><span class="n-inline">05</span><span data-i18n="h6t">Prayer alone</span></h2>
       <div class="row">
         <label class="f"><span class="f-l" data-i18n="timeAlone">Time spent praying alone</span><input class="f-i" name="prayer_alone_time" data-i18n-ph="phTime"></label>
         <label class="f sm"><span class="f-l" data-i18n="retreats">15 minute retreats</span><input class="f-i" name="retreats_15min" data-i18n-ph="phCount"></label>
@@ -332,13 +317,13 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
       </div>
     </div></section>
 
-    <section class="block item" id="i7"><div class="item-n">07</div><div class="item-b">
-      <h2><span class="n-inline">07</span><span data-i18n="h7t">Prayer with others, the house church or the local church</span></h2>
+    <section class="block item" id="i6"><div class="item-n">06</div><div class="item-b">
+      <h2><span class="n-inline">06</span><span data-i18n="h7t">Prayer with others, the house church or the local church</span></h2>
       <div class="row"><label class="f lg"><span class="f-l" data-i18n="h7l">Frequency, duration and setting</span><input class="f-i" name="prayer_with_others" data-i18n-ph="phCount"></label></div>
     </div></section>
 
-    <section class="block item" id="i8"><div class="item-n">08</div><div class="item-b">
-      <h2><span class="n-inline">08</span><span data-i18n="h8t">Soul winning</span></h2>
+    <section class="block item" id="i7"><div class="item-n">07</div><div class="item-b">
+      <h2><span class="n-inline">07</span><span data-i18n="h8t">Soul winning</span></h2>
       <div class="row">
         <label class="f sm"><span class="f-l" data-i18n="reached">People reached with the gospel</span><input class="f-i" name="people_reached" data-i18n-ph="phCount"></label>
         <label class="f sm"><span class="f-l" data-i18n="conv">Conversions</span><input class="f-i" name="conversions" data-i18n-ph="phCount"></label>
@@ -350,8 +335,8 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
       </div>
     </div></section>
 
-    <section class="block item" id="i9"><div class="item-n">09</div><div class="item-b">
-      <h2><span class="n-inline">09</span><span data-i18n="h9t">Fasts</span></h2>
+    <section class="block item" id="i8"><div class="item-n">08</div><div class="item-b">
+      <h2><span class="n-inline">08</span><span data-i18n="h9t">Fasts</span></h2>
       <div class="row">
         <label class="f sm"><span class="f-l" data-i18n="wed">Wednesday fasts</span><input class="f-i" name="fasts_wednesday" data-i18n-ph="phCount"></label>
         <label class="f sm"><span class="f-l" data-i18n="complete">Complete fasts of 3 days or more</span><input class="f-i" name="fasts_complete_3days" data-i18n-ph="phCount"></label>
@@ -359,14 +344,14 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
       </div>
     </div></section>
 
-    <section class="block item" id="i10"><div class="item-n">10</div><div class="item-b">
-      <h2><span class="n-inline">10</span><span data-i18n="h10t">Proclamation of the prophecy</span></h2>
+    <section class="block item" id="i9"><div class="item-n">09</div><div class="item-b">
+      <h2><span class="n-inline">09</span><span data-i18n="h10t">Proclamation of the prophecy</span></h2>
       <p class="hint" data-i18n="h10h">The entire prophecy of the overthrow of the satanic prince of Cameroon.</p>
       <div class="row"><label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="prophecy_proclamations" data-i18n-ph="phCount"></label></div>
     </div></section>
 
-    <section class="block item" id="i11"><div class="item-n">11</div><div class="item-b">
-      <h2><span class="n-inline">11</span><span data-i18n="h11t">Finances</span></h2>
+    <section class="block item" id="i10"><div class="item-n">10</div><div class="item-b">
+      <h2><span class="n-inline">10</span><span data-i18n="h11t">Finances</span></h2>
       <div class="section-label" data-i18n="giving">Giving to God</div>
       <div class="row">
         <label class="f sm"><span class="f-l" data-i18n="pct">Percentage (%)</span><input class="f-i" name="giving_percentage" data-i18n-ph="phPct"></label>
@@ -385,36 +370,36 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
       </div>
     </div></section>
 
-    <section class="block item" id="i12"><div class="item-n">12</div><div class="item-b">
-      <h2><span class="n-inline">12</span><span data-i18n="h12t">Bertoua message</span></h2>
+    <section class="block item" id="i11"><div class="item-n">11</div><div class="item-b">
+      <h2><span class="n-inline">11</span><span data-i18n="h12t">Bertoua message</span></h2>
       <div class="row">
         <label class="f"><span class="f-l" data-i18n="units">Teaching units completed and marked</span><input class="f-i" name="bertoua_units_completed" data-i18n-ph="phCount"></label>
         <label class="f"><span class="f-l" data-i18n="times">Number of times you did them</span><input class="f-i" name="bertoua_times_done" data-i18n-ph="phCount"></label>
       </div>
     </div></section>
 
-    <section class="block item" id="i13"><div class="item-n">13</div><div class="item-b">
-      <h2><span class="n-inline">13</span><span data-i18n="h13t">Uprooting of idols</span></h2>
+    <section class="block item" id="i12"><div class="item-n">12</div><div class="item-b">
+      <h2><span class="n-inline">12</span><span data-i18n="h13t">Uprooting of idols</span></h2>
       <div class="row"><label class="f sm"><span class="f-l" data-i18n="idols">Idols uprooted</span><input class="f-i" name="idols_uprooted" data-i18n-ph="phCount"></label></div>
     </div></section>
 
-    <section class="block item" id="i14"><div class="item-n">14</div><div class="item-b">
-      <h2><span class="n-inline">14</span><span data-i18n="h14t">Proclamations</span></h2>
+    <section class="block item" id="i13"><div class="item-n">13</div><div class="item-b">
+      <h2><span class="n-inline">13</span><span data-i18n="h14t">Proclamations</span></h2>
       <div class="row"><label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="proclamations" data-i18n-ph="phCount"></label></div>
     </div></section>
 
-    <section class="block item" id="i15"><div class="item-n">15</div><div class="item-b">
-      <h2><span class="n-inline">15</span><span data-i18n="h15t">Your involvement in the five year goal</span></h2>
+    <section class="block item" id="i14"><div class="item-n">14</div><div class="item-b">
+      <h2><span class="n-inline">14</span><span data-i18n="h15t">Your involvement in the five year goal</span></h2>
       <textarea class="f-i" name="five_year_goal" data-i18n-ph="phText" rows="5"></textarea>
     </div></section>
 
-    <section class="block item" id="i16"><div class="item-n">16</div><div class="item-b">
-      <h2><span class="n-inline">16</span><span data-i18n="h16t">Distinct service to God and to man</span></h2>
+    <section class="block item" id="i15"><div class="item-n">15</div><div class="item-b">
+      <h2><span class="n-inline">15</span><span data-i18n="h16t">Distinct service to God and to man</span></h2>
       <textarea class="f-i" name="distinct_service" data-i18n-ph="phText" rows="5"></textarea>
     </div></section>
 
-    <section class="block item" id="i17"><div class="item-n">17</div><div class="item-b">
-      <h2><span class="n-inline">17</span><span data-i18n="h17t">Making of disciples</span></h2>
+    <section class="block item" id="i16"><div class="item-n">16</div><div class="item-b">
+      <h2><span class="n-inline">16</span><span data-i18n="h17t">Making of disciples</span></h2>
       <textarea class="f-i" name="making_disciples" data-i18n-ph="phText" rows="5"></textarea>
     </div></section>
 
@@ -471,9 +456,6 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
           <label class="f"><span class="f-l" data-i18n="finNation">Nation</span><input class="f-i" name="fin_nation"></label>
           <label class="f"><span class="f-l" data-i18n="finDiscipleMaker">Disciple maker</span><input class="f-i" name="fin_disciple_maker"></label>
         </div>
-        <div class="row">
-          <label class="f sm"><span class="f-l" data-i18n="finMonth">Month</span><select class="f-i month" name="fin_month"></select></label>
-        </div>
       </div>
     </section>
 
@@ -481,12 +463,39 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
       <div class="block-body">
         <div class="section-label" data-i18n="giving">Giving to God</div>
         <div class="row">
-          <label class="f"><span class="f-l" data-i18n="finTithe">I commit to giving the tithe (10%) of all my income to God</span><select class="f-i yesno" name="fin_tithe_commitment"></select></label>
-          <label class="f"><span class="f-l" data-i18n="finOffering">I commit to adding an offering</span><select class="f-i yesno" name="fin_offering_commitment"></select></label>
+          <div class="f"><span class="f-l" data-i18n="finBudget">Henceforth, I will manage my finances based on a pre-established budget that I will respect.</span>
+            <div class="yn" data-field="fin_budget_commitment">
+              <input type="hidden" name="fin_budget_commitment" value="">
+              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="f"><span class="f-l" data-i18n="finTithe">I commit to giving the tithe (10%) of all my income to God</span>
+            <div class="yn" data-field="fin_tithe_commitment">
+              <input type="hidden" name="fin_tithe_commitment" value="">
+              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
+            </div>
+          </div>
+          <div class="f"><span class="f-l" data-i18n="finOffering">I commit to adding an offering</span>
+            <div class="yn" data-field="fin_offering_commitment">
+              <input type="hidden" name="fin_offering_commitment" value="">
+              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
+            </div>
+          </div>
         </div>
         <div class="section-label" style="margin-top:1.7rem" data-i18n="savings">Savings</div>
         <div class="row">
-          <label class="f sm"><span class="f-l" data-i18n="finHasSavings">Do you have savings?</span><select class="f-i yesno" name="fin_has_savings"></select></label>
+          <div class="f sm"><span class="f-l" data-i18n="finHasSavings">Do you have savings?</span>
+            <div class="yn" data-field="fin_has_savings">
+              <input type="hidden" name="fin_has_savings" value="">
+              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
+            </div>
+          </div>
           <label class="f"><span class="f-l" data-i18n="finSavingsPct">If not, what percentage of your income will you save from now on?</span><input class="f-i" name="fin_planned_savings_percentage" inputmode="decimal"></label>
         </div>
       </div>
@@ -505,7 +514,13 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
       <div class="block-body">
         <div class="section-label" data-i18n="debts">Debts</div>
         <div class="row">
-          <label class="f sm"><span class="f-l" data-i18n="finIndebted">Are you indebted?</span><select class="f-i yesno" name="fin_is_indebted"></select></label>
+          <div class="f sm"><span class="f-l" data-i18n="finIndebted">Are you indebted?</span>
+            <div class="yn" data-field="fin_is_indebted">
+              <input type="hidden" name="fin_is_indebted" value="">
+              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
+            </div>
+          </div>
         </div>
         <p class="instr-label" style="margin-top:1.3rem" data-i18n="finDebtLabel">If you are indebted:</p>
         <ol class="instr">
@@ -524,7 +539,13 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
         <div class="section-label" data-i18n="finFastLabel">Fasting</div>
         <p class="hint" data-i18n="finFastNote">We encourage you to fast three complete days every month for your spiritual revival, fruitfulness and personal needs.</p>
         <div class="row">
-          <label class="f sm"><span class="f-l" data-i18n="finFastCommit">Do you commit to fasting three complete days each month?</span><select class="f-i yesno" name="fin_fasting_commitment"></select></label>
+          <div class="f sm"><span class="f-l" data-i18n="finFastCommit">Do you commit to fasting three complete days each month?</span>
+            <div class="yn" data-field="fin_fasting_commitment">
+              <input type="hidden" name="fin_fasting_commitment" value="">
+              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
+            </div>
+          </div>
           <label class="f"><span class="f-l" data-i18n="finFastEncourage">How many people will you encourage to fast three days with you?</span><input class="f-i" name="fin_fasting_encourage_count" inputmode="numeric"></label>
         </div>
         <p class="instr-label" style="margin-top:1.3rem" data-i18n="finFastBurdenLabel">During your three-day fast, please carry the following burdens:</p>
@@ -671,10 +692,8 @@ const I18N = {
     name:"Name",phone:"Phone",phoneCode:"Country code",locality:"Locality",
     province:"Spiritual province",nation:"Spiritual nation",
     provinceHint:"Only Cameroon is divided into spiritual provinces. Choose another nation and this stays empty.",
-    monthNumber:"Month",fromMonth:"From the month of",toMonth:"To the month of",
-    periodHint:"Which month this report covers, and the months it runs from and to. Not your date of birth.",
-    h1:"I gave the accounts of",a1:"My walk with God",a2:"My studies",a3:"My finances",a4:"My service to God",
-    givenTo:"To",every:"Every",fDay:"Day",fWeek:"Week",fMonth:"Month",
+    monthNumber:"Month",
+    periodHint:"Which month this report covers. Not your date of birth.",
     h2t:"Daily dynamic encounters with God",number:"Number",time:"Time",
     h3t:"Bible reading",chapters:"Chapters read",timeReading:"Time spent reading",
     h4t:"Bible memorisation",passages:"Passages memorised",
@@ -712,7 +731,6 @@ const I18N = {
     phPhone:"6XX XX XX XX",
     phLocality:"e.g. Yaounde",
     phProvince:"e.g. Cameroun",
-    phGivenTo:"Name of the person you give accounts to",
     phMemo:"e.g. Psalm 23, Romans 8",
     phText:"In a few words",
     errTooBig:"« {label} »: that number is too large. Check you have not typed a phone number or an amount in this box.",
@@ -725,7 +743,8 @@ const I18N = {
     finIntro:"Please complete the form above by stating your financial commitments. You will also use this platform to provide a monthly report on the financial aspects of your life.",
     finRef:"Romans 13:8",
     finVerse:"Owe no one anything, except to love one another, for the one who loves another has fulfilled the law.",
-    finEmail:"Email",finNation:"Nation",finDiscipleMaker:"Disciple maker",finMonth:"Month",
+    finEmail:"Email",finNation:"Nation",finDiscipleMaker:"Disciple maker",
+    finBudget:"Henceforth, I will manage my finances based on a pre-established budget that I will respect.",
     finTithe:"I commit to giving the tithe (10%) of all my income to God",
     finOffering:"I commit to adding an offering",
     finHasSavings:"Do you have savings?",
@@ -773,10 +792,8 @@ const I18N = {
     name:"Nom",phone:"Téléphone",phoneCode:"Indicatif du pays",locality:"Localité",
     province:"Province spirituelle",nation:"Nation spirituelle",
     provinceHint:"Seul le Cameroun est divisé en provinces spirituelles. Choisissez une autre nation et ce champ reste vide.",
-    monthNumber:"Mois",fromMonth:"Du mois de",toMonth:"Au mois de",
-    periodHint:"Le mois que couvre cette fiche, et les mois de début et de fin. Ce n'est pas votre date de naissance.",
-    h1:"J'ai rendu compte de",a1:"Ma marche avec Dieu",a2:"Mes études",a3:"Mes finances",a4:"Mon service pour Dieu",
-    givenTo:"À",every:"Chaque",fDay:"Jour",fWeek:"Semaine",fMonth:"Mois",
+    monthNumber:"Mois",
+    periodHint:"Le mois que couvre cette fiche. Ce n'est pas votre date de naissance.",
     h2t:"Rencontres dynamiques quotidiennes avec Dieu",number:"Nombre",time:"Temps",
     h3t:"Lecture de la Bible",chapters:"Chapitres lus",timeReading:"Temps consacré à la lecture",
     h4t:"Mémorisation de la Bible",passages:"Passages mémorisés",
@@ -814,7 +831,6 @@ const I18N = {
     phPhone:"6XX XX XX XX",
     phLocality:"ex : Yaoundé",
     phProvince:"ex : Cameroun",
-    phGivenTo:"Nom de la personne à qui vous rendez compte",
     phMemo:"ex : Psaume 23, Romains 8",
     phText:"En quelques mots",
     errTooBig:"« {label} » : ce nombre est trop grand. Vérifiez que vous n'avez pas saisi un numéro de téléphone ou un montant dans cette case.",
@@ -827,7 +843,8 @@ const I18N = {
     finIntro:"S'il te plaît, remplis la fiche ci-dessous qui présente tes engagements et aussi, sur cette plateforme tu rendras compte mensuellement en ce qui concerne l'aspect de sa vie sur les finances",
     finRef:"Romains 13:8",
     finVerse:"Ne devez rien à personne, si ce n'est de vous aimer les uns les autres ; car celui qui aime les autres a accompli la loi.",
-    finEmail:"Email",finNation:"Nation",finDiscipleMaker:"Faiseur de disciple",finMonth:"Mois",
+    finEmail:"Email",finNation:"Nation",finDiscipleMaker:"Faiseur de disciple",
+    finBudget:"Désormais, je vais utiliser mes finances à base d'un budget préétabli que je vais respecter.",
     finTithe:"Je m'engage à donner la dîme (10 %) de tous mes revenus à Dieu",
     finOffering:"Je m'engage à ajouter une offrande",
     finHasSavings:"As-tu une épargne ?",
@@ -909,7 +926,7 @@ $('#addLit').addEventListener('click', () => {
 });
 
 const rail = $('#rail');
-for (let i = 1; i <= 17; i++){
+for (let i = 1; i <= 16; i++){
   const b = document.createElement('button');
   b.type = 'button';
   b.className = 'rail-i';
@@ -921,14 +938,14 @@ for (let i = 1; i <= 17; i++){
 }
 function refreshRail(){
   let done = 0;
-  for (let i = 1; i <= 17; i++){
+  for (let i = 1; i <= 16; i++){
     const sec = $('#i'+i);
     const filled = Array.from(sec.querySelectorAll('input,select,textarea'))
       .some(el => el.type === 'checkbox' ? el.checked : el.value.trim() !== '');
     $('.rail-i[data-target="i'+i+'"]').dataset.filled = filled;
     if (filled) done++;
   }
-  $('#meter').textContent = done + '/17';
+  $('#meter').textContent = done + '/16';
 }
 if ('IntersectionObserver' in window){
   const io = new IntersectionObserver(entries => {
@@ -937,7 +954,7 @@ if ('IntersectionObserver' in window){
       if (btn) btn.dataset.here = e.isIntersecting;
     });
   }, { rootMargin: '-45% 0px -45% 0px' });
-  for (let i = 1; i <= 17; i++) io.observe($('#i'+i));
+  for (let i = 1; i <= 16; i++) io.observe($('#i'+i));
 }
 
 function applyLang(l){
@@ -978,11 +995,6 @@ function applyLang(l){
   $$('select.yesno').forEach(s => {
     const k = s.value;
     s.innerHTML = '<option value=""></option><option value="yes">'+t.yes+'</option><option value="no">'+t.no+'</option>';
-    s.value = k;
-  });
-  $$('select.freq').forEach(s => {
-    const k = s.value;
-    s.innerHTML = '<option value=""></option><option value="day">'+t.fDay+'</option><option value="week">'+t.fWeek+'</option><option value="month">'+t.fMonth+'</option>';
     s.value = k;
   });
   document.title = l === 'fr'
@@ -1080,6 +1092,35 @@ function collectFinanceRaw(){
 function restoreFinance(p){
   if (!p) return;
   $$('#financeSheet [name]').forEach(el => { if (p[el.name] !== undefined) el.value = p[el.name]; });
+  syncYesNoCheckboxes();
+}
+// Yes/No fields on the finances form are a pair of checkboxes (not a
+// select): each .yn group carries a hidden input which is what
+// collectFinanceRaw()/restoreFinance() actually read and write — the two
+// checkboxes underneath are display-only and never carry a [name], so they
+// stay out of the generic [name] collection above. Checking one clears the
+// other (a real answer is single-valued); unchecking the checked one clears
+// the hidden value back to "not answered".
+function wireYesNo(){
+  $$('#financeSheet .yn').forEach(group => {
+    const hidden = group.querySelector('input[type="hidden"]');
+    const boxes = Array.from(group.querySelectorAll('input[type="checkbox"]'));
+    boxes.forEach(box => {
+      box.addEventListener('change', () => {
+        if (box.checked) boxes.forEach(other => { if (other !== box) other.checked = false; });
+        const checked = boxes.find(b => b.checked);
+        hidden.value = checked ? checked.dataset.val : '';
+      });
+    });
+  });
+}
+function syncYesNoCheckboxes(){
+  $$('#financeSheet .yn').forEach(group => {
+    const hidden = group.querySelector('input[type="hidden"]');
+    group.querySelectorAll('input[type="checkbox"]').forEach(box => {
+      box.checked = box.dataset.val === hidden.value;
+    });
+  });
 }
 // Maps the DOM's fin_-prefixed field names to the clean keys the backend
 // will expect — kept separate from collectFinanceRaw() so the draft
@@ -1093,7 +1134,7 @@ function financePayload(){
     email: p.fin_email,
     nation: p.fin_nation,
     disciple_maker: p.fin_disciple_maker,
-    month: p.fin_month,
+    budget_commitment: p.fin_budget_commitment,
     tithe_commitment: p.fin_tithe_commitment,
     offering_commitment: p.fin_offering_commitment,
     has_savings: p.fin_has_savings,
@@ -1426,6 +1467,7 @@ document.addEventListener('change', e => {
 });
 
 applyLang(lang);
+wireYesNo();
 try {
   const saved = storage.get(DRAFT_KEY);
   if (saved) { restore(JSON.parse(saved)); refreshRail(); }

@@ -26,8 +26,6 @@ export const FIELD_LABELS = [
   ['spiritual_province', 'Spiritual Province'],
   ['currency', 'Currency Of The Amounts'],
   ['month_number', 'Month'],
-  ['month_from', 'From the Month Of'],
-  ['month_to', 'To the Month Of'],
   ['acct_walk_with_god', 'I Gave Accounts Of: My Walk With God'],
   ['acct_studies', 'I Gave Accounts Of: My Studies'],
   ['acct_finances', 'I Gave Accounts Of: My Finances'],
@@ -75,7 +73,7 @@ export const FIELD_LABELS = [
 
 export const COLUMNS = [
   'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_nation', 'spiritual_province', 'currency',
-  'month_number', 'month_from', 'month_to',
+  'month_number',
   'acct_walk_with_god', 'acct_studies', 'acct_finances', 'acct_service_to_god',
   'acct_given_to', 'acct_frequency',
   'ddeg_number', 'ddeg_time',
@@ -95,7 +93,7 @@ export const COLUMNS = [
 ];
 
 const INTEGERS = new Set([
-  'month_number', 'month_from', 'month_to', 'ddeg_number', 'bible_chapters',
+  'month_number', 'ddeg_number', 'bible_chapters',
   'retreats_15min', 'thanksgiving_topics', 'prayer_topics', 'prayers_answered',
   'people_reached', 'conversions', 'baptised_water', 'baptised_holy_spirit',
   'added_to_church', 'churches_planted', 'fasts_wednesday', 'fasts_complete_3days',
@@ -131,8 +129,6 @@ const TEXT_LIMIT = 4000;
 const INT_MAX = 2147483647;
 const RANGES = {
   month_number: [0, 12],
-  month_from: [1, 12],
-  month_to: [1, 12],
   giving_percentage: [0, 100],
   // NUMERIC(14,2): twelve digits before the decimal point.
   savings_amount: [0, 999999999999.99],
@@ -266,7 +262,7 @@ export const FINANCE_FIELD_LABELS = [
   ['email', 'Email'],
   ['nation', 'Nation'],
   ['disciple_maker', 'Disciple Maker'],
-  ['month', 'Month'],
+  ['budget_commitment', 'Commits To Using A Pre-Established Budget'],
   ['tithe_commitment', 'Commits To Giving The Tithe (10%)'],
   ['offering_commitment', 'Commits To Adding An Offering'],
   ['has_savings', 'Has Savings'],
@@ -277,16 +273,17 @@ export const FINANCE_FIELD_LABELS = [
 ];
 
 export const FINANCE_COLUMNS = [
-  'full_name', 'locality', 'phone', 'email', 'nation', 'disciple_maker', 'month',
-  'tithe_commitment', 'offering_commitment', 'has_savings', 'planned_savings_percentage',
+  'full_name', 'locality', 'phone', 'email', 'nation', 'disciple_maker',
+  'budget_commitment', 'tithe_commitment', 'offering_commitment', 'has_savings', 'planned_savings_percentage',
   'is_indebted', 'fasting_commitment', 'fasting_encourage_count'
 ];
 
-const FINANCE_INTEGERS = new Set(['month', 'fasting_encourage_count']);
+const FINANCE_INTEGERS = new Set(['fasting_encourage_count']);
 const FINANCE_DECIMALS = new Set(['planned_savings_percentage']);
-// Yes / no dropdowns, all nullable: left blank is a real, distinct answer.
+// Yes / no fields (checkbox pairs on the form), all nullable: left blank is
+// a real, distinct answer, not "no".
 const FINANCE_TRISTATE = new Set([
-  'tithe_commitment', 'offering_commitment', 'has_savings', 'is_indebted', 'fasting_commitment'
+  'budget_commitment', 'tithe_commitment', 'offering_commitment', 'has_savings', 'is_indebted', 'fasting_commitment'
 ]);
 
 export function coerceFinance(column, raw) {
