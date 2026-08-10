@@ -38,6 +38,29 @@ body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--body);
   overflow:hidden;text-overflow:ellipsis}
 @media(max-width:600px){.mark span{display:none}}
 .lang{display:flex;border:1px solid var(--ink);flex:0 0 auto}
+/* Form switcher. Two long forms stacked on one page meant the finances sheet
+   began 9.5 phone screens down, behind 54 fields a member may not need, with
+   two submit buttons labelled identically. One form at a time instead. */
+.formtabs{position:sticky;top:var(--bar);z-index:40;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.formtabs-inner{display:flex;gap:0;max-width:1180px;margin:0 auto;padding:0 1.5rem}
+.formtabs button{flex:1 1 0;font-family:var(--body);font-size:.86rem;font-weight:600;
+  letter-spacing:.02em;padding:.85rem .6rem;background:transparent;color:var(--muted);
+  border:0;border-bottom:3px solid transparent;cursor:pointer;min-height:48px}
+/* On a wide screen two half-width tabs push their labels far apart and the
+   active underline becomes a 700px bar. Size them to their text instead, and
+   keep the full-width split on phones where thumbs need the target. */
+@media (min-width:760px){
+  .formtabs-inner{padding:0 2rem}
+  .formtabs button{flex:0 0 auto;min-width:190px;text-align:center}
+}
+.formtabs button[aria-selected="true"]{color:var(--seal);border-bottom-color:var(--seal)}
+.formtabs button:focus-visible{outline:2px solid var(--seal);outline-offset:-2px}
+.copybar{margin:.2rem 0 1.1rem}
+.copybar button{font-family:var(--body);font-size:.82rem;padding:.55rem .9rem;
+  background:transparent;border:1px solid var(--rule);color:var(--ink);cursor:pointer;min-height:44px}
+.copybar button:hover{border-color:var(--ink)}
+.copybar .said{font-size:.82rem;color:var(--muted);margin-left:.6rem}
 .lang button{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
   padding:.4rem .85rem;background:none;border:0;cursor:pointer;color:var(--ink)}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
@@ -216,6 +239,13 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
     </div>
   </div>
 </header>
+
+<nav class="formtabs" id="formTabs" aria-label="Choose a form">
+  <div class="formtabs-inner" role="tablist">
+    <button type="button" role="tab" data-pane="accountability" aria-selected="true"  data-i18n="tabAccountability">Accountability</button>
+    <button type="button" role="tab" data-pane="finances"       aria-selected="false" data-i18n="tabFinances">Finances</button>
+  </div>
+</nav>
 
 <section class="hero">
   <div class="wrap">
@@ -443,6 +473,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
     <section class="block">
       <div class="block-body">
         <div class="section-label" data-i18n="identLabel">Identification</div>
+        <div class="copybar"><button type="button" id="copyIdentBtn" data-i18n="copyIdent">Use the same details as the accountability form</button><span class="said" id="copyIdentSaid"></span></div>
         <div class="row">
           <label class="f"><span class="f-l" data-i18n="name">Name</span><input class="f-i" name="fin_full_name" autocomplete="name"></label>
           <label class="f"><span class="f-l" data-i18n="locality">Locality</span><input class="f-i" name="fin_locality"></label>
@@ -450,11 +481,11 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
         <div class="row">
           <label class="f sm"><span class="f-l" data-i18n="phoneCode">Country code</span><select class="f-i cc" name="fin_phone_cc"></select></label>
           <label class="f"><span class="f-l" data-i18n="phone">Phone</span><input class="f-i" name="fin_phone_local" type="tel" inputmode="tel" autocomplete="tel"></label>
-          <label class="f"><span class="f-l" data-i18n="finEmail">Email</span><input class="f-i" name="fin_email" type="email" autocomplete="email"></label>
+          <label class="f"><span class="f-l" data-i18n="finEmail">Email</span><input class="f-i" name="fin_email" data-i18n-ph="phEmail" type="email" autocomplete="email"></label>
         </div>
         <div class="row">
-          <label class="f"><span class="f-l" data-i18n="finNation">Nation</span><input class="f-i" name="fin_nation"></label>
-          <label class="f"><span class="f-l" data-i18n="finDiscipleMaker">Disciple maker</span><input class="f-i" name="fin_disciple_maker"></label>
+          <label class="f"><span class="f-l" data-i18n="finNation">Nation</span><input class="f-i" name="fin_nation" data-i18n-ph="phNation"></label>
+          <label class="f"><span class="f-l" data-i18n="finDiscipleMaker">Disciple maker</span><input class="f-i" name="fin_disciple_maker" data-i18n-ph="phDiscipleMaker"></label>
         </div>
       </div>
     </section>
@@ -496,7 +527,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
               <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
             </div>
           </div>
-          <label class="f"><span class="f-l" data-i18n="finSavingsPct">If not, what percentage of your income will you save from now on?</span><input class="f-i" name="fin_planned_savings_percentage" inputmode="decimal"></label>
+          <label class="f"><span class="f-l" data-i18n="finSavingsPct">If not, what percentage of your income will you save from now on?</span><input class="f-i" name="fin_planned_savings_percentage" data-i18n-ph="phPct" inputmode="decimal"></label>
         </div>
       </div>
     </section>
@@ -546,7 +577,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
               <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
             </div>
           </div>
-          <label class="f"><span class="f-l" data-i18n="finFastEncourage">How many people will you encourage to fast three days with you?</span><input class="f-i" name="fin_fasting_encourage_count" inputmode="numeric"></label>
+          <label class="f"><span class="f-l" data-i18n="finFastEncourage">How many people will you encourage to fast three days with you?</span><input class="f-i" name="fin_fasting_encourage_count" data-i18n-ph="phCount" inputmode="numeric"></label>
         </div>
         <p class="instr-label" style="margin-top:1.3rem" data-i18n="finFastBurdenLabel">During your three-day fast, please carry the following burdens:</p>
         <ol class="instr" type="a">
@@ -572,7 +603,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
     <span class="draft" id="finDraft" data-on="false" data-i18n="draftSaved">Draft saved</span>
     <span class="status" id="finStatus" role="status"></span>
     <button type="button" class="btn ghost" id="finPrintBtn" data-i18n="print">Print</button>
-    <button type="button" class="btn" id="finSubmitBtn" data-i18n="submit">Submit the form</button>
+    <button type="button" class="btn" id="finSubmitBtn" data-i18n="finSubmit">Submit the finances form</button>
   </div>
 </footer>
 </div>
@@ -714,7 +745,7 @@ const I18N = {
     h13t:"Uprooting of idols",idols:"Idols uprooted",h14t:"Proclamations",
     h15t:"Your involvement in the five year goal",h16t:"Distinct service to God and to man",h17t:"Making of disciples",
     colophon:"School of Knowing and Serving God. Koume, 28 July 2026.",
-    print:"Print",submit:"Submit the form",sending:"Sending",draftSaved:"Draft saved",
+    print:"Print",submit:"Submit the accountability form",finSubmit:"Submit the finances form",tabAccountability:"Accountability",tabFinances:"Finances",copyIdent:"Use the same details as the accountability form",copyDone:"Details copied.",copyEmpty:"Fill in the accountability form first, then this will copy from it.",sending:"Sending",draftSaved:"Draft saved",
     yes:"Yes",no:"No",
     doneTitle:"Your accounts are recorded",
     again:"Fill another form",
@@ -723,7 +754,7 @@ const I18N = {
     errLocality:"Enter your locality before submitting — without a phone, it's what links this report to your next one.",
     errNet:"The form could not be sent. Check your connection and try again. Your answers are still here.",
     errServer:"Something went wrong on our end — this isn't a connection problem. Please try submitting again; your answers are still here.",
-    phCount:"e.g. 12",
+    phCount:"e.g. 12",phEmail:"nom@exemple.com",phNation:"e.g. Cameroun",phDiscipleMaker:"Name of the person who disciples you",
     phTime:"e.g. 30 min a day",
     phPct:"e.g. 10 (a number from 0 to 100, not an amount)",
     phMoney:"e.g. 25000",
@@ -740,7 +771,7 @@ const I18N = {
     errField:"« {label} » was refused. Please check that line and try again. Your answers are still here.",
     months:["January","February","March","April","May","June","July","August","September","October","November","December"],
     finTitleA:"Imitators of ZTF",finTitleB:"in Finances",
-    finIntro:"Please complete the form above by stating your financial commitments. You will also use this platform to provide a monthly report on the financial aspects of your life.",
+    finIntro:"Please complete the form below by stating your financial commitments. You will also use this platform to provide a monthly report on the financial aspects of your life.",
     finRef:"Romans 13:8",
     finVerse:"Owe no one anything, except to love one another, for the one who loves another has fulfilled the law.",
     finEmail:"Email",finNation:"Nation",finDiscipleMaker:"Disciple maker",
@@ -814,7 +845,7 @@ const I18N = {
     h13t:"Déracinement des idoles",idols:"Idoles déracinées",h14t:"Proclamations",
     h15t:"Votre implication dans l'objectif quinquennal",h16t:"Service distinct à Dieu et à l'homme",h17t:"Formation de disciples",
     colophon:"École de la Connaissance et du Service de Dieu. Koumé, le 28 juillet 2026.",
-    print:"Imprimer",submit:"Envoyer la fiche",sending:"Envoi en cours",draftSaved:"Brouillon enregistré",
+    print:"Imprimer",submit:"Envoyer la fiche de redevabilit\u00e9",finSubmit:"Envoyer la fiche de finances",tabAccountability:"Redevabilit\u00e9",tabFinances:"Finances",copyIdent:"Reprendre les m\u00eames informations que la fiche de redevabilit\u00e9",copyDone:"Informations reprises.",copyEmpty:"Remplissez d'abord la fiche de redevabilit\u00e9, ce bouton la recopiera ensuite.",sending:"Envoi en cours",draftSaved:"Brouillon enregistré",
     yes:"Oui",no:"Non",
     doneTitle:"Vos comptes sont enregistrés",
     again:"Remplir une autre fiche",
@@ -823,7 +854,7 @@ const I18N = {
     errLocality:"Entrez votre localité avant d'envoyer — sans téléphone, c'est ce qui relie cette fiche à la prochaine.",
     errNet:"La fiche n'a pas pu être envoyée. Vérifiez votre connexion et réessayez. Vos réponses sont conservées.",
     errServer:"Une erreur s'est produite de notre côté — ce n'est pas un problème de connexion. Veuillez réessayer d'envoyer ; vos réponses sont conservées.",
-    phCount:"ex : 12",
+    phCount:"ex : 12",phEmail:"nom@exemple.com",phNation:"ex : Cameroun",phDiscipleMaker:"Nom de la personne qui vous fait grandir",
     phTime:"ex : 30 min par jour",
     phPct:"ex : 10 (un nombre de 0 à 100, pas un montant)",
     phMoney:"ex : 25000",
@@ -1197,6 +1228,60 @@ function applyCurrency(){
   put('reimb','debt_reimbursed');
 }
 
+const TAB_KEY = 'cmfi-tab-v1';
+
+// The page carries two complete forms, each as a hero section followed by a
+// wrap. Classified by content rather than by position, so reordering the
+// markup cannot silently put a form in the wrong tab.
+function paneGroups(){
+  const groups = { accountability: [], finances: [] };
+  for (const el of document.body.children) {
+    if (el.tagName === 'SCRIPT' || el.classList.contains('topbar') || el.classList.contains('formtabs')) continue;
+    const isFin = el.querySelector('#financeSheet, #finFoot, [data-i18n="finTitleA"], [data-i18n="finIntro"]');
+    groups[isFin ? 'finances' : 'accountability'].push(el);
+  }
+  return groups;
+}
+
+// One form visible at a time. Before this, the finances sheet started roughly
+// nine phone screens down, after 54 fields a member filling only the monthly
+// finances report had no reason to scroll past, and both forms ended in a
+// button reading "Submit the form".
+function applyTab(name, opts){
+  const groups = paneGroups();
+  if (!groups[name] || !groups[name].length) return;
+  for (const [key, els] of Object.entries(groups)) {
+    els.forEach(el => { el.hidden = key !== name; });
+  }
+  $$('#formTabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.pane === name)));
+  storage.set(TAB_KEY, name);
+  if (!opts || opts.scroll !== false) window.scrollTo({ top: 0 });
+}
+
+$$('#formTabs button').forEach(b => b.addEventListener('click', () => applyTab(b.dataset.pane)));
+
+// The finances form keeps its own identity fields on purpose: it is a monthly
+// report a member may send without the accountability sheet. That independence
+// is worth keeping, but it should not mean typing a name and phone twice on
+// one page, so it can be copied across instead of retyped.
+const copyBtn = $('#copyIdentBtn');
+if (copyBtn) copyBtn.addEventListener('click', () => {
+  const t = I18N[lang];
+  const said = $('#copyIdentSaid');
+  const source = $('[name="full_name"]');
+  if (!source || !source.value.trim()) { if (said) said.textContent = t.copyEmpty; return; }
+  const pairs = [
+    ['full_name', 'fin_full_name'], ['locality', 'fin_locality'],
+    ['phone_cc', 'fin_phone_cc'], ['phone_local', 'fin_phone_local'],
+    ['spiritual_nation', 'fin_nation']
+  ];
+  for (const [from, to] of pairs) {
+    const a = $('[name="' + from + '"]'), b = $('[name="' + to + '"]');
+    if (a && b && a.value) { b.value = a.value; b.dispatchEvent(new Event('input', { bubbles: true })); }
+  }
+  if (said) said.textContent = t.copyDone;
+});
+
 function say(msg, tone){ const s = $('#status'); s.textContent = msg; s.dataset.tone = tone || ''; }
 document.addEventListener('change', e => {
   if (e.target.name === 'spiritual_nation') { applyNation(); applyCurrency(); }
@@ -1477,6 +1562,7 @@ try {
   if (finSaved) restoreFinance(JSON.parse(finSaved));
 } catch (e) {}
 refreshRail();
+applyTab(storage.get(TAB_KEY) === 'finances' ? 'finances' : 'accountability', { scroll: false });
 </script>
 </body>
 </html>

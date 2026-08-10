@@ -1,6 +1,10 @@
 [build]
   publish = "public"
   functions = "netlify/functions"
+  # Bring the database up to date with the code being deployed. Without this
+  # the schema is only applied by calling /api/migrate by hand, and forgetting
+  # it takes the whole form down with an unreadable 500.
+  command = "node netlify/build-migrate.mjs"
 
 [functions]
   node_bundler = "esbuild"
