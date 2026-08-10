@@ -38,24 +38,6 @@ body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--body);
   overflow:hidden;text-overflow:ellipsis}
 @media(max-width:600px){.mark span{display:none}}
 .lang{display:flex;border:1px solid var(--ink);flex:0 0 auto}
-/* Form switcher. Two long forms stacked on one page meant the finances sheet
-   began 9.5 phone screens down, behind 54 fields a member may not need, with
-   two submit buttons labelled identically. One form at a time instead. */
-.formtabs{position:sticky;top:var(--bar);z-index:40;background:var(--paper);
-  border-bottom:1px solid var(--rule)}
-.formtabs-inner{display:flex;gap:0;max-width:1180px;margin:0 auto;padding:0 1.5rem}
-.formtabs button{flex:1 1 0;font-family:var(--body);font-size:.86rem;font-weight:600;
-  letter-spacing:.02em;padding:.85rem .6rem;background:transparent;color:var(--muted);
-  border:0;border-bottom:3px solid transparent;cursor:pointer;min-height:48px}
-/* On a wide screen two half-width tabs push their labels far apart and the
-   active underline becomes a 700px bar. Size them to their text instead, and
-   keep the full-width split on phones where thumbs need the target. */
-@media (min-width:760px){
-  .formtabs-inner{padding:0 2rem}
-  .formtabs button{flex:0 0 auto;min-width:190px;text-align:center}
-}
-.formtabs button[aria-selected="true"]{color:var(--seal);border-bottom-color:var(--seal)}
-.formtabs button:focus-visible{outline:2px solid var(--seal);outline-offset:-2px}
 .copybar{margin:.2rem 0 1.1rem}
 .copybar button{font-family:var(--body);font-size:.82rem;padding:.55rem .9rem;
   background:transparent;border:1px solid var(--rule);color:var(--ink);cursor:pointer;min-height:44px}
@@ -239,13 +221,6 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
     </div>
   </div>
 </header>
-
-<nav class="formtabs" id="formTabs" aria-label="Choose a form">
-  <div class="formtabs-inner" role="tablist">
-    <button type="button" role="tab" data-pane="accountability" aria-selected="true"  data-i18n="tabAccountability">Accountability</button>
-    <button type="button" role="tab" data-pane="finances"       aria-selected="false" data-i18n="tabFinances">Finances</button>
-  </div>
-</nav>
 
 <section class="hero">
   <div class="wrap">
@@ -745,7 +720,7 @@ const I18N = {
     h13t:"Uprooting of idols",idols:"Idols uprooted",h14t:"Proclamations",
     h15t:"Your involvement in the five year goal",h16t:"Distinct service to God and to man",h17t:"Making of disciples",
     colophon:"School of Knowing and Serving God. Koume, 28 July 2026.",
-    print:"Print",submit:"Submit the accountability form",finSubmit:"Submit the finances form",tabAccountability:"Accountability",tabFinances:"Finances",copyIdent:"Use the same details as the accountability form",copyDone:"Details copied.",copyEmpty:"Fill in the accountability form first, then this will copy from it.",sending:"Sending",draftSaved:"Draft saved",
+    print:"Print",submit:"Submit the accountability form",finSubmit:"Submit the finances form",copyIdent:"Use the same details as the accountability form",copyDone:"Details copied.",copyEmpty:"Fill in the accountability form first, then this will copy from it.",sending:"Sending",draftSaved:"Draft saved",
     yes:"Yes",no:"No",
     doneTitle:"Your accounts are recorded",
     again:"Fill another form",
@@ -845,7 +820,7 @@ const I18N = {
     h13t:"Déracinement des idoles",idols:"Idoles déracinées",h14t:"Proclamations",
     h15t:"Votre implication dans l'objectif quinquennal",h16t:"Service distinct à Dieu et à l'homme",h17t:"Formation de disciples",
     colophon:"École de la Connaissance et du Service de Dieu. Koumé, le 28 juillet 2026.",
-    print:"Imprimer",submit:"Envoyer la fiche de redevabilit\u00e9",finSubmit:"Envoyer la fiche de finances",tabAccountability:"Redevabilit\u00e9",tabFinances:"Finances",copyIdent:"Reprendre les m\u00eames informations que la fiche de redevabilit\u00e9",copyDone:"Informations reprises.",copyEmpty:"Remplissez d'abord la fiche de redevabilit\u00e9, ce bouton la recopiera ensuite.",sending:"Envoi en cours",draftSaved:"Brouillon enregistré",
+    print:"Imprimer",submit:"Envoyer la fiche de compte rendu",finSubmit:"Envoyer la fiche de finances",copyIdent:"Reprendre les mêmes informations que la fiche de compte rendu",copyDone:"Informations reprises.",copyEmpty:"Remplissez d'abord la fiche de compte rendu, ce bouton la recopiera ensuite.",sending:"Envoi en cours",draftSaved:"Brouillon enregistré",
     yes:"Oui",no:"Non",
     doneTitle:"Vos comptes sont enregistrés",
     again:"Remplir une autre fiche",
@@ -1228,38 +1203,6 @@ function applyCurrency(){
   put('reimb','debt_reimbursed');
 }
 
-const TAB_KEY = 'cmfi-tab-v1';
-
-// The page carries two complete forms, each as a hero section followed by a
-// wrap. Classified by content rather than by position, so reordering the
-// markup cannot silently put a form in the wrong tab.
-function paneGroups(){
-  const groups = { accountability: [], finances: [] };
-  for (const el of document.body.children) {
-    if (el.tagName === 'SCRIPT' || el.classList.contains('topbar') || el.classList.contains('formtabs')) continue;
-    const isFin = el.querySelector('#financeSheet, #finFoot, [data-i18n="finTitleA"], [data-i18n="finIntro"]');
-    groups[isFin ? 'finances' : 'accountability'].push(el);
-  }
-  return groups;
-}
-
-// One form visible at a time. Before this, the finances sheet started roughly
-// nine phone screens down, after 54 fields a member filling only the monthly
-// finances report had no reason to scroll past, and both forms ended in a
-// button reading "Submit the form".
-function applyTab(name, opts){
-  const groups = paneGroups();
-  if (!groups[name] || !groups[name].length) return;
-  for (const [key, els] of Object.entries(groups)) {
-    els.forEach(el => { el.hidden = key !== name; });
-  }
-  $$('#formTabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.pane === name)));
-  storage.set(TAB_KEY, name);
-  if (!opts || opts.scroll !== false) window.scrollTo({ top: 0 });
-}
-
-$$('#formTabs button').forEach(b => b.addEventListener('click', () => applyTab(b.dataset.pane)));
-
 // The finances form keeps its own identity fields on purpose: it is a monthly
 // report a member may send without the accountability sheet. That independence
 // is worth keeping, but it should not mean typing a name and phone twice on
@@ -1562,7 +1505,6 @@ try {
   if (finSaved) restoreFinance(JSON.parse(finSaved));
 } catch (e) {}
 refreshRail();
-applyTab(storage.get(TAB_KEY) === 'finances' ? 'finances' : 'accountability', { scroll: false });
 </script>
 </body>
 </html>
