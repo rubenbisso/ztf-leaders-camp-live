@@ -218,6 +218,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-lang="en" aria-pressed="true">EN</button>
       <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
     </div>
   </div>
 </header>
@@ -876,10 +877,113 @@ const I18N = {
   }
 };
 
+I18N.es = {
+  ...I18N.en,
+  barSub:"Campamento de líderes 2026",
+  org:"Comunidad Misionera Cristiana Internacional",
+  titleA:"Formulario",titleB:"Mensual",titleC:"de Responsabilidad",
+  ref:"Hebreos 13:7-8",
+  verse:"Acordaos de vuestros dirigentes, que os hablaron la palabra de Dios; mirad cuál fue el término de su conducta, e imitad su fe. Jesucristo es el mismo ayer, hoy y siempre.",
+  invite:"Te has comprometido a seguir e imitar los aspectos de la vida del líder fundador ZTF. Te invitamos a cumplir tus compromisos en esta plataforma y, siempre en esta plataforma, puedes presentar tu informe de lo que has obedecido cada mes y enviárnoslo. Que Dios te bendiga.",
+  begin:"Empezar el formulario",railHead:"Secciones",identLabel:"Identificación",
+  phoneHint:"Tu número de teléfono enlaza este informe con el siguiente. Por favor, usa el mismo número cada vez.",
+  phone2:"Segundo número de teléfono (opcional)",
+  phone2Hint:"Si a veces usas un número diferente, añádelo también aquí; cualquiera de los dos encontrará tu registro la próxima vez.",
+  noPhone:"No tengo teléfono",
+  noPhoneHint:"Sin teléfono, tu localidad se usa para encontrar tu registro la próxima vez; por favor, rellénala con cuidado y siempre de la misma manera.",
+  confirmPrompt:"Encontramos otros informes usando este número de teléfono. ¿Cuál eres tú?",
+  confirmNone:"Ninguno de estos; este es mi primer informe",
+  newPersonNote:"Se creó un nuevo registro para ti.",
+  linkedNote:"Vinculado a tu registro existente.",
+  duplicatePrompt:"Ya tienes un {type} para {month}, del {date}. ¿Enviar de todos modos?",
+  typeGoalNoun:"objetivo",typeResultNoun:"resultado",
+  duplicateSubmit:"Enviar de todos modos",
+  duplicateCancel:"Cancelar, voy a revisar",
+  name:"Nombre",phone:"Teléfono",phoneCode:"Código de país",locality:"Localidad",
+  province:"Provincia espiritual",nation:"Nación espiritual",
+  provinceHint:"Solo Camerún está dividido en provincias espirituales. Elige otra nación y este campo queda vacío.",
+  monthNumber:"Mes",
+  periodHint:"Qué mes cubre este informe. No es tu fecha de nacimiento.",
+  h2t:"Encuentros dinámicos diarios con Dios",number:"Número",time:"Tiempo",
+  h3t:"Lectura de la Biblia",chapters:"Capítulos leídos",timeReading:"Tiempo dedicado a leer",
+  h4t:"Memorización bíblica",passages:"Pasajes memorizados",
+  h5t:"Lectura de literatura cristiana",h5h:"Título de cada libro leído, el número de páginas y el autor.",
+  lTitle:"Título",lPages:"Páginas",lAuthor:"Autor",addRow:"Añadir un libro",
+  h6t:"Oración en soledad",timeAlone:"Tiempo dedicado a orar en soledad",retreats:"Retraites de 15 minutos",
+  thanks:"Temas de acción de gracias registrados",topics:"Temas de oración registrados",answered:"Oraciones respondidas",
+  h7t:"Oración con otros, la iglesia en casa o la iglesia local",h7l:"Frecuencia, duración y contexto",
+  h8t:"Ganar almas",reached:"Personas alcanzadas con el evangelio",conv:"Conversiones",
+  bapW:"Bautizados en agua",bapH:"Bautizados en el Espíritu Santo",added:"Añadidos a la iglesia",
+  planted:"Iglesias plantadas",perChurch:"Miembros por iglesia",
+  h9t:"Ayunos",wed:"Ayunos del miércoles",complete:"Ayunos completos de 3 días o más",encouraged:"Personas que animaste a ayunar",
+  h10t:"Proclamación de la profecía",h10h:"Toda la profecía de la caída del príncipe satánico de Camerún.",
+  h11t:"Finanzas",giving:"Dar a Dios",pct:"Porcentaje (%)",faithful:"Fidelidad",
+  savings:"Ahorros",hasSav:"¿Tienes ahorros?",howMuch:"¿Cuánto ({cur})?",
+  debts:"Deudas",indebted:"¿Estás endeudado?",debtAmt:"Si sí, ¿cuánto ({cur})?",reimb:"Reembolsado hasta ahora ({cur})",
+  h12t:"Mensaje de Bertoua",units:"Unidades de enseñanza completadas y marcadas",times:"Número de veces que las hiciste",
+  h13t:"Arrancar ídolos",idols:"Ídolos arrancados",h14t:"Proclamaciones",
+  h15t:"Tu participación en la meta de cinco años",h16t:"Servicio distinto a Dios y al hombre",h17t:"Hacer discípulos",
+  colophon:"Escuela de conocer y servir a Dios. Koume, 28 de julio de 2026.",
+  print:"Imprimir",submit:"Enviar el formulario de responsabilidad",finSubmit:"Enviar el formulario de finanzas",copyIdent:"Usar los mismos datos que el formulario de responsabilidad",copyDone:"Datos copiados.",copyEmpty:"Primero rellena el formulario de responsabilidad y luego esto lo copiará.",sending:"Enviando",draftSaved:"Borrador guardado",
+  yes:"Sí",no:"No",
+  doneTitle:"Tus cuentas han quedado registradas",
+  again:"Rellenar otro formulario",
+  errName:"Introduce tu nombre antes de enviar.",
+  errPhone:"Introduce tu número de teléfono antes de enviar; es lo que enlaza este informe con el siguiente.",
+  errLocality:"Introduce tu localidad antes de enviar; sin teléfono, es lo que enlaza este informe con el siguiente.",
+  errNet:"No se pudo enviar el formulario. Revisa tu conexión e inténtalo de nuevo. Tus respuestas siguen aquí.",
+  errServer:"Algo salió mal por nuestra parte; no es un problema de conexión. Inténtalo de nuevo; tus respuestas siguen aquí.",
+  phCount:"p. ej. 12",phEmail:"nombre@ejemplo.com",phNation:"p. ej. Camerún",phDiscipleMaker:"Nombre de la persona que te discipula",
+  phTime:"p. ej. 30 min al día",
+  phPct:"p. ej. 10 (un número de 0 a 100, no una cantidad)",
+  phMoney:"p. ej. 25000",
+  phName:"Nombre y apellido",
+  phPhone:"6XX XX XX XX",
+  phLocality:"p. ej. Yaoundé",
+  phProvince:"p. ej. Camerún",
+  phMemo:"p. ej. Salmo 23, Romanos 8",
+  phText:"En pocas palabras",
+  errTooBig:"« {label} »: ese número es demasiado grande. Comprueba que no has escrito un número de teléfono o una cantidad en este campo.",
+  errRange:"« {label} »: introduce un número entre {min} y {max}. Tus respuestas siguen aquí.",
+  errPct:"« {label} »: esto es un porcentaje, así que un número de 0 a 100. Si escribiste una cantidad en FCFA, reemplázala por el porcentaje que das.",
+  errChoice:"« {label} »: elige una de las opciones ofrecidas.",
+  errField:"« {label} » fue rechazada. Comprueba esa línea e inténtalo de nuevo. Tus respuestas siguen aquí.",
+  months:["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
+  finTitleA:"Imitadores de ZTF",finTitleB:"en Finanzas",
+  finIntro:"Rellena el formulario de abajo indicando tus compromisos financieros. También usarás esta plataforma para presentar un informe mensual sobre el aspecto financiero de tu vida.",
+  finRef:"Romanos 13:8",
+  finVerse:"No debáis nada a nadie, sino amaros unos a otros; porque el que ama a su prójimo ha cumplido la ley.",
+  finEmail:"Correo electrónico",finNation:"Nación",finDiscipleMaker:"Persona que te discipula",
+  finBudget:"A partir de ahora, administraré mis finanzas según un presupuesto preestablecido y lo respetaré.",
+  finTithe:"Me comprometo a dar el diezmo (10%) de todos mis ingresos a Dios",
+  finOffering:"Me comprometo a añadir una ofrenda",
+  finHasSavings:"¿Tienes ahorros?",
+  finSavingsPct:"Si no, ¿qué porcentaje de tus ingresos ahorrarás desde ahora?",
+  finIndebted:"¿Estás endeudado?",
+  finDebtLabel:"Si estás endeudado:",
+  finDebtA:"Haz una lista de todas tus deudas y de las personas a las que debes.",
+  finDebtB:"Ora pidiendo al Señor que te convenza del pecado de la deuda y que te dé su odio por la deuda.",
+  finDebtC:"Arrepiéntete de haber desobedecido las Escrituras al endeudarte.",
+  finDebtD:"Ora pidiendo al Señor que te dé lo necesario para pagar cada una de tus deudas.",
+  finDebtE:"Haz un plan para pagar tus deudas.",
+  finDebtF:"En cuanto tengas dinero, empieza a pagar tus deudas una tras otra.",
+  finFastLabel:"Ayuno",
+  finFastNote:"Te animamos a ayunar tres días completos cada mes para tu avivamiento espiritual, fructificación y necesidades personales.",
+  finFastCommit:"¿Te comprometes a ayunar tres días completos cada mes?",
+  finFastEncourage:"¿A cuántas personas animarás a ayunar tres días contigo?",
+  finFastBurdenLabel:"Durante tu ayuno de tres días, por favor lleva las siguientes cargas:",
+  finFastA:"Primer día: tu avivamiento espiritual personal (ora para entender y obedecer mejor la Palabra y las palabras de Dios, sobre todo para obedecer el mensaje de Bertoua).",
+  finFastB:"Segundo día: dar fruto (ora para ganar al menos un alma que permanezca, recibir dones espirituales y trabajar en tu carácter).",
+  finFastC:"Tercer día: tus necesidades personales (haz una lista de todas tus necesidades y ora cada día por algunas de ellas).",
+  finNote:"N.B.: Rellena este formulario y envía tu informe cada mes a uno de los siguientes números: +237 673 766 838.",
+  finDoneTitle:"Tus compromisos financieros han quedado registrados"
+};
+
 const DRAFT_KEY = 'cmfi-draft-v1';
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-let lang = (navigator.language || 'en').toLowerCase().startsWith('fr') ? 'fr' : 'en';
+const navLang = (navigator.language || 'en').toLowerCase();
+let lang = navLang.startsWith('fr') ? 'fr' : (navLang.startsWith('es') ? 'es' : 'en');
 
 // localStorage throws in some browsers/embedded webviews (Safari private
 // mode, in-app browsers like WhatsApp or Facebook's — common for links
@@ -1005,7 +1109,7 @@ function applyLang(l){
   });
   document.title = l === 'fr'
     ? 'Fiche de compte rendu mensuelle imitateurs de ZTF'
-    : 'Imitators of ZTF Accountability Form';
+    : (l === 'es' ? 'Formulario mensual de responsabilidad de Imitadores de ZTF' : 'Imitators of ZTF Accountability Form');
 }
 $$('.lang button').forEach(b => b.addEventListener('click', () => { applyLang(b.dataset.lang); saveDraft(); }));
 
