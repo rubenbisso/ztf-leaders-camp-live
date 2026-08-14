@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imitators of ZTF Accountability Form</title>
+<meta name="description" content="Monthly accountability form for the CMFI Leaders Camp 2026. School of Knowing and Serving God, Koume.">
+<meta name="theme-color" content="#7A1F2B">
+<meta property="og:title" content="Imitators of ZTF Accountability Form">
+<meta property="og:description" content="Leaders Camp 2026. Imitators of ZTF.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237A1F2B'/%3E%3Ctext x='16' y='21' font-family='Georgia,serif' font-weight='700' font-size='12' fill='%23FCFCFA' text-anchor='middle'%3EZTF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16211C; --paper:#FCFCFA; --band:#ECF2EA; --rule:#C3D4C4;
+  --seal:#7A1F2B; --seal-dark:#5E1621; --muted:#6C7A72; --canvas:#E7EBE5;
+  --display:"Newsreader",Georgia,serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --bar:56px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 3rem)}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--body);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+.topbar{position:sticky;top:0;z-index:60;height:var(--bar);
+  background:var(--paper);border-bottom:1px solid var(--rule)}
+.topbar .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{display:flex;align-items:baseline;gap:.7rem;min-width:0}
+.mark b{font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
+.mark span{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+@media(max-width:600px){.mark span{display:none}}
+.lang{display:flex;border:1px solid var(--ink);flex:0 0 auto}
+.copybar{margin:.2rem 0 1.1rem}
+.copybar button{font-family:var(--body);font-size:.82rem;padding:.55rem .9rem;
+  background:transparent;border:1px solid var(--rule);color:var(--ink);cursor:pointer;min-height:44px}
+.copybar button:hover{border-color:var(--ink)}
+.copybar .said{font-size:.82rem;color:var(--muted);margin-left:.6rem}
+.lang button{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
+  padding:.4rem .85rem;background:none;border:0;cursor:pointer;color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lang button+button{border-left:1px solid var(--ink)}
+
+.hero{padding:5rem 0 3.5rem}
+@media(min-width:820px){.hero{padding:7rem 0 4.5rem}}
+.eyebrow{margin:0 0 .8rem;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--seal)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.3rem,6.5vw,4.6rem);
+  line-height:1;margin:0;letter-spacing:-.02em;max-width:15ch}
+h1 em{font-style:italic;color:var(--seal)}
+.scripture{margin-top:3rem;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:1.7rem 0;display:grid;grid-template-columns:minmax(0,1fr);gap:.9rem}
+@media(min-width:820px){.scripture{grid-template-columns:8rem minmax(0,1fr);gap:2.5rem;align-items:start}}
+.scripture .ref{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--seal);padding-top:.6rem}
+.scripture p{margin:0;font-family:var(--display);font-style:italic;
+  font-size:clamp(1.1rem,2.3vw,1.5rem);line-height:1.45;max-width:60ch}
+.invite{margin:2rem 0 0;font-family:var(--display);font-style:italic;
+  font-size:clamp(1.1rem,2.3vw,1.5rem);line-height:1.45;max-width:60ch}
+.begin{margin-top:2.5rem}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem;padding-bottom:1rem}
+@media(min-width:980px){.layout{grid-template-columns:5.5rem minmax(0,1fr);gap:2.5rem}}
+
+.rail{position:sticky;top:var(--bar);z-index:20;align-self:start;background:var(--canvas)}
+.rail-head,.rail-meter{display:none}
+.rail-list{display:flex;gap:.25rem;overflow-x:auto;padding:.6rem 0;scrollbar-width:none}
+.rail-list::-webkit-scrollbar{display:none}
+.rail-i{flex:0 0 auto;font-family:var(--mono);font-size:.72rem;width:2rem;height:2rem;
+  display:grid;place-items:center;border:1px solid var(--rule);background:var(--paper);
+  color:var(--muted);cursor:pointer;transition:background .18s,color .18s,border-color .18s}
+.rail-i:hover{border-color:var(--ink);color:var(--ink)}
+.rail-i[data-filled="true"]{background:var(--seal);border-color:var(--seal);color:#fff}
+.rail-i[data-here="true"]{outline:1px solid var(--ink);outline-offset:2px}
+.rail-i:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+@media(min-width:980px){
+  .rail{top:calc(var(--bar) + 2rem);background:none}
+  .rail-head{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+  .rail-list{flex-direction:column;overflow:visible;padding:0;gap:.3rem}
+  .rail-i{width:2.4rem;height:2.1rem}
+  .rail-meter{display:block;margin-top:1rem;width:2.4rem;border-top:1px solid var(--rule);
+    padding-top:.6rem;font-family:var(--mono);font-size:.72rem;color:var(--seal)}
+}
+
+.sheet{background:var(--paper);border:1px solid var(--rule)}
+.block{border-bottom:1px solid var(--rule)}
+.block:last-child{border-bottom:0}
+.block-body{padding:1.6rem 1.4rem}
+@media(min-width:700px){.block-body{padding:1.9rem 2.2rem}}
+.item{display:grid;grid-template-columns:minmax(0,1fr)}
+@media(min-width:700px){.item{grid-template-columns:3.75rem minmax(0,1fr)}}
+.item:nth-of-type(even){background:var(--band)}
+.item-n{display:none;font-family:var(--mono);font-size:.78rem;color:var(--seal);
+  padding:1.95rem 0 0 1.1rem;border-right:1px solid rgba(122,31,43,.22)}
+@media(min-width:700px){.item-n{display:block}}
+.item-b{padding:1.6rem 1.4rem}
+@media(min-width:700px){.item-b{padding:1.7rem 2.2rem}}
+h2{font-family:var(--display);font-weight:600;font-size:1.15rem;margin:0 0 .35rem;letter-spacing:-.01em}
+h2 .n-inline{font-family:var(--mono);font-size:.8rem;color:var(--seal);margin-right:.5rem}
+@media(min-width:700px){h2 .n-inline{display:none}}
+.hint{margin:0 0 1rem;font-size:.82rem;color:var(--muted);max-width:64ch}
+.section-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+
+.row{display:flex;flex-wrap:wrap;gap:1.1rem 1.6rem}
+.row+.row{margin-top:1.1rem}
+.f{display:flex;flex-direction:column;gap:.3rem;flex:1 1 12rem;min-width:0}
+.f.sm{flex:0 1 auto}
+.f.lg{flex:1 1 100%}
+.f-l{font-size:.85rem;font-weight:700;color:var(--ink);white-space:normal}
+.f-i{font:inherit;font-family:var(--mono);font-size:.92rem;color:var(--ink);
+  background:transparent;border:0;border-bottom:1px solid var(--rule);
+  padding:.35rem .1rem;width:100%;border-radius:0;transition:border-color .16s,box-shadow .16s}
+.f-i::placeholder{color:#B4C0B6}
+.f-i:hover{border-bottom-color:var(--muted)}
+.f-i:focus{outline:0;border-bottom-color:var(--seal);box-shadow:0 1px 0 0 var(--seal)}
+select.f-i{appearance:none;cursor:pointer;padding-right:1.2rem;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 9px) 55%,calc(100% - 4px) 55%;
+  background-size:5px 5px;background-repeat:no-repeat}
+select.f-i:disabled{cursor:not-allowed;opacity:.6}
+select.cc{max-width:11rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+textarea.f-i{font-family:var(--body);font-size:.95rem;line-height:2rem;min-height:8.5rem;
+  resize:vertical;border:1px solid var(--rule);padding:.35rem .7rem;
+  background-image:repeating-linear-gradient(transparent,transparent 1.94rem,var(--rule) 1.94rem,var(--rule) 2rem);
+  background-attachment:local}
+textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
+.ticks{display:flex;flex-wrap:wrap;gap:.65rem 1.6rem;margin-bottom:1.2rem}
+.tick{display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.92rem}
+.tick input{position:absolute;opacity:0;width:0;height:0}
+.tick .box{width:1.05rem;height:1.05rem;border:1px solid var(--ink);background:var(--paper);
+  display:grid;place-items:center;flex:0 0 auto}
+.tick .box::after{content:"";width:.55rem;height:.3rem;border-left:2px solid var(--seal);
+  border-bottom:2px solid var(--seal);transform:rotate(-45deg) scale(.4);opacity:0;
+  transition:opacity .14s,transform .14s}
+.tick input:checked+.box::after{opacity:1;transform:rotate(-45deg) scale(1)}
+.tick input:focus-visible+.box{outline:2px solid var(--seal);outline-offset:2px}
+.tick.radio .box{border-radius:50%}
+.tick.radio .box::after{width:.5rem;height:.5rem;border:0;border-radius:50%;background:var(--seal);transform:scale(0)}
+.tick.radio input:checked+.box::after{transform:scale(1)}
+.lit{width:100%;border-collapse:collapse;margin-bottom:.9rem;table-layout:fixed}
+.lit th{text-align:left;font-family:var(--mono);font-weight:400;font-size:.64rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  padding:0 .6rem .5rem 0;border-bottom:1px solid var(--rule)}
+.lit td{padding:.45rem .6rem .45rem 0;vertical-align:bottom}
+.lit td:first-child,.lit th:first-child{width:2.4rem;font-family:var(--mono);font-size:.78rem;color:var(--seal)}
+.add{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--muted);padding:.45rem .8rem;cursor:pointer}
+.add:hover{border-color:var(--ink);color:var(--ink)}
+.instr-label{font-weight:700;font-size:.85rem;color:var(--ink);margin:0 0 .6rem}
+.instr{margin:0 0 1.3rem;padding-left:1.3rem;font-size:.85rem;color:var(--muted);line-height:1.6}
+.instr li{margin-bottom:.4rem}
+.instr li:last-child{margin-bottom:0}
+
+.btn{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.95rem 1.9rem;border:1px solid var(--seal);background:var(--seal);color:#fff;
+  cursor:pointer;transition:background .16s,color .16s}
+.btn:hover{background:var(--seal-dark);border-color:var(--seal-dark)}
+.btn:disabled{opacity:.5;cursor:progress}
+.btn.ghost{background:none;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.foot{margin-top:2.5rem;padding-bottom:5rem;display:flex;flex-wrap:wrap;gap:1.2rem;
+  align-items:center;justify-content:space-between}
+.colophon{font-family:var(--display);font-style:italic;font-size:.95rem;color:var(--muted);
+  max-width:34ch;margin:0}
+.actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.status{font-size:.85rem;min-height:1.2rem;max-width:34ch}
+.status[data-tone="ok"]{color:#1E5B36}
+.status[data-tone="bad"]{color:var(--seal)}
+.draft{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);opacity:0;transition:opacity .4s}
+.draft[data-on="true"]{opacity:1}
+
+.done{display:none;background:var(--paper);border:1px solid var(--rule);
+  padding:4.5rem 2rem;text-align:center;margin-bottom:5rem}
+.done[data-on="true"]{display:block}
+.done h2{font-family:var(--display);font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:400;margin:0 0 1.4rem}
+.done p{color:var(--muted);margin:0 auto 2rem;max-width:44ch}
+.link-note{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--seal);margin:0 0 1.4rem}
+.confirm-panel{display:none;background:var(--band);border:1px solid var(--rule);
+  padding:1.4rem 1.6rem;margin:0 0 1.6rem;text-align:left}
+.confirm-panel[data-on="true"]{display:block}
+.confirm-panel p{margin:0 0 1rem;font-size:.88rem;color:var(--ink)}
+.confirm-choices{display:flex;flex-wrap:wrap;gap:.7rem}
+.confirm-choices button{font:inherit;font-size:.85rem;background:var(--paper);
+  border:1px solid var(--rule);padding:.6rem 1.1rem;cursor:pointer;transition:border-color .16s}
+.confirm-choices button:hover{border-color:var(--seal)}
+.confirm-choices button.none{color:var(--muted)}
+[hidden]{display:none!important}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+@media print{
+  body{background:#fff}
+  .topbar,.rail,.actions,.status,.begin,.draft{display:none}
+  .hero{padding:0 0 2rem}
+  .sheet{border:0}
+  .item:nth-of-type(even){background:none}
+  .layout{display:block}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="mark">
+      <b>Imitators of ZTF</b>
+      <span data-i18n="barSub">Leaders Camp 2026</span>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </div>
+</header>
+
+<!-- Accountability form temporarily disabled — only the finances form
+     below is shown on the page. The JS above gates every accountability-
+     only listener/init step on hasAccountabilityForm so nothing errors
+     with this markup commented out; uncomment this block to bring the
+     form back.
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="org">Christian Missionary Fellowship International</p>
+    <h1><span data-i18n="titleA">Monthly</span> <em data-i18n="titleB">Accountability</em> <span data-i18n="titleC">Form</span></h1>
+    <div class="scripture">
+      <div class="ref" data-i18n="ref">Hebrews 13:7-8</div>
+      <p data-i18n="verse">Remember your leaders, who spoke the word of God to you. Consider the outcome of their way of life and imitate their faith. Jesus Christ is the same yesterday and today and forever.</p>
+    </div>
+    <p class="invite" data-i18n="invite">You have committed to following and imitating the aspects of the life of the founding leader ZTF. We invite you to fulfill your commitments on this platform and always on this platform, you can submit your report of what you have obeyed each month and send it to us. May God bless you.</p>
+    <div class="begin"><button type="button" class="btn ghost" id="beginBtn" data-i18n="begin">Begin the form</button></div>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="layout" id="formArea">
+  <aside class="rail">
+    <div class="rail-head" data-i18n="railHead">Entries</div>
+    <div class="rail-list" id="rail"></div>
+    <div class="rail-meter"><span id="meter">0/16</span></div>
+  </aside>
+
+  <main class="sheet" id="sheet">
+
+    <section class="block" id="ident">
+      <div class="block-body">
+        <div class="section-label" data-i18n="identLabel">Identification</div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="name">Name</span><input class="f-i" name="full_name" data-i18n-ph="phName" autocomplete="name"></label>
+        </div>
+        <div id="phoneFields">
+          <div class="row">
+            <label class="f sm"><span class="f-l" data-i18n="phoneCode">Country code</span><select class="f-i cc" name="phone_cc"></select></label>
+            <label class="f"><span class="f-l" data-i18n="phone">Phone</span><input class="f-i" name="phone_local" data-i18n-ph="phPhone" type="tel" inputmode="tel" autocomplete="tel"></label>
+          </div>
+          <p class="hint" data-i18n="phoneHint">Your phone number links this report to your next one. Please use the same number every time.</p>
+          <div class="row">
+            <label class="f sm"><span class="f-l" data-i18n="phoneCode">Country code</span><select class="f-i cc" name="phone2_cc"></select></label>
+            <label class="f"><span class="f-l" data-i18n="phone2">Second phone number (optional)</span><input class="f-i" name="phone2_local" data-i18n-ph="phPhone" type="tel" inputmode="tel" autocomplete="tel"></label>
+          </div>
+          <p class="hint" data-i18n="phone2Hint">If you sometimes use a different number, add it here too — either one will find your record next time.</p>
+        </div>
+        <label class="tick" style="margin-bottom:1.2rem"><input type="checkbox" name="no_phone" id="noPhoneCheck"><span class="box"></span><span data-i18n="noPhone">I don't have any phone at all</span></label>
+        <p class="hint" id="noPhoneHint" data-i18n="noPhoneHint" hidden>Without a phone, your locality is used instead to find your record next time — please fill it in carefully and the same way each time.</p>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="locality">Locality</span><input class="f-i" name="locality" data-i18n-ph="phLocality"></label>
+          <label class="f"><span class="f-l" data-i18n="nation">Spiritual nation</span><select class="f-i nation" name="spiritual_nation"></select></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="province">Spiritual province</span><select class="f-i province" name="spiritual_province"></select></label>
+        </div>
+        <p class="hint" id="provinceHint" data-i18n="provinceHint">Only Cameroon is divided into spiritual provinces. Choose another nation and this stays empty.</p>
+        <div class="row">
+          <label class="f sm"><span class="f-l" data-i18n="monthNumber">Month</span>
+            <select class="f-i month" name="month_number"></select></label>
+        </div>
+        <p class="hint" data-i18n="periodHint">Which month this report covers. Not your date of birth.</p>
+      </div>
+    </section>
+
+    <section class="block item" id="i1"><div class="item-n">01</div><div class="item-b">
+      <h2><span class="n-inline">01</span><span data-i18n="h2t">Daily dynamic encounters with God</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="ddeg_number" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="time">Time</span><input class="f-i" name="ddeg_time" data-i18n-ph="phTime"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i2"><div class="item-n">02</div><div class="item-b">
+      <h2><span class="n-inline">02</span><span data-i18n="h3t">Bible reading</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="chapters">Chapters read</span><input class="f-i" name="bible_chapters" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="timeReading">Time spent reading</span><input class="f-i" name="bible_time" data-i18n-ph="phTime"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i3"><div class="item-n">03</div><div class="item-b">
+      <h2><span class="n-inline">03</span><span data-i18n="h4t">Bible memorisation</span></h2>
+      <div class="row"><label class="f lg"><span class="f-l" data-i18n="passages">Passages memorised</span><input class="f-i" name="bible_memorisation" data-i18n-ph="phMemo"></label></div>
+    </div></section>
+
+    <section class="block item" id="i4"><div class="item-n">04</div><div class="item-b">
+      <h2><span class="n-inline">04</span><span data-i18n="h5t">Reading of Christian literature</span></h2>
+      <p class="hint" data-i18n="h5h">Title of each book read, the number of pages, and the author.</p>
+      <table class="lit"><thead><tr><th></th><th data-i18n="lTitle">Title</th><th style="width:5rem" data-i18n="lPages">Pages</th><th data-i18n="lAuthor">Author</th></tr></thead><tbody id="litBody"></tbody></table>
+      <button type="button" class="add" id="addLit" data-i18n="addRow">Add a book</button>
+    </div></section>
+
+    <section class="block item" id="i5"><div class="item-n">05</div><div class="item-b">
+      <h2><span class="n-inline">05</span><span data-i18n="h6t">Prayer alone</span></h2>
+      <div class="row">
+        <label class="f"><span class="f-l" data-i18n="timeAlone">Time spent praying alone</span><input class="f-i" name="prayer_alone_time" data-i18n-ph="phTime"></label>
+        <label class="f sm"><span class="f-l" data-i18n="retreats">15 minute retreats</span><input class="f-i" name="retreats_15min" data-i18n-ph="phCount"></label>
+      </div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="thanks">Thanksgiving topics recorded</span><input class="f-i" name="thanksgiving_topics" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="topics">Prayer topics recorded</span><input class="f-i" name="prayer_topics" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="answered">Prayers answered</span><input class="f-i" name="prayers_answered" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i6"><div class="item-n">06</div><div class="item-b">
+      <h2><span class="n-inline">06</span><span data-i18n="h7t">Prayer with others, the house church or the local church</span></h2>
+      <div class="row"><label class="f lg"><span class="f-l" data-i18n="h7l">Frequency, duration and setting</span><input class="f-i" name="prayer_with_others" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i7"><div class="item-n">07</div><div class="item-b">
+      <h2><span class="n-inline">07</span><span data-i18n="h8t">Soul winning</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="reached">People reached with the gospel</span><input class="f-i" name="people_reached" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="conv">Conversions</span><input class="f-i" name="conversions" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="bapW">Baptised in water</span><input class="f-i" name="baptised_water" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="bapH">Baptised in the Holy Spirit</span><input class="f-i" name="baptised_holy_spirit" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="added">Added to the church</span><input class="f-i" name="added_to_church" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="planted">Churches planted</span><input class="f-i" name="churches_planted" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="perChurch">Members per church</span><input class="f-i" name="members_per_church" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i8"><div class="item-n">08</div><div class="item-b">
+      <h2><span class="n-inline">08</span><span data-i18n="h9t">Fasts</span></h2>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="wed">Wednesday fasts</span><input class="f-i" name="fasts_wednesday" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="complete">Complete fasts of 3 days or more</span><input class="f-i" name="fasts_complete_3days" data-i18n-ph="phCount"></label>
+        <label class="f sm"><span class="f-l" data-i18n="encouraged">People you encouraged to fast</span><input class="f-i" name="people_encouraged_to_fast" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i9"><div class="item-n">09</div><div class="item-b">
+      <h2><span class="n-inline">09</span><span data-i18n="h10t">Proclamation of the prophecy</span></h2>
+      <p class="hint" data-i18n="h10h">The entire prophecy of the overthrow of the satanic prince of Cameroon.</p>
+      <div class="row"><label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="prophecy_proclamations" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i10"><div class="item-n">10</div><div class="item-b">
+      <h2><span class="n-inline">10</span><span data-i18n="h11t">Finances</span></h2>
+      <div class="section-label" data-i18n="giving">Giving to God</div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="pct">Percentage (%)</span><input class="f-i" name="giving_percentage" data-i18n-ph="phPct"></label>
+        <label class="f sm"><span class="f-l" data-i18n="faithful">Faithfulness</span><select class="f-i yesno" name="giving_faithful"></select></label>
+      </div>
+      <div class="section-label" style="margin-top:1.7rem" data-i18n="savings">Savings</div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="hasSav">Do you have savings?</span><select class="f-i yesno" name="has_savings"></select></label>
+        <label class="f sm"><span class="f-l" data-i18n="howMuch">How much (FCFA)</span><input class="f-i" name="savings_amount" data-i18n-ph="phMoney"></label>
+      </div>
+      <div class="section-label" style="margin-top:1.7rem" data-i18n="debts">Debts</div>
+      <div class="row">
+        <label class="f sm"><span class="f-l" data-i18n="indebted">Are you indebted?</span><select class="f-i yesno" name="is_indebted"></select></label>
+        <label class="f sm"><span class="f-l" data-i18n="debtAmt">If yes, how much (FCFA)</span><input class="f-i" name="debt_amount" data-i18n-ph="phMoney"></label>
+        <label class="f sm"><span class="f-l" data-i18n="reimb">Reimbursed so far (FCFA)</span><input class="f-i" name="debt_reimbursed" data-i18n-ph="phMoney"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i11"><div class="item-n">11</div><div class="item-b">
+      <h2><span class="n-inline">11</span><span data-i18n="h12t">Bertoua message</span></h2>
+      <div class="row">
+        <label class="f"><span class="f-l" data-i18n="units">Teaching units completed and marked</span><input class="f-i" name="bertoua_units_completed" data-i18n-ph="phCount"></label>
+        <label class="f"><span class="f-l" data-i18n="times">Number of times you did them</span><input class="f-i" name="bertoua_times_done" data-i18n-ph="phCount"></label>
+      </div>
+    </div></section>
+
+    <section class="block item" id="i12"><div class="item-n">12</div><div class="item-b">
+      <h2><span class="n-inline">12</span><span data-i18n="h13t">Uprooting of idols</span></h2>
+      <div class="row"><label class="f sm"><span class="f-l" data-i18n="idols">Idols uprooted</span><input class="f-i" name="idols_uprooted" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i13"><div class="item-n">13</div><div class="item-b">
+      <h2><span class="n-inline">13</span><span data-i18n="h14t">Proclamations</span></h2>
+      <div class="row"><label class="f sm"><span class="f-l" data-i18n="number">Number</span><input class="f-i" name="proclamations" data-i18n-ph="phCount"></label></div>
+    </div></section>
+
+    <section class="block item" id="i14"><div class="item-n">14</div><div class="item-b">
+      <h2><span class="n-inline">14</span><span data-i18n="h15t">Your involvement in the five year goal</span></h2>
+      <textarea class="f-i" name="five_year_goal" data-i18n-ph="phText" rows="5"></textarea>
+    </div></section>
+
+    <section class="block item" id="i15"><div class="item-n">15</div><div class="item-b">
+      <h2><span class="n-inline">15</span><span data-i18n="h16t">Distinct service to God and to man</span></h2>
+      <textarea class="f-i" name="distinct_service" data-i18n-ph="phText" rows="5"></textarea>
+    </div></section>
+
+    <section class="block item" id="i16"><div class="item-n">16</div><div class="item-b">
+      <h2><span class="n-inline">16</span><span data-i18n="h17t">Making of disciples</span></h2>
+      <textarea class="f-i" name="making_disciples" data-i18n-ph="phText" rows="5"></textarea>
+    </div></section>
+
+  </main>
+</div>
+
+<div class="done" id="done" data-on="false">
+  <h2 data-i18n="doneTitle">Your accounts are recorded</h2>
+  <p class="link-note" id="linkNote"></p>
+  <button type="button" class="btn ghost" id="againBtn" data-i18n="again">Fill another form</button>
+</div>
+
+<div class="confirm-panel" id="confirmPanel" data-on="false">
+  <p id="confirmPromptText"></p>
+  <div class="confirm-choices" id="confirmChoices"></div>
+</div>
+
+<footer class="foot" id="foot">
+  <p class="colophon" data-i18n="colophon">School of Knowing and Serving God. Koume, 28 July 2026.</p>
+  <div class="actions">
+    <span class="draft" id="draft" data-on="false" data-i18n="draftSaved">Draft saved</span>
+    <span class="status" id="status" role="status"></span>
+    <button type="button" class="btn ghost" id="printBtn" data-i18n="print">Print</button>
+    <button type="button" class="btn" id="submitBtn" data-i18n="submit">Submit the form</button>
+  </div>
+</footer>
+</div>
+-->
+
+<section class="hero" style="padding:3.5rem 0 2.5rem">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="org">Christian Missionary Fellowship International</p>
+    <h1 style="font-size:clamp(1.9rem,4.8vw,3.4rem)"><span data-i18n="finTitleA">Imitators of ZTF</span></h1>
+    <p class="hint" style="font-size:.95rem;margin-top:1rem" data-i18n="finIntro"></p>
+  </div>
+</section>
+
+<div class="wrap">
+<div id="financeArea">
+  <main class="sheet" id="financeSheet">
+
+    <section class="block">
+      <div class="block-body">
+        <div class="section-label" data-i18n="identLabel">Identification</div>
+        <!-- <div class="copybar"><button type="button" id="copyIdentBtn" data-i18n="copyIdent">Use the same details as the accountability form</button><span class="said" id="copyIdentSaid"></span></div> -->
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="name">Name</span><input class="f-i" name="fin_full_name" autocomplete="name"></label>
+          <label class="f"><span class="f-l" data-i18n="finNation">Nation</span><input class="f-i" name="fin_nation" data-i18n-ph="phNation"></label>
+        </div>
+        <div class="row">
+          <label class="f sm"><span class="f-l" data-i18n="phoneCode">Country code</span><select class="f-i cc" name="fin_phone_cc"></select></label>
+          <label class="f"><span class="f-l" data-i18n="phone">Phone</span><input class="f-i" name="fin_phone_local" type="tel" inputmode="tel" autocomplete="tel"></label>
+          <label class="f"><span class="f-l" data-i18n="finEmail">Email</span><input class="f-i" name="fin_email" data-i18n-ph="phEmail" type="email" autocomplete="email"></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="locality">Locality</span><input class="f-i" name="fin_locality"></label>
+          <label class="f"><span class="f-l" data-i18n="conversionDate">Date of conversion</span><input class="f-i" name="fin_conversion_date" data-i18n-ph="phConversionDate"></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-body">
+        <p class="hint" style="margin-bottom:1.3rem" data-i18n="commitIntro">I commit to imitating the founding leader, and bringing as many people as possible to imitate him.</p>
+
+        <p class="f-l" data-i18n="c1">1. I commit to having at least one dynamic encounter with God every day:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_commit_daily_encounter" value="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+          <label class="tick radio"><input type="radio" name="fin_commit_daily_encounter" value="no"><span class="box"></span><span data-i18n="no">No</span></label>
+        </div>
+
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c2">2. I commit to reading my Bible every day and completing it:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_bible_completions_choice" value="1"><span class="box"></span><span data-i18n="c2opt1">1 time</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_completions_choice" value="2"><span class="box"></span><span data-i18n="c2opt2">2 times</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_completions_choice" value="3"><span class="box"></span><span data-i18n="c2opt3">3 times</span></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c2other">Or, this many times by this same time next year</span><input class="f-i" name="fin_bible_completions_other" inputmode="numeric" data-i18n-ph="phCount"></label>
+        </div>
+
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c6">6. I commit to memorising:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_bible_memorization_choice" value="entire_bible"><span class="box"></span><span data-i18n="c6opt1">The entire Bible</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_memorization_choice" value="new_testament"><span class="box"></span><span data-i18n="c6opt2">The entire New Testament</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_memorization_choice" value="some_portions"><span class="box"></span><span data-i18n="c6opt3">Some portion(s) of the Bible</span></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c6other">Specify the portion(s)</span><input class="f-i" name="fin_bible_memorization_portions"></label>
+        </div>
+
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c3">3. I commit to uprooting all the idols in the book, "Be Filled with the Holy Spirit":</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_idol_uprooting_frequency" value="twice_monthly"><span class="box"></span><span data-i18n="c3opt1">Twice a month</span></label>
+          <label class="tick radio"><input type="radio" name="fin_idol_uprooting_frequency" value="monthly"><span class="box"></span><span data-i18n="c3opt2">Once every month</span></label>
+          <label class="tick radio"><input type="radio" name="fin_idol_uprooting_frequency" value="bimonthly"><span class="box"></span><span data-i18n="c3opt3">Once every two months</span></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c3other">Other frequency</span><input class="f-i" name="fin_idol_uprooting_other"></label>
+        </div>
+
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c7">7. I commit to doing every teaching unit of the Bertoua Message:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_bertoua_units_target" value="7"><span class="box"></span><span data-i18n="c7opt1">7 times</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bertoua_units_target" value="12"><span class="box"></span><span data-i18n="c7opt2">12 times</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bertoua_units_target" value="25"><span class="box"></span><span data-i18n="c7opt3">25 times</span></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c7other">Or, this many times</span><input class="f-i" name="fin_bertoua_units_other" inputmode="numeric" data-i18n-ph="phCount"></label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="done" id="finDone" data-on="false">
+  <h2 data-i18n="finDoneTitle">Your commitments are recorded</h2>
+  <button type="button" class="btn ghost" id="finAgainBtn" data-i18n="again">Fill another form</button>
+</div>
+
+<footer class="foot" id="finFoot">
+  <p class="colophon" data-i18n="colophon">School of Knowing and Serving God. Koume, 28 July 2026.</p>
+  <div class="actions">
+    <span class="draft" id="finDraft" data-on="false" data-i18n="draftSaved">Draft saved</span>
+    <span class="status" id="finStatus" role="status"></span>
+    <button type="button" class="btn ghost" id="finPrintBtn" data-i18n="print">Print</button>
+    <button type="button" class="btn" id="finSubmitBtn" data-i18n="finSubmit">Submit the finances form</button>
+  </div>
+</footer>
+</div>
+
+<script>
+// Country calling codes. Explicit and picked by the submitter — guessing a
+// default from a bare local number isn't safe once submitters come from
+// more than one country, since a 9-digit local number means something
+// different in every country. Cameroon is pre-selected since most
+// submitters are expected to be there, but it's always visible and
+// changeable, never silently assumed.
+// The 22 spiritual provinces, read off the official CMFI map. Location names
+// only: the map also carries each province's leader, but the sheet asks where
+// a member is, not who leads them, and leaders change while provinces do not.
+// Four spellings here are still awaiting confirmation (Daouala/Douala,
+// Kadei/Kadey, Mbam, Nyon Ekele), which is why this is a plain list rather
+// than a database constraint: correcting one is a one-line edit.
+const CMR_PROVINCES = ["Adamaoua","Centre","Daouala","Donga Mantung","Est","Extreme Nord","Garoua",
+  "Kadei","Kanni Danai","Mbam","Moungo","Nord","Nord-Ouest","Nyon Ekele","Ouest","PSU","QG",
+  "Sanaga Maritime","Sud","Sud Ouest","Touboro","Yaounde"];
+
+// Amounts used to be stored with no unit at all. The currency follows the
+// country code the member already picked for their phone, so nobody has to
+// answer a second question to make the figures comparable. XAF and XOF are
+// both called "franc CFA" but they are different currencies.
+const CURRENCY_BY_CC = {
+  "237":"XAF","236":"XAF","235":"XAF","241":"XAF","242":"XAF","240":"XAF",
+  "221":"XOF","225":"XOF","229":"XOF","228":"XOF","226":"XOF","223":"XOF","227":"XOF","245":"XOF",
+  "234":"NGN","233":"GHS","220":"GMD","224":"GNF","238":"CVE","222":"MRU","231":"LRD","232":"SLE",
+  "243":"CDF","239":"STN","244":"AOA","258":"MZN","260":"ZMW","263":"ZWG","267":"BWP","264":"NAD",
+  "266":"LSL","268":"SZL","27":"ZAR","230":"MUR","248":"SCR","261":"MGA","254":"KES","255":"TZS",
+  "256":"UGX","250":"RWF","257":"BIF","251":"ETB","252":"SOS","253":"DJF","291":"ERN","211":"SSP",
+  "249":"SDG","20":"EGP","218":"LYD","216":"TND","213":"DZD","212":"MAD",
+  "1":"USD","44":"GBP","33":"EUR","49":"EUR","32":"EUR","31":"EUR","41":"CHF","39":"EUR","34":"EUR",
+  "351":"EUR","353":"EUR","46":"SEK","47":"NOK","45":"DKK","358":"EUR","48":"PLN","30":"EUR",
+  "90":"TRY","7":"RUB","380":"UAH","91":"INR","92":"PKR","880":"BDT","94":"LKR","977":"NPR",
+  "86":"CNY","81":"JPY","82":"KRW","852":"HKD","65":"SGD","60":"MYR","66":"THB","84":"VND",
+  "62":"IDR","63":"PHP","971":"AED","966":"SAR","974":"QAR","965":"KWD","962":"JOD","961":"LBP",
+  "972":"ILS","964":"IQD","98":"IRR","61":"AUD","64":"NZD","55":"BRL","54":"ARS","56":"CLP",
+  "57":"COP","52":"MXN","51":"PEN","58":"VES","593":"USD"
+};
+const currencyFor = cc => CURRENCY_BY_CC[String(cc)] || "";
+
+const COUNTRY_CODES = [
+  ["237","Cameroon","🇨🇲"],["234","Nigeria","🇳🇬"],["233","Ghana","🇬🇭"],["221","Senegal","🇸🇳"],["225","Côte d'Ivoire","🇨🇮"],
+  ["229","Benin","🇧🇯"],["228","Togo","🇹🇬"],["226","Burkina Faso","🇧🇫"],["223","Mali","🇲🇱"],["227","Niger","🇳🇪"],
+  ["220","Gambia","🇬🇲"],["224","Guinea","🇬🇳"],["245","Guinea-Bissau","🇬🇼"],["238","Cabo Verde","🇨🇻"],["222","Mauritania","🇲🇷"],
+  ["231","Liberia","🇱🇷"],["232","Sierra Leone","🇸🇱"],["236","Central African Republic","🇨🇫"],["235","Chad","🇹🇩"],
+  ["241","Gabon","🇬🇦"],["242","Congo (Brazzaville)","🇨🇬"],["243","Congo (DRC)","🇨🇩"],["240","Equatorial Guinea","🇬🇶"],
+  ["239","São Tomé and Príncipe","🇸🇹"],["244","Angola","🇦🇴"],["258","Mozambique","🇲🇿"],["260","Zambia","🇿🇲"],
+  ["263","Zimbabwe","🇿🇼"],["267","Botswana","🇧🇼"],["264","Namibia","🇳🇦"],["266","Lesotho","🇱🇸"],["268","Eswatini","🇸🇿"],
+  ["27","South Africa","🇿🇦"],["230","Mauritius","🇲🇺"],["248","Seychelles","🇸🇨"],["261","Madagascar","🇲🇬"],
+  ["254","Kenya","🇰🇪"],["255","Tanzania","🇹🇿"],["256","Uganda","🇺🇬"],["250","Rwanda","🇷🇼"],["257","Burundi","🇧🇮"],
+  ["251","Ethiopia","🇪🇹"],["252","Somalia","🇸🇴"],["253","Djibouti","🇩🇯"],["291","Eritrea","🇪🇷"],["211","South Sudan","🇸🇸"],
+  ["249","Sudan","🇸🇩"],["20","Egypt","🇪🇬"],["218","Libya","🇱🇾"],["216","Tunisia","🇹🇳"],["213","Algeria","🇩🇿"],["212","Morocco","🇲🇦"],
+  ["1","United States / Canada","🇺🇸"],["44","United Kingdom","🇬🇧"],["33","France","🇫🇷"],["49","Germany","🇩🇪"],
+  ["32","Belgium","🇧🇪"],["31","Netherlands","🇳🇱"],["41","Switzerland","🇨🇭"],["39","Italy","🇮🇹"],["34","Spain","🇪🇸"],
+  ["351","Portugal","🇵🇹"],["353","Ireland","🇮🇪"],["46","Sweden","🇸🇪"],["47","Norway","🇳🇴"],["45","Denmark","🇩🇰"],
+  ["358","Finland","🇫🇮"],["48","Poland","🇵🇱"],["30","Greece","🇬🇷"],["90","Türkiye","🇹🇷"],["7","Russia / Kazakhstan","🇷🇺"],
+  ["380","Ukraine","🇺🇦"],["91","India","🇮🇳"],["92","Pakistan","🇵🇰"],["880","Bangladesh","🇧🇩"],["94","Sri Lanka","🇱🇰"],
+  ["977","Nepal","🇳🇵"],["86","China","🇨🇳"],["81","Japan","🇯🇵"],["82","South Korea","🇰🇷"],["852","Hong Kong","🇭🇰"],
+  ["65","Singapore","🇸🇬"],["60","Malaysia","🇲🇾"],["66","Thailand","🇹🇭"],["84","Vietnam","🇻🇳"],["62","Indonesia","🇮🇩"],
+  ["63","Philippines","🇵🇭"],["971","United Arab Emirates","🇦🇪"],["966","Saudi Arabia","🇸🇦"],["974","Qatar","🇶🇦"],
+  ["965","Kuwait","🇰🇼"],["962","Jordan","🇯🇴"],["961","Lebanon","🇱🇧"],["972","Israel","🇮🇱"],["964","Iraq","🇮🇶"],["98","Iran","🇮🇷"],
+  ["61","Australia","🇦🇺"],["64","New Zealand","🇳🇿"],["55","Brazil","🇧🇷"],["54","Argentina","🇦🇷"],["56","Chile","🇨🇱"],
+  ["57","Colombia","🇨🇴"],["52","Mexico","🇲🇽"],["51","Peru","🇵🇪"],["58","Venezuela","🇻🇪"],["593","Ecuador","🇪🇨"]
+];
+const CC_LIST = [...new Set(COUNTRY_CODES.map(c => c[0]))].sort((a,b) => b.length - a.length);
+
+// Someone typing (or pasting) their whole number as one blob — "+237677123456"
+// — instead of using the dropdown is the common case, not the exception.
+// Detect a leading country code so it isn't blindly duplicated on top of
+// whatever the dropdown happens to be set to. A "+"/"00" prefix is treated
+// as certain; a long bare digit string (more than a plausible local number)
+// is also checked, but a short one is left alone rather than guessed at.
+function detectCountryCode(raw){
+  let s = String(raw || '').trim();
+  if (s.startsWith('00')) s = '+' + s.slice(2);
+  let digits;
+  if (s.startsWith('+')) {
+    digits = s.slice(1).replace(/\D/g, '');
+  } else {
+    const stripped = s.replace(/\D/g, '');
+    if (stripped.length <= 10) return null;
+    digits = stripped;
+  }
+  for (const code of CC_LIST) {
+    if (digits.startsWith(code) && digits.length - code.length >= 6) {
+      return { cc: code, local: digits.slice(code.length) };
+    }
+  }
+  return null;
+}
+
+const I18N = {
+  en:{
+    barSub:"Leaders Camp 2026",
+    org:"Christian Missionary Fellowship International",
+    titleA:"Monthly",titleB:"Accountability",titleC:"Form",
+    ref:"Hebrews 13:7-8",
+    verse:"Remember your leaders, who spoke the word of God to you. Consider the outcome of their way of life and imitate their faith. Jesus Christ is the same yesterday and today and forever.",
+    invite:"You have committed to following and imitating the aspects of the life of the founding leader ZTF. We invite you to fulfill your commitments on this platform and always on this platform, you can submit your report of what you have obeyed each month and send it to us. May God bless you.",
+    begin:"Begin the form",railHead:"Entries",identLabel:"Identification",
+    phoneHint:"Your phone number links this report to your next one. Please use the same number every time.",
+    phone2:"Second phone number (optional)",
+    phone2Hint:"If you sometimes use a different number, add it here too — either one will find your record next time.",
+    noPhone:"I don't have any phone at all",
+    noPhoneHint:"Without a phone, your locality is used instead to find your record next time — please fill it in carefully and the same way each time.",
+    confirmPrompt:"We found other reports using this phone number. Which of these is you?",
+    confirmNone:"None of these — this is my first report",
+    newPersonNote:"A new record was created for you.",
+    linkedNote:"Linked to your existing record.",
+    duplicatePrompt:"You already have a {type} for {month}, from {date}. Submit this one anyway?",
+    typeGoalNoun:"goal",typeResultNoun:"result",
+    duplicateSubmit:"Submit anyway",
+    duplicateCancel:"Cancel, let me check",
+    name:"Name",phone:"Phone",phoneCode:"Country code",locality:"Locality",
+    province:"Spiritual province",nation:"Spiritual nation",
+    provinceHint:"Only Cameroon is divided into spiritual provinces. Choose another nation and this stays empty.",
+    monthNumber:"Month",
+    periodHint:"Which month this report covers. Not your date of birth.",
+    h2t:"Daily dynamic encounters with God",number:"Number",time:"Time",
+    h3t:"Bible reading",chapters:"Chapters read",timeReading:"Time spent reading",
+    h4t:"Bible memorisation",passages:"Passages memorised",
+    h5t:"Reading of Christian literature",h5h:"Title of each book read, the number of pages, and the author.",
+    lTitle:"Title",lPages:"Pages",lAuthor:"Author",addRow:"Add a book",
+    h6t:"Prayer alone",timeAlone:"Time spent praying alone",retreats:"15 minute retreats",
+    thanks:"Thanksgiving topics recorded",topics:"Prayer topics recorded",answered:"Prayers answered",
+    h7t:"Prayer with others, the house church or the local church",h7l:"Frequency, duration and setting",
+    h8t:"Soul winning",reached:"People reached with the gospel",conv:"Conversions",
+    bapW:"Baptised in water",bapH:"Baptised in the Holy Spirit",added:"Added to the church",
+    planted:"Churches planted",perChurch:"Members per church",
+    h9t:"Fasts",wed:"Wednesday fasts",complete:"Complete fasts of 3 days or more",encouraged:"People you encouraged to fast",
+    h10t:"Proclamation of the prophecy",h10h:"The entire prophecy of the overthrow of the satanic prince of Cameroon.",
+    h11t:"Finances",giving:"Giving to God",pct:"Percentage (%)",faithful:"Faithfulness",
+    savings:"Savings",hasSav:"Do you have savings?",howMuch:"How much ({cur})",
+    debts:"Debts",indebted:"Are you indebted?",debtAmt:"If yes, how much ({cur})",reimb:"Reimbursed so far ({cur})",
+    h12t:"Bertoua message",units:"Teaching units completed and marked",times:"Number of times you did them",
+    h13t:"Uprooting of idols",idols:"Idols uprooted",h14t:"Proclamations",
+    h15t:"Your involvement in the five year goal",h16t:"Distinct service to God and to man",h17t:"Making of disciples",
+    colophon:"School of Knowing and Serving God. Koume, 28 July 2026.",
+    print:"Print",submit:"Submit the accountability form",finSubmit:"Submit the finances form",copyIdent:"Use the same details as the accountability form",copyDone:"Details copied.",copyEmpty:"Fill in the accountability form first, then this will copy from it.",sending:"Sending",draftSaved:"Draft saved",
+    yes:"Yes",no:"No",
+    doneTitle:"Your accounts are recorded",
+    again:"Fill another form",
+    errName:"Enter your name before submitting.",
+    errPhone:"Enter your phone number before submitting — it's what links this report to your next one.",
+    errLocality:"Enter your locality before submitting — without a phone, it's what links this report to your next one.",
+    errNet:"The form could not be sent. Check your connection and try again. Your answers are still here.",
+    errServer:"Something went wrong on our end — this isn't a connection problem. Please try submitting again; your answers are still here.",
+    phCount:"e.g. 12",phEmail:"nom@exemple.com",phNation:"e.g. Cameroun",phConversionDate:"e.g. March 2020",
+    phTime:"e.g. 30 min a day",
+    phPct:"e.g. 10 (a number from 0 to 100, not an amount)",
+    phMoney:"e.g. 25000",
+    phName:"First name and surname",
+    phPhone:"6XX XX XX XX",
+    phLocality:"e.g. Yaounde",
+    phProvince:"e.g. Cameroun",
+    phMemo:"e.g. Psalm 23, Romans 8",
+    phText:"In a few words",
+    errTooBig:"« {label} »: that number is too large. Check you have not typed a phone number or an amount in this box.",
+    errRange:"« {label} »: enter a number between {min} and {max}. Your answers are still here.",
+    errPct:"« {label} »: this is a percentage, so a number from 0 to 100. If you wrote an amount in FCFA, replace it with the percentage you give.",
+    errChoice:"« {label} »: choose one of the options offered.",
+    errField:"« {label} » was refused. Please check that line and try again. Your answers are still here.",
+    months:["January","February","March","April","May","June","July","August","September","October","November","December"],
+    finTitleA:"Imitators of ZTF",
+    finIntro:"I commit to imitating the founding leader, and bringing as many people as possible to imitate him.",
+    finEmail:"Email",finNation:"Nation",
+    conversionDate:"Date of conversion",
+    commitIntro:"I commit to imitating the founding leader, and bringing as many people as possible to imitate him.",
+    c1:"1. I commit to having at least one dynamic encounter with God every day:",
+    c2:"2. I commit to reading my Bible every day and completing it:",
+    c2opt1:"1 time",c2opt2:"2 times",c2opt3:"3 times",
+    c2other:"Or, this many times by this same time next year",
+    c6:"6. I commit to memorising:",
+    c6opt1:"The entire Bible",c6opt2:"The entire New Testament",c6opt3:"Some portion(s) of the Bible",
+    c6other:"Specify the portion(s)",
+    c3:"3. I commit to uprooting all the idols in the book, \"Be Filled with the Holy Spirit\":",
+    c3opt1:"Twice a month",c3opt2:"Once every month",c3opt3:"Once every two months",
+    c3other:"Other frequency",
+    c7:"7. I commit to doing every teaching unit of the Bertoua Message:",
+    c7opt1:"7 times",c7opt2:"12 times",c7opt3:"25 times",
+    c7other:"Or, this many times",
+    finDoneTitle:"Your commitments are recorded"
+  },
+  fr:{
+    barSub:"Camp des Leaders 2026",
+    org:"Communauté Missionnaire Chrétienne Internationale",
+    titleA:"Fiche de Compte Rendu",titleB:"Mensuelle",titleC:"Imitateurs De ZTF",
+    ref:"Hébreux 13:7-8",
+    verse:"Souvenez-vous de vos conducteurs qui vous ont annoncé la parole de Dieu ; considérez quelle a été la fin de leur vie, et imitez leur foi. Jésus-Christ est le même hier, aujourd'hui, et éternellement.",
+    invite:"Tu t'es engagé à suivre et à imiter les aspects de la vie du leader fondateur ZTF. Nous t'invitons à remplir tes engagements sur cette plateforme et toujours sur cette plateforme, tu peux remplir ton compte rendu de ce que tu as obéis chaque mois et nous l'envoyer. Que Dieu te bénisse.",
+    begin:"Commencer la fiche",railHead:"Rubriques",identLabel:"Identification",
+    phoneHint:"Votre numéro de téléphone relie cette fiche à la prochaine. Utilisez le même numéro à chaque fois.",
+    phone2:"Deuxième numéro de téléphone (facultatif)",
+    phone2Hint:"Si vous utilisez parfois un autre numéro, ajoutez-le aussi ici — l'un ou l'autre retrouvera votre dossier la prochaine fois.",
+    noPhone:"Je n'ai aucun téléphone",
+    noPhoneHint:"Sans téléphone, votre localité est utilisée à la place pour retrouver votre dossier la prochaine fois — veuillez la remplir avec soin et de la même façon à chaque fois.",
+    confirmPrompt:"Nous avons trouvé d'autres fiches utilisant ce numéro de téléphone. Laquelle est la vôtre ?",
+    confirmNone:"Aucune de celles-ci — c'est ma première fiche",
+    newPersonNote:"Un nouveau dossier a été créé pour vous.",
+    linkedNote:"Lié à votre dossier existant.",
+    duplicatePrompt:"Vous avez déjà un {type} pour {month}, daté du {date}. Envoyer quand même ?",
+    typeGoalNoun:"objectif",typeResultNoun:"résultat",
+    duplicateSubmit:"Envoyer quand même",
+    duplicateCancel:"Annuler, je vais vérifier",
+    name:"Nom",phone:"Téléphone",phoneCode:"Indicatif du pays",locality:"Localité",
+    province:"Province spirituelle",nation:"Nation spirituelle",
+    provinceHint:"Seul le Cameroun est divisé en provinces spirituelles. Choisissez une autre nation et ce champ reste vide.",
+    monthNumber:"Mois",
+    periodHint:"Le mois que couvre cette fiche. Ce n'est pas votre date de naissance.",
+    h2t:"Rencontres dynamiques quotidiennes avec Dieu",number:"Nombre",time:"Temps",
+    h3t:"Lecture de la Bible",chapters:"Chapitres lus",timeReading:"Temps consacré à la lecture",
+    h4t:"Mémorisation de la Bible",passages:"Passages mémorisés",
+    h5t:"Lecture de la littérature chrétienne",h5h:"Titre de chaque livre lu, le nombre de pages et l'auteur.",
+    lTitle:"Titre",lPages:"Pages",lAuthor:"Auteur",addRow:"Ajouter un livre",
+    h6t:"Prière seul",timeAlone:"Temps passé à prier seul",retreats:"Retraites de 15 minutes",
+    thanks:"Sujets d'action de grâce enregistrés",topics:"Sujets de prière enregistrés",answered:"Prières exaucées",
+    h7t:"Prière avec d'autres, l'église de maison ou l'église locale",h7l:"Fréquence, durée et cadre",
+    h8t:"Gagner des âmes",reached:"Personnes atteintes par l'évangile",conv:"Conversions",
+    bapW:"Baptisées d'eau",bapH:"Baptisées du Saint-Esprit",added:"Ajoutées à l'église",
+    planted:"Églises implantées",perChurch:"Membres par église",
+    h9t:"Jeûnes",wed:"Jeûnes du mercredi",complete:"Jeûnes complets de 3 jours ou plus",encouraged:"Personnes encouragées à jeûner",
+    h10t:"Proclamation de la prophétie",h10h:"Toute la prophétie du renversement du prince satanique du Cameroun.",
+    h11t:"Finances",giving:"Donner à Dieu",pct:"Pourcentage (%)",faithful:"Fidélité",
+    savings:"Épargne",hasSav:"Avez-vous une épargne ?",howMuch:"De combien ({cur})",
+    debts:"Dettes",indebted:"Êtes-vous endetté ?",debtAmt:"Si oui, de combien ({cur})",reimb:"Montant déjà remboursé ({cur})",
+    h12t:"Message de Bertoua",units:"Unités d'enseignement achevées et corrigées",times:"Nombre de fois que vous les avez faites",
+    h13t:"Déracinement des idoles",idols:"Idoles déracinées",h14t:"Proclamations",
+    h15t:"Votre implication dans l'objectif quinquennal",h16t:"Service distinct à Dieu et à l'homme",h17t:"Formation de disciples",
+    colophon:"École de la Connaissance et du Service de Dieu. Koumé, le 28 juillet 2026.",
+    print:"Imprimer",submit:"Envoyer la fiche de compte rendu",finSubmit:"Envoyer la fiche de finances",copyIdent:"Reprendre les mêmes informations que la fiche de compte rendu",copyDone:"Informations reprises.",copyEmpty:"Remplissez d'abord la fiche de compte rendu, ce bouton la recopiera ensuite.",sending:"Envoi en cours",draftSaved:"Brouillon enregistré",
+    yes:"Oui",no:"Non",
+    doneTitle:"Vos comptes sont enregistrés",
+    again:"Remplir une autre fiche",
+    errName:"Entrez votre nom avant d'envoyer.",
+    errPhone:"Entrez votre numéro de téléphone avant d'envoyer — c'est ce qui relie cette fiche à la prochaine.",
+    errLocality:"Entrez votre localité avant d'envoyer — sans téléphone, c'est ce qui relie cette fiche à la prochaine.",
+    errNet:"La fiche n'a pas pu être envoyée. Vérifiez votre connexion et réessayez. Vos réponses sont conservées.",
+    errServer:"Une erreur s'est produite de notre côté — ce n'est pas un problème de connexion. Veuillez réessayer d'envoyer ; vos réponses sont conservées.",
+    phCount:"ex : 12",phEmail:"nom@exemple.com",phNation:"ex : Cameroun",phConversionDate:"ex : mars 2020",
+    phTime:"ex : 30 min par jour",
+    phPct:"ex : 10 (un nombre de 0 à 100, pas un montant)",
+    phMoney:"ex : 25000",
+    phName:"Prénom et nom",
+    phPhone:"6XX XX XX XX",
+    phLocality:"ex : Yaoundé",
+    phProvince:"ex : Cameroun",
+    phMemo:"ex : Psaume 23, Romains 8",
+    phText:"En quelques mots",
+    errTooBig:"« {label} » : ce nombre est trop grand. Vérifiez que vous n'avez pas saisi un numéro de téléphone ou un montant dans cette case.",
+    errRange:"« {label} » : entrez un nombre entre {min} et {max}. Vos réponses sont conservées.",
+    errPct:"« {label} » : c'est un pourcentage, donc un nombre de 0 à 100. Si vous avez écrit un montant en FCFA, remplacez-le par le pourcentage que vous donnez.",
+    errChoice:"« {label} » : choisissez l'une des options proposées.",
+    errField:"« {label} » a été refusé. Vérifiez cette ligne et réessayez. Vos réponses sont conservées.",
+    months:["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
+    finTitleA:"Imitateurs de ZTF",
+    finIntro:"Je m'engage à imiter le leader fondateur, et amener le maximum de personnes possible à l'imiter.",
+    finEmail:"Email",finNation:"Nation",
+    conversionDate:"Date de conversion",
+    commitIntro:"Je m'engage à imiter le leader fondateur, et amener le maximum de personnes possible à l'imiter.",
+    c1:"1. Je m'engage à avoir au moins une rencontre dynamique quotidienne avec Dieu chaque jour :",
+    c2:"2. Je m'engage à lire ma Bible chaque jour et à l'achever :",
+    c2opt1:"01 fois",c2opt2:"02 fois",c2opt3:"03 fois",
+    c2other:"Ou, ce nombre de fois d'ici à cette même période l'année prochaine",
+    c6:"6. Je m'engage à mémoriser :",
+    c6opt1:"La Bible entière",c6opt2:"Le Nouveau Testament entier",c6opt3:"Une/des portion(s) de la Bible",
+    c6other:"Spécifie la(les) portion(s)",
+    c3:"3. Je m'engage à déraciner toutes les idoles dans le livre, « Sois rempli du Saint-Esprit » :",
+    c3opt1:"02 fois par mois",c3opt2:"01 fois chaque mois",c3opt3:"01 fois tous les deux mois",
+    c3other:"Autre périodicité",
+    c7:"7. Je m'engage à faire chaque unité d'enseignement du Message de Bertoua :",
+    c7opt1:"07 fois",c7opt2:"12 fois",c7opt3:"25 fois",
+    c7other:"Ou, ce nombre de fois",
+    finDoneTitle:"Tes engagements sont enregistrés"
+  }
+};
+
+I18N.es = {
+  ...I18N.en,
+  barSub:"Campamento de líderes 2026",
+  org:"Comunidad Misionera Cristiana Internacional",
+  titleA:"Formulario",titleB:"Mensual",titleC:"de Responsabilidad",
+  ref:"Hebreos 13:7-8",
+  verse:"Acordaos de vuestros dirigentes, que os hablaron la palabra de Dios; mirad cuál fue el término de su conducta, e imitad su fe. Jesucristo es el mismo ayer, hoy y siempre.",
+  invite:"Te has comprometido a seguir e imitar los aspectos de la vida del líder fundador ZTF. Te invitamos a cumplir tus compromisos en esta plataforma y, siempre en esta plataforma, puedes presentar tu informe de lo que has obedecido cada mes y enviárnoslo. Que Dios te bendiga.",
+  begin:"Empezar el formulario",railHead:"Secciones",identLabel:"Identificación",
+  phoneHint:"Tu número de teléfono enlaza este informe con el siguiente. Por favor, usa el mismo número cada vez.",
+  phone2:"Segundo número de teléfono (opcional)",
+  phone2Hint:"Si a veces usas un número diferente, añádelo también aquí; cualquiera de los dos encontrará tu registro la próxima vez.",
+  noPhone:"No tengo teléfono",
+  noPhoneHint:"Sin teléfono, tu localidad se usa para encontrar tu registro la próxima vez; por favor, rellénala con cuidado y siempre de la misma manera.",
+  confirmPrompt:"Encontramos otros informes usando este número de teléfono. ¿Cuál eres tú?",
+  confirmNone:"Ninguno de estos; este es mi primer informe",
+  newPersonNote:"Se creó un nuevo registro para ti.",
+  linkedNote:"Vinculado a tu registro existente.",
+  duplicatePrompt:"Ya tienes un {type} para {month}, del {date}. ¿Enviar de todos modos?",
+  typeGoalNoun:"objetivo",typeResultNoun:"resultado",
+  duplicateSubmit:"Enviar de todos modos",
+  duplicateCancel:"Cancelar, voy a revisar",
+  name:"Nombre",phone:"Teléfono",phoneCode:"Código de país",locality:"Localidad",
+  province:"Provincia espiritual",nation:"Nación espiritual",
+  provinceHint:"Solo Camerún está dividido en provincias espirituales. Elige otra nación y este campo queda vacío.",
+  monthNumber:"Mes",
+  periodHint:"Qué mes cubre este informe. No es tu fecha de nacimiento.",
+  h2t:"Encuentros dinámicos diarios con Dios",number:"Número",time:"Tiempo",
+  h3t:"Lectura de la Biblia",chapters:"Capítulos leídos",timeReading:"Tiempo dedicado a leer",
+  h4t:"Memorización bíblica",passages:"Pasajes memorizados",
+  h5t:"Lectura de literatura cristiana",h5h:"Título de cada libro leído, el número de páginas y el autor.",
+  lTitle:"Título",lPages:"Páginas",lAuthor:"Autor",addRow:"Añadir un libro",
+  h6t:"Oración en soledad",timeAlone:"Tiempo dedicado a orar en soledad",retreats:"Retraites de 15 minutos",
+  thanks:"Temas de acción de gracias registrados",topics:"Temas de oración registrados",answered:"Oraciones respondidas",
+  h7t:"Oración con otros, la iglesia en casa o la iglesia local",h7l:"Frecuencia, duración y contexto",
+  h8t:"Ganar almas",reached:"Personas alcanzadas con el evangelio",conv:"Conversiones",
+  bapW:"Bautizados en agua",bapH:"Bautizados en el Espíritu Santo",added:"Añadidos a la iglesia",
+  planted:"Iglesias plantadas",perChurch:"Miembros por iglesia",
+  h9t:"Ayunos",wed:"Ayunos del miércoles",complete:"Ayunos completos de 3 días o más",encouraged:"Personas que animaste a ayunar",
+  h10t:"Proclamación de la profecía",h10h:"Toda la profecía de la caída del príncipe satánico de Camerún.",
+  h11t:"Finanzas",giving:"Dar a Dios",pct:"Porcentaje (%)",faithful:"Fidelidad",
+  savings:"Ahorros",hasSav:"¿Tienes ahorros?",howMuch:"¿Cuánto ({cur})?",
+  debts:"Deudas",indebted:"¿Estás endeudado?",debtAmt:"Si sí, ¿cuánto ({cur})?",reimb:"Reembolsado hasta ahora ({cur})",
+  h12t:"Mensaje de Bertoua",units:"Unidades de enseñanza completadas y marcadas",times:"Número de veces que las hiciste",
+  h13t:"Arrancar ídolos",idols:"Ídolos arrancados",h14t:"Proclamaciones",
+  h15t:"Tu participación en la meta de cinco años",h16t:"Servicio distinto a Dios y al hombre",h17t:"Hacer discípulos",
+  colophon:"Escuela de conocer y servir a Dios. Koume, 28 de julio de 2026.",
+  print:"Imprimir",submit:"Enviar el formulario de responsabilidad",finSubmit:"Enviar el formulario de finanzas",copyIdent:"Usar los mismos datos que el formulario de responsabilidad",copyDone:"Datos copiados.",copyEmpty:"Primero rellena el formulario de responsabilidad y luego esto lo copiará.",sending:"Enviando",draftSaved:"Borrador guardado",
+  yes:"Sí",no:"No",
+  doneTitle:"Tus cuentas han quedado registradas",
+  again:"Rellenar otro formulario",
+  errName:"Introduce tu nombre antes de enviar.",
+  errPhone:"Introduce tu número de teléfono antes de enviar; es lo que enlaza este informe con el siguiente.",
+  errLocality:"Introduce tu localidad antes de enviar; sin teléfono, es lo que enlaza este informe con el siguiente.",
+  errNet:"No se pudo enviar el formulario. Revisa tu conexión e inténtalo de nuevo. Tus respuestas siguen aquí.",
+  errServer:"Algo salió mal por nuestra parte; no es un problema de conexión. Inténtalo de nuevo; tus respuestas siguen aquí.",
+  phCount:"p. ej. 12",phEmail:"nombre@ejemplo.com",phNation:"p. ej. Camerún",phConversionDate:"p. ej. marzo de 2020",
+  phTime:"p. ej. 30 min al día",
+  phPct:"p. ej. 10 (un número de 0 a 100, no una cantidad)",
+  phMoney:"p. ej. 25000",
+  phName:"Nombre y apellido",
+  phPhone:"6XX XX XX XX",
+  phLocality:"p. ej. Yaoundé",
+  phProvince:"p. ej. Camerún",
+  phMemo:"p. ej. Salmo 23, Romanos 8",
+  phText:"En pocas palabras",
+  errTooBig:"« {label} »: ese número es demasiado grande. Comprueba que no has escrito un número de teléfono o una cantidad en este campo.",
+  errRange:"« {label} »: introduce un número entre {min} y {max}. Tus respuestas siguen aquí.",
+  errPct:"« {label} »: esto es un porcentaje, así que un número de 0 a 100. Si escribiste una cantidad en FCFA, reemplázala por el porcentaje que das.",
+  errChoice:"« {label} »: elige una de las opciones ofrecidas.",
+  errField:"« {label} » fue rechazada. Comprueba esa línea e inténtalo de nuevo. Tus respuestas siguen aquí.",
+  months:["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
+  finTitleA:"Imitadores de ZTF",
+  finIntro:"Me comprometo a imitar al líder fundador, y a llevar al máximo de personas posible a imitarlo.",
+  finEmail:"Correo electrónico",finNation:"Nación",
+  conversionDate:"Fecha de conversión",
+  commitIntro:"Me comprometo a imitar al líder fundador, y a llevar al máximo de personas posible a imitarlo.",
+  c1:"1. Me comprometo a tener al menos un encuentro dinámico con Dios cada día:",
+  c2:"2. Me comprometo a leer mi Biblia cada día y terminarla:",
+  c2opt1:"1 vez",c2opt2:"2 veces",c2opt3:"3 veces",
+  c2other:"O, esta cantidad de veces para esta misma época el próximo año",
+  c6:"6. Me comprometo a memorizar:",
+  c6opt1:"Toda la Biblia",c6opt2:"Todo el Nuevo Testamento",c6opt3:"Algunas porción(es) de la Biblia",
+  c6other:"Especifica la(s) porción(es)",
+  c3:"3. Me comprometo a arrancar todos los ídolos en el libro «Sé lleno del Espíritu Santo»:",
+  c3opt1:"Dos veces al mes",c3opt2:"Una vez al mes",c3opt3:"Una vez cada dos meses",
+  c3other:"Otra frecuencia",
+  c7:"7. Me comprometo a hacer cada unidad de enseñanza del Mensaje de Bertoua:",
+  c7opt1:"7 veces",c7opt2:"12 veces",c7opt3:"25 veces",
+  c7other:"O, esta cantidad de veces",
+  finDoneTitle:"Tus compromisos han quedado registrados"
+};
+
+const DRAFT_KEY = 'cmfi-draft-v1';
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+// The accountability form (sheet) is commented out below, leaving only the
+// finances form on the page. Every piece of setup below that only makes
+// sense for the accountability form is gated on this, so removing its
+// markup can never leave a dangling listener or init step reaching for an
+// element that no longer exists.
+const hasAccountabilityForm = !!$('#sheet');
+const navLang = (navigator.language || 'en').toLowerCase();
+let lang = navLang.startsWith('fr') ? 'fr' : (navLang.startsWith('es') ? 'es' : 'en');
+
+// localStorage throws in some browsers/embedded webviews (Safari private
+// mode, in-app browsers like WhatsApp or Facebook's — common for links
+// shared this way) instead of just being unavailable. An unguarded call
+// anywhere at the top level halts the whole script before a single event
+// listener attaches, which breaks everything on the page, not just
+// drafts/stickiness — so every access goes through this wrapper instead of
+// calling localStorage directly.
+const storage = {
+  get(key){ try { return localStorage.getItem(key); } catch (e) { return null; } },
+  set(key, val){ try { localStorage.setItem(key, val); } catch (e) {} },
+  remove(key){ try { localStorage.removeItem(key); } catch (e) {} }
+};
+
+// entry_type is never shown or chosen on the form — it's an internal
+// distinction for us, not something a submitter should have to think about.
+// Staff doing the paper-to-digital goal transcription open the form with
+// ?entry=goal on the link; everyone else gets the default 'result' with
+// nothing on screen either way. Sticky per device (separate from the
+// per-answer draft, which clears after every submit) so staff don't need
+// the query string on every reload during a long bulk-entry session.
+const ENTRY_TYPE_KEY = 'cmfi-entrytype-v1';
+const urlEntryType = new URLSearchParams(location.search).get('entry');
+let entryType = urlEntryType === 'goal' || urlEntryType === 'result'
+  ? urlEntryType
+  : (storage.get(ENTRY_TYPE_KEY) === 'goal' ? 'goal' : 'result');
+function applyEntryType(t){
+  entryType = t === 'goal' ? 'goal' : 'result';
+  storage.set(ENTRY_TYPE_KEY, entryType);
+}
+applyEntryType(entryType);
+
+const ROMAN = ['i','ii','iii','iv','v','vi','vii','viii'];
+function litRow(i){
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>' + (ROMAN[i] || i+1) + '</td>' +
+    '<td><input class="f-i lit-title"></td>' +
+    '<td><input class="f-i lit-pages"></td>' +
+    '<td><input class="f-i lit-author"></td>';
+  return tr;
+}
+function setLitRows(n){
+  const b = $('#litBody');
+  while (b.children.length < n) b.appendChild(litRow(b.children.length));
+}
+if (hasAccountabilityForm) {
+  setLitRows(4);
+  $('#addLit').addEventListener('click', () => {
+    const b = $('#litBody');
+    if (b.children.length < 8) setLitRows(b.children.length + 1);
+  });
+}
+
+if (hasAccountabilityForm) {
+  const rail = $('#rail');
+  for (let i = 1; i <= 16; i++){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rail-i';
+    b.dataset.target = 'i' + i;
+    b.textContent = String(i).padStart(2,'0');
+    b.setAttribute('aria-label', 'Entry ' + i);
+    b.addEventListener('click', () => $('#i'+i).scrollIntoView({ block:'start' }));
+    rail.appendChild(b);
+  }
+}
+function refreshRail(){
+  if (!hasAccountabilityForm) return;
+  let done = 0;
+  for (let i = 1; i <= 16; i++){
+    const sec = $('#i'+i);
+    const filled = Array.from(sec.querySelectorAll('input,select,textarea'))
+      .some(el => el.type === 'checkbox' ? el.checked : el.value.trim() !== '');
+    $('.rail-i[data-target="i'+i+'"]').dataset.filled = filled;
+    if (filled) done++;
+  }
+  $('#meter').textContent = done + '/16';
+}
+if (hasAccountabilityForm && 'IntersectionObserver' in window){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const btn = $('.rail-i[data-target="'+e.target.id+'"]');
+      if (btn) btn.dataset.here = e.isIntersecting;
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  for (let i = 1; i <= 16; i++) io.observe($('#i'+i));
+}
+
+function applyLang(l){
+  lang = l;
+  const t = I18N[l];
+  document.documentElement.lang = l;
+  $$('[data-i18n]').forEach(el => { if (t[el.dataset.i18n] !== undefined) el.textContent = t[el.dataset.i18n]; });
+  $$('[data-i18n-ph]').forEach(el => { if (t[el.dataset.i18nPh] !== undefined) el.placeholder = t[el.dataset.i18nPh]; });
+  $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+  $$('select.cc').forEach(s => {
+    const k = s.value;
+    s.innerHTML = COUNTRY_CODES.map(c => '<option value="'+c[0]+'">'+c[2]+' +'+c[0]+' '+c[1]+'</option>').join('');
+    s.value = k || '237';
+  });
+  // Nation list reuses the phone country codes: the same 106 countries, same
+  // names, one source of truth. Province is Cameroon only, so it is gated on
+  // the nation rather than offered to everyone and quietly ignored.
+  $$('select.nation').forEach(sel => {
+    const keep = sel.value;
+    sel.innerHTML = '<option value=""></option>' +
+      COUNTRY_CODES.map(c => '<option value="' + c[1] + '">' + c[2] + ' ' + c[1] + '</option>').join('');
+    sel.value = keep || 'Cameroon';
+  });
+  $$('select.province').forEach(sel => {
+    const keep = sel.value;
+    sel.innerHTML = '<option value=""></option>' +
+      CMR_PROVINCES.map(n => '<option value="' + n + '">' + n + '</option>').join('');
+    sel.value = keep || '';
+  });
+  applyNation();
+  applyCurrency();
+
+  $$('select.month').forEach(s => {
+    const k = s.value;
+    s.innerHTML = '<option value=""></option>' + t.months.map((m,i) => '<option value="'+(i+1)+'">'+m+'</option>').join('');
+    s.value = k;
+  });
+  $$('select.yesno').forEach(s => {
+    const k = s.value;
+    s.innerHTML = '<option value=""></option><option value="yes">'+t.yes+'</option><option value="no">'+t.no+'</option>';
+    s.value = k;
+  });
+  document.title = l === 'fr'
+    ? 'Fiche de compte rendu mensuelle imitateurs de ZTF'
+    : (l === 'es' ? 'Formulario mensual de responsabilidad de Imitadores de ZTF' : 'Imitators of ZTF Accountability Form');
+}
+$$('.lang button').forEach(b => b.addEventListener('click', () => { applyLang(b.dataset.lang); if (hasAccountabilityForm) saveDraft(); }));
+
+function wirePhoneBlur(localName, ccName){
+  $('[name="' + localName + '"]').addEventListener('blur', function(){
+    const detected = detectCountryCode(this.value);
+    if (detected) {
+      $('[name="' + ccName + '"]').value = detected.cc;
+      this.value = detected.local;
+      saveDraft();
+    }
+  });
+}
+if (hasAccountabilityForm) {
+  wirePhoneBlur('phone_local', 'phone_cc');
+  wirePhoneBlur('phone2_local', 'phone2_cc');
+}
+wirePhoneBlur('fin_phone_local', 'fin_phone_cc');
+
+function applyNoPhone(on){
+  $('#phoneFields').hidden = on;
+  $('#noPhoneHint').hidden = !on;
+}
+if (hasAccountabilityForm) {
+  $('#noPhoneCheck').addEventListener('change', function(){ applyNoPhone(this.checked); applyCurrency(); saveDraft(); });
+}
+
+function combinePhone(p, localKey, ccKey){
+  const detected = detectCountryCode(p[localKey]);
+  const cc = detected ? detected.cc : p[ccKey];
+  const localDigits = (detected ? detected.local : (p[localKey] || '')).replace(/\D/g, '');
+  return localDigits ? ('+' + cc + localDigits) : '';
+}
+
+function collect(){
+  const p = { entry_type: entryType };
+  $$('#sheet [name]').forEach(el => { p[el.name] = el.type === 'checkbox' ? el.checked : el.value; });
+  const litBody = $('#litBody');
+  p.literature = litBody ? Array.from(litBody.children).map(tr => ({
+    title: tr.querySelector('.lit-title').value.trim(),
+    pages: tr.querySelector('.lit-pages').value.trim(),
+    author: tr.querySelector('.lit-author').value.trim()
+  })) : [];
+  p.currency = (!p.no_phone && currencyFor(p.phone_cc)) ||
+    currencyFor((COUNTRY_CODES.find(c => c[1] === p.spiritual_nation) || [])[0]) || null;
+  p.phone = p.no_phone ? '' : combinePhone(p, 'phone_local', 'phone_cc');
+  p.phone2 = p.no_phone ? '' : combinePhone(p, 'phone2_local', 'phone2_cc');
+  return p;
+}
+function restore(p){
+  if (!p) return;
+  if (p.entry_type) applyEntryType(p.entry_type);
+  if (Array.isArray(p.literature)) setLitRows(Math.max(4, p.literature.length));
+  $$('#sheet [name]').forEach(el => {
+    if (p[el.name] === undefined) return;
+    if (el.type === 'checkbox') el.checked = !!p[el.name];
+    else el.value = p[el.name];
+  });
+  applyNoPhone($('#noPhoneCheck').checked);
+  // A draft can carry a nation other than Cameroon, or a different country
+  // code. Without these the restored page would show an editable province for
+  // a member who has none, and money labels in the wrong currency.
+  applyNation();
+  applyCurrency();
+  Array.from($('#litBody').children).forEach((tr,i) => {
+    const r = (p.literature || [])[i];
+    if (!r) return;
+    tr.querySelector('.lit-title').value = r.title || '';
+    tr.querySelector('.lit-pages').value = r.pages || '';
+    tr.querySelector('.lit-author').value = r.author || '';
+  });
+}
+
+let draftTimer;
+function saveDraft(){
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(() => {
+    storage.set(DRAFT_KEY, JSON.stringify(collect()));
+    const d = $('#draft');
+    if (d) {
+      d.dataset.on = 'true';
+      setTimeout(() => { d.dataset.on = 'false'; }, 1800);
+    }
+  }, 700);
+}
+function clearDraft(){ storage.remove(DRAFT_KEY); }
+
+// Finances form (see below) is a second, independent form on this same
+// page — its own draft key, its own collect/restore, kept fully separate
+// from the monthly accountability form above.
+const FIN_DRAFT_KEY = 'cmfi-finance-draft-v1';
+// The commitment items are native radio groups (several inputs share one
+// [name]), so the generic [name] collection has to read only the checked
+// one's value, not every element in the group — otherwise the last radio in
+// DOM order would silently win regardless of which one is actually checked.
+function collectFinanceRaw(){
+  const p = {};
+  $$('#financeSheet [name]').forEach(el => {
+    if (el.type === 'radio') { if (el.checked) p[el.name] = el.value; }
+    else { p[el.name] = el.value; }
+  });
+  return p;
+}
+function restoreFinance(p){
+  if (!p) return;
+  $$('#financeSheet [name]').forEach(el => {
+    if (p[el.name] === undefined) return;
+    if (el.type === 'radio') { el.checked = el.value === p[el.name]; }
+    else { el.value = p[el.name]; }
+  });
+}
+// Maps the DOM's fin_-prefixed field names to the clean keys the backend
+// will expect — kept separate from collectFinanceRaw() so the draft
+// round-trips through the DOM's own names untouched.
+function financePayload(){
+  const p = collectFinanceRaw();
+  return {
+    full_name: p.fin_full_name,
+    locality: p.fin_locality,
+    phone: combinePhone(p, 'fin_phone_local', 'fin_phone_cc'),
+    email: p.fin_email,
+    nation: p.fin_nation,
+    conversion_date: p.fin_conversion_date,
+    commit_daily_encounter: p.fin_commit_daily_encounter,
+    bible_completions_choice: p.fin_bible_completions_choice,
+    bible_completions_other: p.fin_bible_completions_other,
+    bible_memorization_choice: p.fin_bible_memorization_choice,
+    bible_memorization_portions: p.fin_bible_memorization_portions,
+    idol_uprooting_frequency: p.fin_idol_uprooting_frequency,
+    idol_uprooting_other: p.fin_idol_uprooting_other,
+    bertoua_units_target: p.fin_bertoua_units_target,
+    bertoua_units_other: p.fin_bertoua_units_other
+  };
+}
+let finDraftTimer;
+function saveFinanceDraft(){
+  clearTimeout(finDraftTimer);
+  finDraftTimer = setTimeout(() => {
+    storage.set(FIN_DRAFT_KEY, JSON.stringify(collectFinanceRaw()));
+    const d = $('#finDraft');
+    d.dataset.on = 'true';
+    setTimeout(() => { d.dataset.on = 'false'; }, 1800);
+  }, 700);
+}
+function clearFinanceDraft(){ storage.remove(FIN_DRAFT_KEY); }
+
+// Province only means something for Cameroon. Rather than let a member from
+// Togo pick "Moungo", the field is disabled and cleared for every other
+// nation, so an impossible combination cannot be submitted at all.
+function applyNation(){
+  const nation = $('[name="spiritual_nation"]');
+  const prov = $('[name="spiritual_province"]');
+  if (!nation || !prov) return;
+  const isCameroon = nation.value === 'Cameroon';
+  prov.disabled = !isCameroon;
+  if (!isCameroon) prov.value = '';
+  const hint = $('#provinceHint');
+  if (hint) hint.hidden = isCameroon;
+  prov.closest('label').style.opacity = isCameroon ? '' : '.5';
+}
+
+// The money boxes say which currency they are in, taken from the country code
+// the member already chose for their phone. If the code is one we have no
+// currency for, the label simply drops the parenthetical rather than lying.
+function applyCurrency(){
+  const t = I18N[lang];
+  const cc = $('[name="phone_cc"]');
+  const nation = $('[name="spiritual_nation"]');
+  // The phone code is the better signal of where a member actually is, so it
+  // wins. But a member with no phone at all still picked a nation, and that
+  // is then the only country we know about them.
+  const noPhone = $('#noPhoneCheck') && $('#noPhoneCheck').checked;
+  let cur = (!noPhone && cc) ? currencyFor(cc.value) : '';
+  if (!cur && nation && nation.value) {
+    const row = COUNTRY_CODES.find(c => c[1] === nation.value);
+    if (row) cur = currencyFor(row[0]);
+  }
+  const put = (key, name) => {
+    const el = $('[name="' + name + '"]');
+    const label = el && el.closest('label') && el.closest('label').querySelector('.f-l');
+    if (label) label.textContent = (t[key] || '').replace('{cur}', cur).replace(' ()', '');
+  };
+  put('howMuch','savings_amount');
+  put('debtAmt','debt_amount');
+  put('reimb','debt_reimbursed');
+}
+
+// The finances form keeps its own identity fields on purpose: it is a monthly
+// report a member may send without the accountability sheet. That independence
+// is worth keeping, but it should not mean typing a name and phone twice on
+// one page, so it can be copied across instead of retyped.
+const copyBtn = $('#copyIdentBtn');
+if (copyBtn) copyBtn.addEventListener('click', () => {
+  const t = I18N[lang];
+  const said = $('#copyIdentSaid');
+  const source = $('[name="full_name"]');
+  if (!source || !source.value.trim()) { if (said) said.textContent = t.copyEmpty; return; }
+  const pairs = [
+    ['full_name', 'fin_full_name'], ['locality', 'fin_locality'],
+    ['phone_cc', 'fin_phone_cc'], ['phone_local', 'fin_phone_local'],
+    ['spiritual_nation', 'fin_nation']
+  ];
+  for (const [from, to] of pairs) {
+    const a = $('[name="' + from + '"]'), b = $('[name="' + to + '"]');
+    if (a && b && a.value) { b.value = a.value; b.dispatchEvent(new Event('input', { bubbles: true })); }
+  }
+  if (said) said.textContent = t.copyDone;
+});
+
+function say(msg, tone){ const s = $('#status'); s.textContent = msg; s.dataset.tone = tone || ''; }
+document.addEventListener('change', e => {
+  if (e.target.name === 'spiritual_nation') { applyNation(); applyCurrency(); }
+  if (e.target.name === 'phone_cc' || e.target.id === 'noPhoneCheck') applyCurrency();
+});
+
+if (hasAccountabilityForm) {
+  $('#beginBtn').addEventListener('click', () => $('#ident').scrollIntoView({ block:'start' }));
+  $('#printBtn').addEventListener('click', () => window.print());
+  $('#againBtn').addEventListener('click', () => { clearDraft(); location.reload(); });
+}
+
+function showDone(data){
+  const t = I18N[lang];
+  clearDraft();
+  say('', '');
+  $('#confirmPanel').dataset.on = 'false';
+  $('#formArea').hidden = true;
+  $('#foot').hidden = true;
+  $('#linkNote').textContent = data.is_new_person ? t.newPersonNote : t.linkedNote;
+  $('#done').dataset.on = 'true';
+  window.scrollTo({ top: 0 });
+}
+
+async function submitReturn(extra){
+  const t = I18N[lang];
+  const btn = $('#submitBtn');
+  btn.disabled = true;
+  say(t.sending, '');
+
+  // A thrown fetch means the request never reached the server at all — a
+  // genuine connectivity problem, and the only case where "check your
+  // connection" is actually the right message.
+  let res;
+  try {
+    res = await fetch('/api/returns', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...collect(), ...extra })
+    });
+  } catch (e) {
+    say(t.errNet, 'bad');
+    btn.disabled = false;
+    return;
+  }
+
+  if (res.ok) {
+    showDone(await res.json());
+    return;
+  }
+
+  let errBody = null;
+  try { errBody = await res.json(); } catch (e) {}
+
+  if (res.status === 409 && errBody?.error === 'confirm_person') {
+    say('', '');
+    $('#confirmPromptText').textContent = t.confirmPrompt;
+    const choices = $('#confirmChoices');
+    choices.innerHTML = '';
+    errBody.candidates.forEach(c => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = c.full_name;
+      b.addEventListener('click', () => submitReturn({ person_id: c.id }));
+      choices.appendChild(b);
+    });
+    const none = document.createElement('button');
+    none.type = 'button';
+    none.className = 'none';
+    none.textContent = t.confirmNone;
+    none.addEventListener('click', () => submitReturn({ new_person: true }));
+    choices.appendChild(none);
+    $('#confirmPanel').dataset.on = 'true';
+    $('#confirmPanel').scrollIntoView({ block: 'center' });
+    btn.disabled = false;
+    return;
+  }
+
+  if (res.status === 409 && errBody?.error === 'duplicate_month') {
+    say('', '');
+    const dateStr = new Date(errBody.existing.submitted_at).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB');
+    const n = errBody.month_number;
+    const monthLabel = n >= 1 && n <= 12 ? t.months[n - 1] : n;
+    $('#confirmPromptText').textContent = t.duplicatePrompt
+      .replace('{type}', errBody.entry_type === 'goal' ? t.typeGoalNoun : t.typeResultNoun)
+      .replace('{month}', monthLabel)
+      .replace('{date}', dateStr);
+    const choices = $('#confirmChoices');
+    choices.innerHTML = '';
+    const again = document.createElement('button');
+    again.type = 'button';
+    again.textContent = t.duplicateSubmit;
+    again.addEventListener('click', () => submitReturn({ ...extra, confirm_duplicate: true }));
+    choices.appendChild(again);
+    const cancel = document.createElement('button');
+    cancel.type = 'button';
+    cancel.className = 'none';
+    cancel.textContent = t.duplicateCancel;
+    cancel.addEventListener('click', () => { $('#confirmPanel').dataset.on = 'false'; });
+    choices.appendChild(cancel);
+    $('#confirmPanel').dataset.on = 'true';
+    $('#confirmPanel').scrollIntoView({ block: 'center' });
+    btn.disabled = false;
+    return;
+  }
+
+  // A validation error the server caught that client-side checks should
+  // have already prevented — point at the actual field instead of the
+  // misleading "check your connection", since the request did reach the
+  // server fine.
+  const fieldErrors = {
+    missing_name: ['full_name', t.errName],
+    missing_phone: ['phone_local', t.errPhone],
+    missing_locality: ['locality', t.errLocality]
+  };
+  const mapped = fieldErrors[errBody?.error];
+  if (mapped) {
+    say(mapped[1], 'bad');
+    const field = $('[name="' + mapped[0] + '"]');
+    if (field) { field.scrollIntoView({ block: 'center' }); field.focus(); }
+    btn.disabled = false;
+    return;
+  }
+
+  // One answer is outside what the sheet accepts. The server names the
+  // column; the question wording is read back out of the page itself so it
+  // matches whichever language is showing and can never drift out of step
+  // with the labels above.
+  if (errBody?.error === 'field_invalid' && errBody.field) {
+    const input = $('[name="' + errBody.field + '"]');
+    const labelEl = input && input.closest('label') && input.closest('label').querySelector('.f-l');
+    const label = labelEl ? labelEl.textContent.trim() : errBody.field;
+
+    let msg;
+    if (errBody.field === 'giving_percentage') {
+      // The single most common mistake: the paper form labels this box only
+      // "Pourcentage (%)", so a member giving 5000 FCFA writes 5000.
+      msg = t.errPct.replace('{label}', label);
+    } else if (errBody.reason === 'out_of_range' && errBody.max >= 2147483647) {
+      // The only way to clear this bound is to put something that is not a
+      // count in a counting box, and a phone number is how it happens.
+      // Quoting the actual limit back at a member helps nobody.
+      msg = t.errTooBig.replace('{label}', label);
+    } else if (errBody.reason === 'out_of_range') {
+      msg = t.errRange.replace('{label}', label)
+                      .replace('{min}', errBody.min).replace('{max}', errBody.max);
+    } else if (errBody.reason === 'not_allowed') {
+      msg = t.errChoice.replace('{label}', label);
+    } else {
+      msg = t.errField.replace('{label}', label);
+    }
+
+    say(msg, 'bad');
+    if (input) { input.scrollIntoView({ block: 'center' }); input.focus(); }
+    btn.disabled = false;
+    return;
+  }
+
+  // Reached the server, but something failed there in a way not covered
+  // above (db error, stale confirm-panel state, etc). Distinct from the
+  // network message on purpose — this is not a connectivity problem.
+  say(t.errServer, 'bad');
+  btn.disabled = false;
+}
+
+function finSay(msg, tone){ const s = $('#finStatus'); s.textContent = msg; s.dataset.tone = tone || ''; }
+
+function showFinanceDone(){
+  clearFinanceDraft();
+  finSay('', '');
+  $('#financeArea').hidden = true;
+  $('#finFoot').hidden = true;
+  $('#finDone').dataset.on = 'true';
+  $('#finDone').scrollIntoView({ block: 'start' });
+}
+
+// Mirrors submitReturn() above, but the finances table is independent —
+// no person matching, no goal/result pairing, no duplicate-month
+// check, so there is no confirm-panel branch to handle here.
+async function submitFinance(){
+  const t = I18N[lang];
+  const btn = $('#finSubmitBtn');
+  btn.disabled = true;
+  finSay(t.sending, '');
+
+  let res;
+  try {
+    res = await fetch('/api/finances', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(financePayload())
+    });
+  } catch (e) {
+    finSay(t.errNet, 'bad');
+    btn.disabled = false;
+    return;
+  }
+
+  if (res.ok) {
+    showFinanceDone();
+    return;
+  }
+
+  let errBody = null;
+  try { errBody = await res.json(); } catch (e) {}
+
+  if (errBody?.error === 'missing_name') {
+    finSay(t.errName, 'bad');
+    const f = $('[name="fin_full_name"]');
+    f.scrollIntoView({ block: 'center' });
+    f.focus();
+    btn.disabled = false;
+    return;
+  }
+
+  finSay(t.errServer, 'bad');
+  btn.disabled = false;
+}
+
+$('#finPrintBtn').addEventListener('click', () => window.print());
+$('#finAgainBtn').addEventListener('click', () => { clearFinanceDraft(); location.reload(); });
+$('#finSubmitBtn').addEventListener('click', () => {
+  const t = I18N[lang];
+  const nameField = $('[name="fin_full_name"]');
+  if (!nameField.value.trim()){
+    finSay(t.errName, 'bad');
+    nameField.scrollIntoView({ block:'center' });
+    nameField.focus();
+    return;
+  }
+  submitFinance();
+});
+
+if (hasAccountabilityForm) {
+  $('#submitBtn').addEventListener('click', () => {
+    const t = I18N[lang];
+    const nameField = $('[name="full_name"]');
+    if (!nameField.value.trim()){
+      say(t.errName, 'bad');
+      nameField.scrollIntoView({ block:'center' });
+      nameField.focus();
+      return;
+    }
+    if ($('#noPhoneCheck').checked) {
+      const localityField = $('[name="locality"]');
+      if (!localityField.value.trim()){
+        say(t.errLocality, 'bad');
+        localityField.scrollIntoView({ block:'center' });
+        localityField.focus();
+        return;
+      }
+    } else {
+      const phoneField = $('[name="phone_local"]');
+      if (!phoneField.value.trim()){
+        say(t.errPhone, 'bad');
+        phoneField.scrollIntoView({ block:'center' });
+        phoneField.focus();
+        return;
+      }
+    }
+    submitReturn({});
+  });
+}
+
+document.addEventListener('input', e => {
+  if (e.target.closest('#financeSheet')) saveFinanceDraft();
+  else if (hasAccountabilityForm) { refreshRail(); saveDraft(); }
+});
+document.addEventListener('change', e => {
+  if (e.target.closest('#financeSheet')) saveFinanceDraft();
+  else if (hasAccountabilityForm) { refreshRail(); saveDraft(); }
+});
+
+applyLang(lang);
+if (hasAccountabilityForm) {
+  try {
+    const saved = storage.get(DRAFT_KEY);
+    if (saved) { restore(JSON.parse(saved)); refreshRail(); }
+  } catch (e) {}
+}
+try {
+  const finSaved = storage.get(FIN_DRAFT_KEY);
+  if (finSaved) restoreFinance(JSON.parse(finSaved));
+} catch (e) {}
+refreshRail();
+</script>
+</body>
+</html>

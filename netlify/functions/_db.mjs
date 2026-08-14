@@ -1,0 +1,335 @@
+import postgres from 'postgres';
+
+// One connection per Lambda container. Managed Postgres providers hand out a
+// pooled connection string; keeping max at 1 stops cold starts from exhausting it.
+const sql = postgres(process.env.DATABASE_URL, {
+  max: 1,
+  idle_timeout: 20,
+  connect_timeout: 10,
+  prepare: false,
+  ssl: process.env.PGSSL === 'false' ? false : 'require'
+});
+
+export default sql;
+
+// The actual form question wording for each column, not the database's
+// internal short name — shared by the CSV export and the admin browse
+// page, both of which show this to a human rather than a developer.
+export const FIELD_LABELS = [
+  ['submitted_at', 'Date Submitted'],
+  ['entry_type', 'Goal or Result'],
+  ['full_name', 'Name'],
+  ['phone', 'Phone'],
+  ['phone2', 'Second Phone'],
+  ['locality', 'Locality'],
+  ['spiritual_nation', 'Spiritual Nation'],
+  ['spiritual_province', 'Spiritual Province'],
+  ['currency', 'Currency Of The Amounts'],
+  ['month_number', 'Month'],
+  ['acct_walk_with_god', 'I Gave Accounts Of: My Walk With God'],
+  ['acct_studies', 'I Gave Accounts Of: My Studies'],
+  ['acct_finances', 'I Gave Accounts Of: My Finances'],
+  ['acct_service_to_god', 'I Gave Accounts Of: My Service To God'],
+  ['acct_given_to', 'Accounts Given To'],
+  ['acct_frequency', 'Frequency Of Giving Accounts'],
+  ['ddeg_number', 'Daily Dynamic Encounters With God: Number'],
+  ['ddeg_time', 'Daily Dynamic Encounters With God: Time'],
+  ['bible_chapters', 'Bible Reading: Chapters Read'],
+  ['bible_time', 'Bible Reading: Time Spent Reading'],
+  ['bible_memorisation', 'Bible Memorisation: Passages Memorised'],
+  ['literature', 'Reading Of Christian Literature'],
+  ['prayer_alone_time', 'Prayer Alone: Time Spent Praying Alone'],
+  ['retreats_15min', 'Prayer Alone: 15 Minute Retreats'],
+  ['thanksgiving_topics', 'Prayer Alone: Thanksgiving Topics Recorded'],
+  ['prayer_topics', 'Prayer Alone: Prayer Topics Recorded'],
+  ['prayers_answered', 'Prayer Alone: Prayers Answered'],
+  ['prayer_with_others', 'Prayer With Others, The House Church Or The Local Church'],
+  ['people_reached', 'Soul Winning: People Reached With The Gospel'],
+  ['conversions', 'Soul Winning: Conversions'],
+  ['baptised_water', 'Soul Winning: Baptised In Water'],
+  ['baptised_holy_spirit', 'Soul Winning: Baptised In The Holy Spirit'],
+  ['added_to_church', 'Soul Winning: Added To The Church'],
+  ['churches_planted', 'Soul Winning: Churches Planted'],
+  ['members_per_church', 'Soul Winning: Members Per Church'],
+  ['fasts_wednesday', 'Fasts: Wednesday Fasts'],
+  ['fasts_complete_3days', 'Fasts: Complete Fasts Of 3 Days Or More'],
+  ['people_encouraged_to_fast', 'Fasts: People Encouraged To Fast'],
+  ['prophecy_proclamations', 'Proclamation Of The Prophecy: Number'],
+  ['giving_percentage', 'Giving To God: Percentage'],
+  ['giving_faithful', 'Giving To God: Faithfulness'],
+  ['has_savings', 'Savings: Do You Have Savings'],
+  ['savings_amount', 'Savings: How Much (FCFA)'],
+  ['is_indebted', 'Debts: Are You Indebted'],
+  ['debt_amount', 'Debts: If Yes, How Much (FCFA)'],
+  ['debt_reimbursed', 'Debts: Reimbursed So Far (FCFA)'],
+  ['bertoua_units_completed', 'Bertoua Message: Teaching Units Completed And Marked'],
+  ['bertoua_times_done', 'Bertoua Message: Number Of Times You Did Them'],
+  ['idols_uprooted', 'Uprooting Of Idols: Idols Uprooted'],
+  ['proclamations', 'Proclamations: Number'],
+  ['five_year_goal', 'Your Involvement In The Five Year Goal'],
+  ['distinct_service', 'Distinct Service To God And To Man'],
+  ['making_disciples', 'Making Of Disciples']
+];
+
+export const COLUMNS = [
+  'entry_type', 'full_name', 'phone', 'phone2', 'locality', 'spiritual_nation', 'spiritual_province', 'currency',
+  'month_number',
+  'acct_walk_with_god', 'acct_studies', 'acct_finances', 'acct_service_to_god',
+  'acct_given_to', 'acct_frequency',
+  'ddeg_number', 'ddeg_time',
+  'bible_chapters', 'bible_time', 'bible_memorisation',
+  'literature',
+  'prayer_alone_time', 'retreats_15min', 'thanksgiving_topics', 'prayer_topics',
+  'prayers_answered', 'prayer_with_others',
+  'people_reached', 'conversions', 'baptised_water', 'baptised_holy_spirit',
+  'added_to_church', 'churches_planted', 'members_per_church',
+  'fasts_wednesday', 'fasts_complete_3days', 'people_encouraged_to_fast',
+  'prophecy_proclamations',
+  'giving_percentage', 'giving_faithful', 'has_savings', 'savings_amount',
+  'is_indebted', 'debt_amount', 'debt_reimbursed',
+  'bertoua_units_completed', 'bertoua_times_done',
+  'idols_uprooted', 'proclamations',
+  'five_year_goal', 'distinct_service', 'making_disciples'
+];
+
+const INTEGERS = new Set([
+  'month_number', 'ddeg_number', 'bible_chapters',
+  'retreats_15min', 'thanksgiving_topics', 'prayer_topics', 'prayers_answered',
+  'people_reached', 'conversions', 'baptised_water', 'baptised_holy_spirit',
+  'added_to_church', 'churches_planted', 'fasts_wednesday', 'fasts_complete_3days',
+  'people_encouraged_to_fast', 'prophecy_proclamations', 'bertoua_units_completed',
+  'bertoua_times_done', 'idols_uprooted', 'proclamations'
+]);
+
+const DECIMALS = new Set([
+  'giving_percentage', 'savings_amount', 'debt_amount', 'debt_reimbursed'
+]);
+
+// Tick boxes: the column is NOT NULL, and an absent value means "not ticked".
+const CHECKBOXES = new Set([
+  'acct_walk_with_god', 'acct_studies', 'acct_finances', 'acct_service_to_god'
+]);
+
+// Yes / no dropdowns: the column is nullable, and "left blank" is a real,
+// distinct answer that must not be recorded as "no".
+const TRISTATE = new Set(['giving_faithful', 'has_savings', 'is_indebted']);
+
+const TEXT_LIMIT = 4000;
+
+// Every bound the database enforces, restated here so a value that would
+// break a CHECK is caught while we still know which question it came from.
+// Postgres only tells us the constraint name after the fact, and only for
+// the first failure; the submitter needs the field, not the constraint.
+//
+// The upper bounds are not decoration. INTEGER stops at 2147483647, and a
+// phone number typed into a counting box clears that easily, which is one
+// of the two ways submissions were being lost. NUMERIC(5,2) with a 0-100
+// CHECK is the other: the paper form labels the box only "Pourcentage (%)"
+// and a member who gives 5000 FCFA writes 5000.
+const INT_MAX = 2147483647;
+const RANGES = {
+  month_number: [0, 12],
+  giving_percentage: [0, 100],
+  // NUMERIC(14,2): twelve digits before the decimal point.
+  savings_amount: [0, 999999999999.99],
+  debt_amount: [0, 999999999999.99],
+  debt_reimbursed: [0, 999999999999.99]
+};
+for (const column of INTEGERS) if (!RANGES[column]) RANGES[column] = [0, INT_MAX];
+
+// The same 106 countries the form offers, so a request that bypasses the
+// page cannot invent a nation. Duplicated from COUNTRY_CODES in index.html
+// rather than shared, because the functions are bundled separately from the
+// page; if one list changes the other must change with it.
+export const NATIONS = ["Cameroon","Nigeria","Ghana","Senegal","Côte d'Ivoire","Benin","Togo","Burkina Faso","Mali","Niger","Gambia","Guinea","Guinea-Bissau","Cabo Verde","Mauritania","Liberia","Sierra Leone","Central African Republic","Chad","Gabon","Congo (Brazzaville)","Congo (DRC)","Equatorial Guinea","São Tomé and Príncipe","Angola","Mozambique","Zambia","Zimbabwe","Botswana","Namibia","Lesotho","Eswatini","South Africa","Mauritius","Seychelles","Madagascar","Kenya","Tanzania","Uganda","Rwanda","Burundi","Ethiopia","Somalia","Djibouti","Eritrea","South Sudan","Sudan","Egypt","Libya","Tunisia","Algeria","Morocco","United States / Canada","United Kingdom","France","Germany","Belgium","Netherlands","Switzerland","Italy","Spain","Portugal","Ireland","Sweden","Norway","Denmark","Finland","Poland","Greece","Türkiye","Russia / Kazakhstan","Ukraine","India","Pakistan","Bangladesh","Sri Lanka","Nepal","China","Japan","South Korea","Hong Kong","Singapore","Malaysia","Thailand","Vietnam","Indonesia","Philippines","United Arab Emirates","Saudi Arabia","Qatar","Kuwait","Jordan","Lebanon","Israel","Iraq","Iran","Australia","New Zealand","Brazil","Argentina","Chile","Colombia","Mexico","Peru","Venezuela","Ecuador"];
+
+// Mirrors CMR_PROVINCES in the form. Kept here too so a submission that
+// bypasses the page cannot invent a province, and kept as a list rather than
+// a database CHECK because four of these spellings are still unconfirmed.
+export const CMR_PROVINCES = ["Adamaoua","Centre","Daouala","Donga Mantung","Est","Extreme Nord",
+  "Garoua","Kadei","Kanni Danai","Mbam","Moungo","Nord","Nord-Ouest","Nyon Ekele","Ouest","PSU",
+  "QG","Sanaga Maritime","Sud","Sud Ouest","Touboro","Yaounde"];
+
+// Free-text columns the schema pins to a fixed vocabulary. The form uses a
+// dropdown, so these should never fail, but "should never" is what the giving
+// percentage looked like too, and an unexpected value here is the same
+// silent 500.
+const ENUMS = {
+  entry_type: ['goal', 'result'],
+  acct_frequency: ['day', 'week', 'month']
+};
+
+// Returns the first problem found, or null. Shape is deliberately small and
+// serialisable: the client needs the field name to focus the right input and
+// the bounds to tell the member what to type instead.
+export function validateRow(row) {
+  for (const [column, [min, max]] of Object.entries(RANGES)) {
+    const value = row[column];
+    if (value === null || value === undefined) continue;
+    if (value < min || value > max) {
+      return { field: column, reason: 'out_of_range', min, max, received: value };
+    }
+  }
+  for (const [column, allowed] of Object.entries(ENUMS)) {
+    const value = row[column];
+    if (value === null || value === undefined) continue;
+    if (!allowed.includes(value)) {
+      return { field: column, reason: 'not_allowed', allowed, received: value };
+    }
+  }
+
+  // Province is a subdivision of one nation, not a free-standing answer. A
+  // member outside Cameroon has no province, so a province without Cameroon
+  // is a contradiction rather than a typo.
+  if (row.spiritual_nation && !NATIONS.includes(row.spiritual_nation)) {
+    return { field: 'spiritual_nation', reason: 'not_allowed', received: row.spiritual_nation };
+  }
+  if (row.spiritual_province) {
+    if (!CMR_PROVINCES.includes(row.spiritual_province)) {
+      return { field: 'spiritual_province', reason: 'not_allowed', allowed: CMR_PROVINCES, received: row.spiritual_province };
+    }
+    if (row.spiritual_nation && row.spiritual_nation !== 'Cameroon') {
+      return { field: 'spiritual_province', reason: 'province_needs_cameroon', received: row.spiritual_nation };
+    }
+  }
+  return null;
+}
+
+// Last line of defence. If a constraint still fires — because the schema
+// moved and this file did not — recover the column from the constraint name
+// so the member is told which line to fix instead of being handed a blank
+// "something went wrong on our side".
+export function fieldFromDbError(err) {
+  const name = err?.constraint_name || err?.constraint || '';
+  const match = /^accountability_returns_(.+?)_check$/.exec(name);
+  if (match && COLUMNS.includes(match[1])) return match[1];
+  if (err?.column_name && COLUMNS.includes(err.column_name)) return err.column_name;
+  return null;
+}
+
+export function coerce(column, raw) {
+  if (column === 'literature') {
+    const rows = Array.isArray(raw) ? raw : [];
+    return rows
+      .filter(r => r && (r.title || r.author || r.pages))
+      .slice(0, 20)
+      .map(r => ({
+        title: String(r.title ?? '').slice(0, 300),
+        pages: r.pages === '' || r.pages == null ? null : Number(r.pages) || null,
+        author: String(r.author ?? '').slice(0, 300)
+      }));
+  }
+  if (CHECKBOXES.has(column)) {
+    return raw === true || raw === 'true' || raw === 'yes' || raw === 'on';
+  }
+  if (TRISTATE.has(column)) {
+    if (raw === true || raw === 'true' || raw === 'yes') return true;
+    if (raw === false || raw === 'false' || raw === 'no') return false;
+    return null;
+  }
+  if (raw === '' || raw === undefined || raw === null) {
+    // 0 means "not specified" — a real, comparable value rather than null,
+    // so two blank-month submissions from the same person still trip
+    // the duplicate check instead of silently skipping it.
+    return column === 'month_number' ? 0 : null;
+  }
+  if (INTEGERS.has(column)) {
+    const n = parseInt(raw, 10);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+  if (DECIMALS.has(column)) {
+    const n = parseFloat(String(raw).replace(/[\s,]/g, ''));
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+  return String(raw).trim().slice(0, TEXT_LIMIT);
+}
+
+export function buildRow(body) {
+  const row = {};
+  for (const c of COLUMNS) row[c] = coerce(c, body[c]);
+  if (!['goal', 'result'].includes(row.entry_type)) row.entry_type = 'result';
+  return row;
+}
+
+// Same idea as FIELD_LABELS/COLUMNS/coerce/buildRow above, but for the
+// independent "Imitators of ZTF" commitments form — its own table, its own
+// column set, no person linkage. Replaced the earlier financial-commitments
+// content with the paper form's spiritual commitments (daily encounter with
+// God, Bible reading/memorisation targets, idol uprooting, Bertoua message).
+export const FINANCE_FIELD_LABELS = [
+  ['submitted_at', 'Date Submitted'],
+  ['full_name', 'Name'],
+  ['locality', 'Locality'],
+  ['phone', 'Phone'],
+  ['email', 'Email'],
+  ['nation', 'Nation'],
+  ['conversion_date', 'Date Of Conversion'],
+  ['commit_daily_encounter', '1. Commits To A Daily Dynamic Encounter With God'],
+  ['bible_completions_choice', '2. Bible Completions Target (Preset: 1, 2 Or 3)'],
+  ['bible_completions_other', '2. Bible Completions Target (Custom)'],
+  ['bible_memorization_choice', '6. Memorisation Commitment'],
+  ['bible_memorization_portions', '6. Memorisation: Portion(s) Specified'],
+  ['idol_uprooting_frequency', '3. Idol Uprooting Frequency (Preset)'],
+  ['idol_uprooting_other', '3. Idol Uprooting Frequency (Other)'],
+  ['bertoua_units_target', '7. Bertoua Message Units Target (Preset: 7, 12 Or 25)'],
+  ['bertoua_units_other', '7. Bertoua Message Units Target (Custom)']
+];
+
+export const FINANCE_COLUMNS = [
+  'full_name', 'locality', 'phone', 'email', 'nation', 'conversion_date',
+  'commit_daily_encounter',
+  'bible_completions_choice', 'bible_completions_other',
+  'bible_memorization_choice', 'bible_memorization_portions',
+  'idol_uprooting_frequency', 'idol_uprooting_other',
+  'bertoua_units_target', 'bertoua_units_other'
+];
+
+const FINANCE_INTEGERS = new Set([
+  'bible_completions_choice', 'bible_completions_other',
+  'bertoua_units_target', 'bertoua_units_other'
+]);
+// Yes / no fields (radio pairs on the form), nullable: left blank is a real,
+// distinct answer, not "no".
+const FINANCE_TRISTATE = new Set(['commit_daily_encounter']);
+
+export function coerceFinance(column, raw) {
+  if (FINANCE_TRISTATE.has(column)) {
+    if (raw === true || raw === 'true' || raw === 'yes') return true;
+    if (raw === false || raw === 'false' || raw === 'no') return false;
+    return null;
+  }
+  if (raw === '' || raw === undefined || raw === null) return null;
+  if (FINANCE_INTEGERS.has(column)) {
+    const n = parseInt(raw, 10);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+  return String(raw).trim().slice(0, TEXT_LIMIT);
+}
+
+export function buildFinanceRow(body) {
+  const row = {};
+  for (const c of FINANCE_COLUMNS) row[c] = coerceFinance(c, body[c]);
+  return row;
+}
+
+// Digits only, so "+237 600 000 001" and "237-600-000-001" match as the same
+// phone. The form always sends an explicit country code (the submitter
+// picks it from a dropdown), so this only needs to normalise formatting —
+// it must not guess a country code for a bare local number, since the same
+// local-number length means something different in every country and this
+// form is used by submitters from many countries.
+export function normPhone(raw) {
+  let digits = String(raw ?? '').replace(/\D/g, '');
+  if (digits.startsWith('00')) digits = digits.slice(2); // "00237..." dialing prefix
+  return digits;
+}
+
+// Case/whitespace-insensitive, so retyping a name slightly differently
+// between months still counts as the same name.
+export const normName = raw => String(raw ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+
+export const json = (data, status = 200) =>
+  new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  });
