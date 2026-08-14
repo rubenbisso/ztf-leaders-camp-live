@@ -253,7 +253,7 @@ UPDATE accountability_returns
  WHERE spiritual_province_legacy IS NULL
    AND spiritual_province IS NOT NULL;
 
--- Monthly "Imitators of ZTF in Finances" form. Deliberately independent of
+-- Monthly "Imitators of ZTF" commitments form. Deliberately independent of
 -- people/accountability_returns — not matched or linked to any existing
 -- record, each submission just stands on its own.
 CREATE TABLE IF NOT EXISTS finance_returns (
@@ -265,26 +265,62 @@ CREATE TABLE IF NOT EXISTS finance_returns (
     phone                       TEXT,
     email                       TEXT,
     nation                      TEXT,
-    disciple_maker              TEXT,
+    conversion_date             TEXT,
 
-    budget_commitment           BOOLEAN,
-    tithe_commitment            BOOLEAN,
-    offering_commitment         BOOLEAN,
-    has_savings                 BOOLEAN,
-    planned_savings_percentage  NUMERIC(5,2) CHECK (planned_savings_percentage >= 0 AND planned_savings_percentage <= 100),
-    is_indebted                 BOOLEAN,
-    fasting_commitment          BOOLEAN,
-    fasting_encourage_count     INTEGER CHECK (fasting_encourage_count >= 0)
+    -- 1. Daily dynamic encounter with God
+    commit_daily_encounter      BOOLEAN,
+
+    -- 2. Complete the Bible: a preset count (1/2/3) or a custom one
+    bible_completions_choice    SMALLINT CHECK (bible_completions_choice IN (1, 2, 3)),
+    bible_completions_other     INTEGER CHECK (bible_completions_other >= 0),
+
+    -- 6. Memorisation: the whole Bible, the New Testament, or named portions
+    bible_memorization_choice   TEXT CHECK (bible_memorization_choice IN ('entire_bible', 'new_testament', 'some_portions')),
+    bible_memorization_portions TEXT,
+
+    -- 3. Uprooting idols ("Be Filled with the Holy Spirit"): a preset
+    -- frequency or a custom one
+    idol_uprooting_frequency    TEXT CHECK (idol_uprooting_frequency IN ('twice_monthly', 'monthly', 'bimonthly')),
+    idol_uprooting_other        TEXT,
+
+    -- 7. Bertoua message teaching units: a preset count (7/12/25) or a custom one
+    bertoua_units_target        SMALLINT CHECK (bertoua_units_target IN (7, 12, 25)),
+    bertoua_units_other         INTEGER CHECK (bertoua_units_other >= 0)
 );
 
--- Month lives only on the first (accountability) form now — removed here
--- so the two forms don't ask for it twice.
+-- Superseded content: the form moved from financial commitments (tithe,
+-- offering, savings, debts, fasting) to the paper form's spiritual
+-- commitments above. Dropped rather than kept alongside, since the page no
+-- longer asks any of these questions.
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS disciple_maker;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS budget_commitment;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS tithe_commitment;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS offering_commitment;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS has_savings;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS planned_savings_percentage;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS is_indebted;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS fasting_commitment;
+ALTER TABLE finance_returns DROP COLUMN IF EXISTS fasting_encourage_count;
+-- Month lives only on the first (accountability) form — dropped earlier,
+-- restated here so an environment that never ran that migration still ends
+-- up in the same place.
 ALTER TABLE finance_returns DROP COLUMN IF EXISTS month;
 
 -- Idempotent for any environment where finance_returns was already created
--- before this column existed (a fresh database already has it via the
--- CREATE TABLE above).
-ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS budget_commitment BOOLEAN;
+-- before these columns existed (a fresh database already has them via the
+-- CREATE TABLE above). The CHECK is inline: when the column already exists,
+-- Postgres skips the whole ADD COLUMN clause — constraint included — so a
+-- second run can never try to add it twice.
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS conversion_date TEXT;
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS commit_daily_encounter BOOLEAN;
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS bible_completions_choice SMALLINT CHECK (bible_completions_choice IN (1, 2, 3));
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS bible_completions_other INTEGER CHECK (bible_completions_other >= 0);
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS bible_memorization_choice TEXT CHECK (bible_memorization_choice IN ('entire_bible', 'new_testament', 'some_portions'));
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS bible_memorization_portions TEXT;
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS idol_uprooting_frequency TEXT CHECK (idol_uprooting_frequency IN ('twice_monthly', 'monthly', 'bimonthly'));
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS idol_uprooting_other TEXT;
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS bertoua_units_target SMALLINT CHECK (bertoua_units_target IN (7, 12, 25));
+ALTER TABLE finance_returns ADD COLUMN IF NOT EXISTS bertoua_units_other INTEGER CHECK (bertoua_units_other >= 0);
 
 CREATE INDEX IF NOT EXISTS idx_finance_returns_name
     ON finance_returns (lower(full_name));

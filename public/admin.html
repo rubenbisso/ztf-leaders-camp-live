@@ -116,10 +116,16 @@ function renderList(people){
 
 // Flat list, unlike renderList() above — finance_returns has no person
 // linkage to group by, so each submission is just its own row.
+const MEMORIZATION_LABELS = { entire_bible: 'Entire Bible', new_testament: 'New Testament', some_portions: 'Some portion(s)' };
+const IDOL_FREQ_LABELS = { twice_monthly: 'Twice a month', monthly: 'Once a month', bimonthly: 'Once every two months' };
 function renderFinances(rows){
   const cells = rows.map(r => {
     const dateStr = new Date(r.submitted_at).toLocaleDateString('en-GB');
     const yn = v => v === true ? 'Yes' : v === false ? 'No' : '—';
+    const bibleTarget = r.bible_completions_choice != null ? String(r.bible_completions_choice) : (r.bible_completions_other != null ? String(r.bible_completions_other) : '—');
+    const bertouaTarget = r.bertoua_units_target != null ? String(r.bertoua_units_target) : (r.bertoua_units_other != null ? String(r.bertoua_units_other) : '—');
+    const memorization = MEMORIZATION_LABELS[r.bible_memorization_choice] || r.bible_memorization_portions || '—';
+    const idolFreq = IDOL_FREQ_LABELS[r.idol_uprooting_frequency] || r.idol_uprooting_other || '—';
     return '<tr>' +
       '<td class="name-cell">' + escapeHtml(r.full_name) + '</td>' +
       '<td>' + escapeHtml(dateStr) + '</td>' +
@@ -127,21 +133,18 @@ function renderFinances(rows){
       '<td>' + escapeHtml(r.phone ? '+' + r.phone : '—') + '</td>' +
       '<td>' + escapeHtml(r.email || '—') + '</td>' +
       '<td>' + escapeHtml(r.nation || '—') + '</td>' +
-      '<td>' + escapeHtml(r.disciple_maker || '—') + '</td>' +
-      '<td>' + yn(r.budget_commitment) + '</td>' +
-      '<td>' + yn(r.tithe_commitment) + '</td>' +
-      '<td>' + yn(r.offering_commitment) + '</td>' +
-      '<td>' + yn(r.has_savings) + '</td>' +
-      '<td>' + escapeHtml(r.planned_savings_percentage != null ? r.planned_savings_percentage + '%' : '—') + '</td>' +
-      '<td>' + yn(r.is_indebted) + '</td>' +
-      '<td>' + yn(r.fasting_commitment) + '</td>' +
-      '<td>' + escapeHtml(r.fasting_encourage_count != null ? String(r.fasting_encourage_count) : '—') + '</td>' +
+      '<td>' + escapeHtml(r.conversion_date || '—') + '</td>' +
+      '<td>' + yn(r.commit_daily_encounter) + '</td>' +
+      '<td>' + escapeHtml(bibleTarget) + '</td>' +
+      '<td>' + escapeHtml(memorization) + '</td>' +
+      '<td>' + escapeHtml(idolFreq) + '</td>' +
+      '<td>' + escapeHtml(bertouaTarget) + '</td>' +
       '</tr>';
   }).join('');
   $('#financeListView').innerHTML = rows.length
     ? '<div class="wide-table"><table><thead><tr>' +
-      '<th>Name</th><th>Date</th><th>Locality</th><th>Phone</th><th>Email</th><th>Nation</th><th>Disciple Maker</th>' +
-      '<th>Budget</th><th>Tithe</th><th>Offering</th><th>Savings</th><th>Planned %</th><th>Indebted</th><th>Fasting</th><th>Encouraged</th>' +
+      '<th>Name</th><th>Date</th><th>Locality</th><th>Phone</th><th>Email</th><th>Nation</th><th>Conversion Date</th>' +
+      '<th>Daily Encounter</th><th>Bible Completions</th><th>Memorisation</th><th>Idol Uprooting Freq.</th><th>Bertoua Units</th>' +
       '</tr></thead><tbody>' + cells + '</tbody></table></div>'
     : '<p class="empty">No submissions yet.</p>';
   $('#gate').hidden = true;

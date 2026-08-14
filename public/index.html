@@ -143,7 +143,9 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
   transition:opacity .14s,transform .14s}
 .tick input:checked+.box::after{opacity:1;transform:rotate(-45deg) scale(1)}
 .tick input:focus-visible+.box{outline:2px solid var(--seal);outline-offset:2px}
-.yn{display:flex;gap:1.4rem;align-items:center;padding-top:.15rem}
+.tick.radio .box{border-radius:50%}
+.tick.radio .box::after{width:.5rem;height:.5rem;border:0;border-radius:50%;background:var(--seal);transform:scale(0)}
+.tick.radio input:checked+.box::after{transform:scale(1)}
 .lit{width:100%;border-collapse:collapse;margin-bottom:.9rem;table-layout:fixed}
 .lit th{text-align:left;font-family:var(--mono);font-weight:400;font-size:.64rem;
   letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
@@ -223,6 +225,11 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
   </div>
 </header>
 
+<!-- Accountability form temporarily disabled — only the finances form
+     below is shown on the page. The JS above gates every accountability-
+     only listener/init step on hasAccountabilityForm so nothing errors
+     with this markup commented out; uncomment this block to bring the
+     form back.
 <section class="hero">
   <div class="wrap">
     <p class="eyebrow" data-i18n="org">Christian Missionary Fellowship International</p>
@@ -433,11 +440,12 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
   </div>
 </footer>
 </div>
+-->
 
 <section class="hero" style="padding:3.5rem 0 2.5rem">
   <div class="wrap">
     <p class="eyebrow" data-i18n="org">Christian Missionary Fellowship International</p>
-    <h1 style="font-size:clamp(1.9rem,4.8vw,3.4rem)"><span data-i18n="finTitleA">Imitators of ZTF</span> <em data-i18n="finTitleB">in Finances</em></h1>
+    <h1 style="font-size:clamp(1.9rem,4.8vw,3.4rem)"><span data-i18n="finTitleA">Imitators of ZTF</span></h1>
     <p class="hint" style="font-size:.95rem;margin-top:1rem" data-i18n="finIntro"></p>
   </div>
 </section>
@@ -449,10 +457,10 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
     <section class="block">
       <div class="block-body">
         <div class="section-label" data-i18n="identLabel">Identification</div>
-        <div class="copybar"><button type="button" id="copyIdentBtn" data-i18n="copyIdent">Use the same details as the accountability form</button><span class="said" id="copyIdentSaid"></span></div>
+        <!-- <div class="copybar"><button type="button" id="copyIdentBtn" data-i18n="copyIdent">Use the same details as the accountability form</button><span class="said" id="copyIdentSaid"></span></div> -->
         <div class="row">
           <label class="f"><span class="f-l" data-i18n="name">Name</span><input class="f-i" name="fin_full_name" autocomplete="name"></label>
-          <label class="f"><span class="f-l" data-i18n="locality">Locality</span><input class="f-i" name="fin_locality"></label>
+          <label class="f"><span class="f-l" data-i18n="finNation">Nation</span><input class="f-i" name="fin_nation" data-i18n-ph="phNation"></label>
         </div>
         <div class="row">
           <label class="f sm"><span class="f-l" data-i18n="phoneCode">Country code</span><select class="f-i cc" name="fin_phone_cc"></select></label>
@@ -460,108 +468,61 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
           <label class="f"><span class="f-l" data-i18n="finEmail">Email</span><input class="f-i" name="fin_email" data-i18n-ph="phEmail" type="email" autocomplete="email"></label>
         </div>
         <div class="row">
-          <label class="f"><span class="f-l" data-i18n="finNation">Nation</span><input class="f-i" name="fin_nation" data-i18n-ph="phNation"></label>
-          <label class="f"><span class="f-l" data-i18n="finDiscipleMaker">Disciple maker</span><input class="f-i" name="fin_disciple_maker" data-i18n-ph="phDiscipleMaker"></label>
+          <label class="f"><span class="f-l" data-i18n="locality">Locality</span><input class="f-i" name="fin_locality"></label>
+          <label class="f"><span class="f-l" data-i18n="conversionDate">Date of conversion</span><input class="f-i" name="fin_conversion_date" data-i18n-ph="phConversionDate"></label>
         </div>
       </div>
     </section>
 
     <section class="block">
       <div class="block-body">
-        <div class="section-label" data-i18n="giving">Giving to God</div>
-        <div class="row">
-          <div class="f"><span class="f-l" data-i18n="finBudget">Henceforth, I will manage my finances based on a pre-established budget that I will respect.</span>
-            <div class="yn" data-field="fin_budget_commitment">
-              <input type="hidden" name="fin_budget_commitment" value="">
-              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
-              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="f"><span class="f-l" data-i18n="finTithe">I commit to giving the tithe (10%) of all my income to God</span>
-            <div class="yn" data-field="fin_tithe_commitment">
-              <input type="hidden" name="fin_tithe_commitment" value="">
-              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
-              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
-            </div>
-          </div>
-          <div class="f"><span class="f-l" data-i18n="finOffering">I commit to adding an offering</span>
-            <div class="yn" data-field="fin_offering_commitment">
-              <input type="hidden" name="fin_offering_commitment" value="">
-              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
-              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
-            </div>
-          </div>
-        </div>
-        <div class="section-label" style="margin-top:1.7rem" data-i18n="savings">Savings</div>
-        <div class="row">
-          <div class="f sm"><span class="f-l" data-i18n="finHasSavings">Do you have savings?</span>
-            <div class="yn" data-field="fin_has_savings">
-              <input type="hidden" name="fin_has_savings" value="">
-              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
-              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
-            </div>
-          </div>
-          <label class="f"><span class="f-l" data-i18n="finSavingsPct">If not, what percentage of your income will you save from now on?</span><input class="f-i" name="fin_planned_savings_percentage" data-i18n-ph="phPct" inputmode="decimal"></label>
-        </div>
-      </div>
-    </section>
+        <p class="hint" style="margin-bottom:1.3rem" data-i18n="commitIntro">I commit to imitating the founding leader, and bringing as many people as possible to imitate him.</p>
 
-    <section class="block">
-      <div class="block-body">
-        <div class="scripture" style="margin-top:0">
-          <div class="ref" data-i18n="finRef">Romans 13:8</div>
-          <p data-i18n="finVerse">Owe no one anything, except to love one another, for the one who loves another has fulfilled the law.</p>
+        <p class="f-l" data-i18n="c1">1. I commit to having at least one dynamic encounter with God every day:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_commit_daily_encounter" value="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
+          <label class="tick radio"><input type="radio" name="fin_commit_daily_encounter" value="no"><span class="box"></span><span data-i18n="no">No</span></label>
         </div>
-      </div>
-    </section>
 
-    <section class="block">
-      <div class="block-body">
-        <div class="section-label" data-i18n="debts">Debts</div>
-        <div class="row">
-          <div class="f sm"><span class="f-l" data-i18n="finIndebted">Are you indebted?</span>
-            <div class="yn" data-field="fin_is_indebted">
-              <input type="hidden" name="fin_is_indebted" value="">
-              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
-              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
-            </div>
-          </div>
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c2">2. I commit to reading my Bible every day and completing it:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_bible_completions_choice" value="1"><span class="box"></span><span data-i18n="c2opt1">1 time</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_completions_choice" value="2"><span class="box"></span><span data-i18n="c2opt2">2 times</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_completions_choice" value="3"><span class="box"></span><span data-i18n="c2opt3">3 times</span></label>
         </div>
-        <p class="instr-label" style="margin-top:1.3rem" data-i18n="finDebtLabel">If you are indebted:</p>
-        <ol class="instr">
-          <li data-i18n="finDebtA">Make a list of all your debts and the people you owe.</li>
-          <li data-i18n="finDebtB">Pray, asking the Lord to convict you of the sin of debt and to give you His hatred of debt.</li>
-          <li data-i18n="finDebtC">Repent of having disobeyed the Scriptures by going into debt.</li>
-          <li data-i18n="finDebtD">Pray, asking the Lord to give you what it takes to pay back each of your debts.</li>
-          <li data-i18n="finDebtE">Make a plan for how you will pay back your debts.</li>
-          <li data-i18n="finDebtF">As soon as you have money, begin paying back your debts one after another.</li>
-        </ol>
-      </div>
-    </section>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c2other">Or, this many times by this same time next year</span><input class="f-i" name="fin_bible_completions_other" inputmode="numeric" data-i18n-ph="phCount"></label>
+        </div>
 
-    <section class="block">
-      <div class="block-body">
-        <div class="section-label" data-i18n="finFastLabel">Fasting</div>
-        <p class="hint" data-i18n="finFastNote">We encourage you to fast three complete days every month for your spiritual revival, fruitfulness and personal needs.</p>
-        <div class="row">
-          <div class="f sm"><span class="f-l" data-i18n="finFastCommit">Do you commit to fasting three complete days each month?</span>
-            <div class="yn" data-field="fin_fasting_commitment">
-              <input type="hidden" name="fin_fasting_commitment" value="">
-              <label class="tick"><input type="checkbox" data-val="yes"><span class="box"></span><span data-i18n="yes">Yes</span></label>
-              <label class="tick"><input type="checkbox" data-val="no"><span class="box"></span><span data-i18n="no">No</span></label>
-            </div>
-          </div>
-          <label class="f"><span class="f-l" data-i18n="finFastEncourage">How many people will you encourage to fast three days with you?</span><input class="f-i" name="fin_fasting_encourage_count" data-i18n-ph="phCount" inputmode="numeric"></label>
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c6">6. I commit to memorising:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_bible_memorization_choice" value="entire_bible"><span class="box"></span><span data-i18n="c6opt1">The entire Bible</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_memorization_choice" value="new_testament"><span class="box"></span><span data-i18n="c6opt2">The entire New Testament</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bible_memorization_choice" value="some_portions"><span class="box"></span><span data-i18n="c6opt3">Some portion(s) of the Bible</span></label>
         </div>
-        <p class="instr-label" style="margin-top:1.3rem" data-i18n="finFastBurdenLabel">During your three-day fast, please carry the following burdens:</p>
-        <ol class="instr" type="a">
-          <li data-i18n="finFastA">First day: your personal spiritual revival (Pray to better understand and obey the Word and the words of God, praying especially for obedience to the Bertoua message).</li>
-          <li data-i18n="finFastB">Second day: bearing fruit (Pray to win at least one soul who remains, to receive spiritual gifts and for your character).</li>
-          <li data-i18n="finFastC">Third day: your personal needs (make a list of all your needs and pray each day for some of the needs on your list).</li>
-        </ol>
-        <p class="hint" data-i18n="finNote">N.B.: Fill in this form, and send your report each month to one of the following numbers: +237 673 766 838.</p>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c6other">Specify the portion(s)</span><input class="f-i" name="fin_bible_memorization_portions"></label>
+        </div>
+
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c3">3. I commit to uprooting all the idols in the book, "Be Filled with the Holy Spirit":</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_idol_uprooting_frequency" value="twice_monthly"><span class="box"></span><span data-i18n="c3opt1">Twice a month</span></label>
+          <label class="tick radio"><input type="radio" name="fin_idol_uprooting_frequency" value="monthly"><span class="box"></span><span data-i18n="c3opt2">Once every month</span></label>
+          <label class="tick radio"><input type="radio" name="fin_idol_uprooting_frequency" value="bimonthly"><span class="box"></span><span data-i18n="c3opt3">Once every two months</span></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c3other">Other frequency</span><input class="f-i" name="fin_idol_uprooting_other"></label>
+        </div>
+
+        <p class="f-l" style="margin-top:1.6rem" data-i18n="c7">7. I commit to doing every teaching unit of the Bertoua Message:</p>
+        <div class="ticks">
+          <label class="tick radio"><input type="radio" name="fin_bertoua_units_target" value="7"><span class="box"></span><span data-i18n="c7opt1">7 times</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bertoua_units_target" value="12"><span class="box"></span><span data-i18n="c7opt2">12 times</span></label>
+          <label class="tick radio"><input type="radio" name="fin_bertoua_units_target" value="25"><span class="box"></span><span data-i18n="c7opt3">25 times</span></label>
+        </div>
+        <div class="row">
+          <label class="f"><span class="f-l" data-i18n="c7other">Or, this many times</span><input class="f-i" name="fin_bertoua_units_other" inputmode="numeric" data-i18n-ph="phCount"></label>
+        </div>
       </div>
     </section>
 
@@ -569,7 +530,7 @@ textarea.f-i:focus{border-color:var(--seal);box-shadow:none}
 </div>
 
 <div class="done" id="finDone" data-on="false">
-  <h2 data-i18n="finDoneTitle">Your financial commitments are recorded</h2>
+  <h2 data-i18n="finDoneTitle">Your commitments are recorded</h2>
   <button type="button" class="btn ghost" id="finAgainBtn" data-i18n="again">Fill another form</button>
 </div>
 
@@ -730,7 +691,7 @@ const I18N = {
     errLocality:"Enter your locality before submitting — without a phone, it's what links this report to your next one.",
     errNet:"The form could not be sent. Check your connection and try again. Your answers are still here.",
     errServer:"Something went wrong on our end — this isn't a connection problem. Please try submitting again; your answers are still here.",
-    phCount:"e.g. 12",phEmail:"nom@exemple.com",phNation:"e.g. Cameroun",phDiscipleMaker:"Name of the person who disciples you",
+    phCount:"e.g. 12",phEmail:"nom@exemple.com",phNation:"e.g. Cameroun",phConversionDate:"e.g. March 2020",
     phTime:"e.g. 30 min a day",
     phPct:"e.g. 10 (a number from 0 to 100, not an amount)",
     phMoney:"e.g. 25000",
@@ -746,34 +707,25 @@ const I18N = {
     errChoice:"« {label} »: choose one of the options offered.",
     errField:"« {label} » was refused. Please check that line and try again. Your answers are still here.",
     months:["January","February","March","April","May","June","July","August","September","October","November","December"],
-    finTitleA:"Imitators of ZTF",finTitleB:"in Finances",
-    finIntro:"Please complete the form below by stating your financial commitments. You will also use this platform to provide a monthly report on the financial aspects of your life.",
-    finRef:"Romans 13:8",
-    finVerse:"Owe no one anything, except to love one another, for the one who loves another has fulfilled the law.",
-    finEmail:"Email",finNation:"Nation",finDiscipleMaker:"Disciple maker",
-    finBudget:"Henceforth, I will manage my finances based on a pre-established budget that I will respect.",
-    finTithe:"I commit to giving the tithe (10%) of all my income to God",
-    finOffering:"I commit to adding an offering",
-    finHasSavings:"Do you have savings?",
-    finSavingsPct:"If not, what percentage of your income will you save from now on?",
-    finIndebted:"Are you indebted?",
-    finDebtLabel:"If you are indebted:",
-    finDebtA:"Make a list of all your debts and the people you owe.",
-    finDebtB:"Pray, asking the Lord to convict you of the sin of debt and to give you His hatred of debt.",
-    finDebtC:"Repent of having disobeyed the Scriptures by going into debt.",
-    finDebtD:"Pray, asking the Lord to give you what it takes to pay back each of your debts.",
-    finDebtE:"Make a plan for how you will pay back your debts.",
-    finDebtF:"As soon as you have money, begin paying back your debts one after another.",
-    finFastLabel:"Fasting",
-    finFastNote:"We encourage you to fast three complete days every month for your spiritual revival, fruitfulness and personal needs.",
-    finFastCommit:"Do you commit to fasting three complete days each month?",
-    finFastEncourage:"How many people will you encourage to fast three days with you?",
-    finFastBurdenLabel:"During your three-day fast, please carry the following burdens:",
-    finFastA:"First day: your personal spiritual revival (Pray to better understand and obey the Word and the words of God, praying especially for obedience to the Bertoua message).",
-    finFastB:"Second day: bearing fruit (Pray to win at least one soul who remains, to receive spiritual gifts and for your character).",
-    finFastC:"Third day: your personal needs (make a list of all your needs and pray each day for some of the needs on your list).",
-    finNote:"N.B.: Fill in this form, and send your report each month to one of the following numbers: +237 673 766 838.",
-    finDoneTitle:"Your financial commitments are recorded"
+    finTitleA:"Imitators of ZTF",
+    finIntro:"I commit to imitating the founding leader, and bringing as many people as possible to imitate him.",
+    finEmail:"Email",finNation:"Nation",
+    conversionDate:"Date of conversion",
+    commitIntro:"I commit to imitating the founding leader, and bringing as many people as possible to imitate him.",
+    c1:"1. I commit to having at least one dynamic encounter with God every day:",
+    c2:"2. I commit to reading my Bible every day and completing it:",
+    c2opt1:"1 time",c2opt2:"2 times",c2opt3:"3 times",
+    c2other:"Or, this many times by this same time next year",
+    c6:"6. I commit to memorising:",
+    c6opt1:"The entire Bible",c6opt2:"The entire New Testament",c6opt3:"Some portion(s) of the Bible",
+    c6other:"Specify the portion(s)",
+    c3:"3. I commit to uprooting all the idols in the book, \"Be Filled with the Holy Spirit\":",
+    c3opt1:"Twice a month",c3opt2:"Once every month",c3opt3:"Once every two months",
+    c3other:"Other frequency",
+    c7:"7. I commit to doing every teaching unit of the Bertoua Message:",
+    c7opt1:"7 times",c7opt2:"12 times",c7opt3:"25 times",
+    c7other:"Or, this many times",
+    finDoneTitle:"Your commitments are recorded"
   },
   fr:{
     barSub:"Camp des Leaders 2026",
@@ -830,7 +782,7 @@ const I18N = {
     errLocality:"Entrez votre localité avant d'envoyer — sans téléphone, c'est ce qui relie cette fiche à la prochaine.",
     errNet:"La fiche n'a pas pu être envoyée. Vérifiez votre connexion et réessayez. Vos réponses sont conservées.",
     errServer:"Une erreur s'est produite de notre côté — ce n'est pas un problème de connexion. Veuillez réessayer d'envoyer ; vos réponses sont conservées.",
-    phCount:"ex : 12",phEmail:"nom@exemple.com",phNation:"ex : Cameroun",phDiscipleMaker:"Nom de la personne qui vous fait grandir",
+    phCount:"ex : 12",phEmail:"nom@exemple.com",phNation:"ex : Cameroun",phConversionDate:"ex : mars 2020",
     phTime:"ex : 30 min par jour",
     phPct:"ex : 10 (un nombre de 0 à 100, pas un montant)",
     phMoney:"ex : 25000",
@@ -846,34 +798,25 @@ const I18N = {
     errChoice:"« {label} » : choisissez l'une des options proposées.",
     errField:"« {label} » a été refusé. Vérifiez cette ligne et réessayez. Vos réponses sont conservées.",
     months:["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
-    finTitleA:"Fiche des Imitateurs de ZTF",finTitleB:"dans les Finances",
-    finIntro:"S'il te plaît, remplis la fiche ci-dessous qui présente tes engagements et aussi, sur cette plateforme tu rendras compte mensuellement en ce qui concerne l'aspect de sa vie sur les finances",
-    finRef:"Romains 13:8",
-    finVerse:"Ne devez rien à personne, si ce n'est de vous aimer les uns les autres ; car celui qui aime les autres a accompli la loi.",
-    finEmail:"Email",finNation:"Nation",finDiscipleMaker:"Faiseur de disciple",
-    finBudget:"Désormais, je vais utiliser mes finances à base d'un budget préétabli que je vais respecter.",
-    finTithe:"Je m'engage à donner la dîme (10 %) de tous mes revenus à Dieu",
-    finOffering:"Je m'engage à ajouter une offrande",
-    finHasSavings:"As-tu une épargne ?",
-    finSavingsPct:"Sinon, quel pourcentage de tes revenus vas-tu épargner dorénavant ?",
-    finIndebted:"Es-tu endetté ?",
-    finDebtLabel:"Si tu es endetté :",
-    finDebtA:"Fais une liste de toutes tes dettes et des personnes envers qui tu es endetté.",
-    finDebtB:"Prie pour supplier le Seigneur de te convaincre du péché des dettes et de te donner Sa haine des dettes.",
-    finDebtC:"Repends toi d'avoir désobéi aux écritures en t'endettant.",
-    finDebtD:"Prie pour supplier le Seigneur de te donner ce qu'il faut pour rembourser chacune de tes dettes.",
-    finDebtE:"Fais une planification de comment tu vas rembourser tes dettes.",
-    finDebtF:"Dès que tu as de l'argent, commence à rembourser tes dettes les unes après les autres.",
-    finFastLabel:"Jeûnes",
-    finFastNote:"Nous t'encourageons à faire un jeûne de trois jours complets chaque mois pour ton réveil spirituel, ta fructuosité et tes besoins personnels.",
-    finFastCommit:"T'engages-tu à jeûner pendant trois jours complets chaque mois ?",
-    finFastEncourage:"Combien de personnes vas-tu encourager à jeûner trois jours avec toi ?",
-    finFastBurdenLabel:"Pendant ton jeûne de trois jours, s'il te plaît, porte les fardeaux suivants :",
-    finFastA:"Premier jour : ton réveil spirituel personnel (Prie pour mieux comprendre et obéir à la Parole et aux paroles de Dieu, prie en particulier pour l'obéissance au message de Bertoua.)",
-    finFastB:"Deuxième jour : Porter du fruit (Prie pour gagner une âme au moins qui demeure, pour recevoir des dons spirituels et pour ton caractère).",
-    finFastC:"Troisième jour : Tes besoins personnels (fait une liste de toute tes besoins et prie chaque jour pour quelques besoins de ta liste).",
-    finNote:"N.B. : Remplis le formulaire ci, et envoie ton compte rendu chaque mois à l'un des numéros suivants : +237 673 766 838.",
-    finDoneTitle:"Tes engagements financiers sont enregistrés"
+    finTitleA:"Imitateurs de ZTF",
+    finIntro:"Je m'engage à imiter le leader fondateur, et amener le maximum de personnes possible à l'imiter.",
+    finEmail:"Email",finNation:"Nation",
+    conversionDate:"Date de conversion",
+    commitIntro:"Je m'engage à imiter le leader fondateur, et amener le maximum de personnes possible à l'imiter.",
+    c1:"1. Je m'engage à avoir au moins une rencontre dynamique quotidienne avec Dieu chaque jour :",
+    c2:"2. Je m'engage à lire ma Bible chaque jour et à l'achever :",
+    c2opt1:"01 fois",c2opt2:"02 fois",c2opt3:"03 fois",
+    c2other:"Ou, ce nombre de fois d'ici à cette même période l'année prochaine",
+    c6:"6. Je m'engage à mémoriser :",
+    c6opt1:"La Bible entière",c6opt2:"Le Nouveau Testament entier",c6opt3:"Une/des portion(s) de la Bible",
+    c6other:"Spécifie la(les) portion(s)",
+    c3:"3. Je m'engage à déraciner toutes les idoles dans le livre, « Sois rempli du Saint-Esprit » :",
+    c3opt1:"02 fois par mois",c3opt2:"01 fois chaque mois",c3opt3:"01 fois tous les deux mois",
+    c3other:"Autre périodicité",
+    c7:"7. Je m'engage à faire chaque unité d'enseignement du Message de Bertoua :",
+    c7opt1:"07 fois",c7opt2:"12 fois",c7opt3:"25 fois",
+    c7other:"Ou, ce nombre de fois",
+    finDoneTitle:"Tes engagements sont enregistrés"
   }
 };
 
@@ -933,7 +876,7 @@ I18N.es = {
   errLocality:"Introduce tu localidad antes de enviar; sin teléfono, es lo que enlaza este informe con el siguiente.",
   errNet:"No se pudo enviar el formulario. Revisa tu conexión e inténtalo de nuevo. Tus respuestas siguen aquí.",
   errServer:"Algo salió mal por nuestra parte; no es un problema de conexión. Inténtalo de nuevo; tus respuestas siguen aquí.",
-  phCount:"p. ej. 12",phEmail:"nombre@ejemplo.com",phNation:"p. ej. Camerún",phDiscipleMaker:"Nombre de la persona que te discipula",
+  phCount:"p. ej. 12",phEmail:"nombre@ejemplo.com",phNation:"p. ej. Camerún",phConversionDate:"p. ej. marzo de 2020",
   phTime:"p. ej. 30 min al día",
   phPct:"p. ej. 10 (un número de 0 a 100, no una cantidad)",
   phMoney:"p. ej. 25000",
@@ -949,39 +892,36 @@ I18N.es = {
   errChoice:"« {label} »: elige una de las opciones ofrecidas.",
   errField:"« {label} » fue rechazada. Comprueba esa línea e inténtalo de nuevo. Tus respuestas siguen aquí.",
   months:["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
-  finTitleA:"Imitadores de ZTF",finTitleB:"en Finanzas",
-  finIntro:"Rellena el formulario de abajo indicando tus compromisos financieros. También usarás esta plataforma para presentar un informe mensual sobre el aspecto financiero de tu vida.",
-  finRef:"Romanos 13:8",
-  finVerse:"No debáis nada a nadie, sino amaros unos a otros; porque el que ama a su prójimo ha cumplido la ley.",
-  finEmail:"Correo electrónico",finNation:"Nación",finDiscipleMaker:"Persona que te discipula",
-  finBudget:"A partir de ahora, administraré mis finanzas según un presupuesto preestablecido y lo respetaré.",
-  finTithe:"Me comprometo a dar el diezmo (10%) de todos mis ingresos a Dios",
-  finOffering:"Me comprometo a añadir una ofrenda",
-  finHasSavings:"¿Tienes ahorros?",
-  finSavingsPct:"Si no, ¿qué porcentaje de tus ingresos ahorrarás desde ahora?",
-  finIndebted:"¿Estás endeudado?",
-  finDebtLabel:"Si estás endeudado:",
-  finDebtA:"Haz una lista de todas tus deudas y de las personas a las que debes.",
-  finDebtB:"Ora pidiendo al Señor que te convenza del pecado de la deuda y que te dé su odio por la deuda.",
-  finDebtC:"Arrepiéntete de haber desobedecido las Escrituras al endeudarte.",
-  finDebtD:"Ora pidiendo al Señor que te dé lo necesario para pagar cada una de tus deudas.",
-  finDebtE:"Haz un plan para pagar tus deudas.",
-  finDebtF:"En cuanto tengas dinero, empieza a pagar tus deudas una tras otra.",
-  finFastLabel:"Ayuno",
-  finFastNote:"Te animamos a ayunar tres días completos cada mes para tu avivamiento espiritual, fructificación y necesidades personales.",
-  finFastCommit:"¿Te comprometes a ayunar tres días completos cada mes?",
-  finFastEncourage:"¿A cuántas personas animarás a ayunar tres días contigo?",
-  finFastBurdenLabel:"Durante tu ayuno de tres días, por favor lleva las siguientes cargas:",
-  finFastA:"Primer día: tu avivamiento espiritual personal (ora para entender y obedecer mejor la Palabra y las palabras de Dios, sobre todo para obedecer el mensaje de Bertoua).",
-  finFastB:"Segundo día: dar fruto (ora para ganar al menos un alma que permanezca, recibir dones espirituales y trabajar en tu carácter).",
-  finFastC:"Tercer día: tus necesidades personales (haz una lista de todas tus necesidades y ora cada día por algunas de ellas).",
-  finNote:"N.B.: Rellena este formulario y envía tu informe cada mes a uno de los siguientes números: +237 673 766 838.",
-  finDoneTitle:"Tus compromisos financieros han quedado registrados"
+  finTitleA:"Imitadores de ZTF",
+  finIntro:"Me comprometo a imitar al líder fundador, y a llevar al máximo de personas posible a imitarlo.",
+  finEmail:"Correo electrónico",finNation:"Nación",
+  conversionDate:"Fecha de conversión",
+  commitIntro:"Me comprometo a imitar al líder fundador, y a llevar al máximo de personas posible a imitarlo.",
+  c1:"1. Me comprometo a tener al menos un encuentro dinámico con Dios cada día:",
+  c2:"2. Me comprometo a leer mi Biblia cada día y terminarla:",
+  c2opt1:"1 vez",c2opt2:"2 veces",c2opt3:"3 veces",
+  c2other:"O, esta cantidad de veces para esta misma época el próximo año",
+  c6:"6. Me comprometo a memorizar:",
+  c6opt1:"Toda la Biblia",c6opt2:"Todo el Nuevo Testamento",c6opt3:"Algunas porción(es) de la Biblia",
+  c6other:"Especifica la(s) porción(es)",
+  c3:"3. Me comprometo a arrancar todos los ídolos en el libro «Sé lleno del Espíritu Santo»:",
+  c3opt1:"Dos veces al mes",c3opt2:"Una vez al mes",c3opt3:"Una vez cada dos meses",
+  c3other:"Otra frecuencia",
+  c7:"7. Me comprometo a hacer cada unidad de enseñanza del Mensaje de Bertoua:",
+  c7opt1:"7 veces",c7opt2:"12 veces",c7opt3:"25 veces",
+  c7other:"O, esta cantidad de veces",
+  finDoneTitle:"Tus compromisos han quedado registrados"
 };
 
 const DRAFT_KEY = 'cmfi-draft-v1';
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
+// The accountability form (sheet) is commented out below, leaving only the
+// finances form on the page. Every piece of setup below that only makes
+// sense for the accountability form is gated on this, so removing its
+// markup can never leave a dangling listener or init step reaching for an
+// element that no longer exists.
+const hasAccountabilityForm = !!$('#sheet');
 const navLang = (navigator.language || 'en').toLowerCase();
 let lang = navLang.startsWith('fr') ? 'fr' : (navLang.startsWith('es') ? 'es' : 'en');
 
@@ -1029,24 +969,29 @@ function setLitRows(n){
   const b = $('#litBody');
   while (b.children.length < n) b.appendChild(litRow(b.children.length));
 }
-setLitRows(4);
-$('#addLit').addEventListener('click', () => {
-  const b = $('#litBody');
-  if (b.children.length < 8) setLitRows(b.children.length + 1);
-});
+if (hasAccountabilityForm) {
+  setLitRows(4);
+  $('#addLit').addEventListener('click', () => {
+    const b = $('#litBody');
+    if (b.children.length < 8) setLitRows(b.children.length + 1);
+  });
+}
 
-const rail = $('#rail');
-for (let i = 1; i <= 16; i++){
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.className = 'rail-i';
-  b.dataset.target = 'i' + i;
-  b.textContent = String(i).padStart(2,'0');
-  b.setAttribute('aria-label', 'Entry ' + i);
-  b.addEventListener('click', () => $('#i'+i).scrollIntoView({ block:'start' }));
-  rail.appendChild(b);
+if (hasAccountabilityForm) {
+  const rail = $('#rail');
+  for (let i = 1; i <= 16; i++){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'rail-i';
+    b.dataset.target = 'i' + i;
+    b.textContent = String(i).padStart(2,'0');
+    b.setAttribute('aria-label', 'Entry ' + i);
+    b.addEventListener('click', () => $('#i'+i).scrollIntoView({ block:'start' }));
+    rail.appendChild(b);
+  }
 }
 function refreshRail(){
+  if (!hasAccountabilityForm) return;
   let done = 0;
   for (let i = 1; i <= 16; i++){
     const sec = $('#i'+i);
@@ -1057,7 +1002,7 @@ function refreshRail(){
   }
   $('#meter').textContent = done + '/16';
 }
-if ('IntersectionObserver' in window){
+if (hasAccountabilityForm && 'IntersectionObserver' in window){
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       const btn = $('.rail-i[data-target="'+e.target.id+'"]');
@@ -1111,7 +1056,7 @@ function applyLang(l){
     ? 'Fiche de compte rendu mensuelle imitateurs de ZTF'
     : (l === 'es' ? 'Formulario mensual de responsabilidad de Imitadores de ZTF' : 'Imitators of ZTF Accountability Form');
 }
-$$('.lang button').forEach(b => b.addEventListener('click', () => { applyLang(b.dataset.lang); saveDraft(); }));
+$$('.lang button').forEach(b => b.addEventListener('click', () => { applyLang(b.dataset.lang); if (hasAccountabilityForm) saveDraft(); }));
 
 function wirePhoneBlur(localName, ccName){
   $('[name="' + localName + '"]').addEventListener('blur', function(){
@@ -1123,15 +1068,19 @@ function wirePhoneBlur(localName, ccName){
     }
   });
 }
-wirePhoneBlur('phone_local', 'phone_cc');
-wirePhoneBlur('phone2_local', 'phone2_cc');
+if (hasAccountabilityForm) {
+  wirePhoneBlur('phone_local', 'phone_cc');
+  wirePhoneBlur('phone2_local', 'phone2_cc');
+}
 wirePhoneBlur('fin_phone_local', 'fin_phone_cc');
 
 function applyNoPhone(on){
   $('#phoneFields').hidden = on;
   $('#noPhoneHint').hidden = !on;
 }
-$('#noPhoneCheck').addEventListener('change', function(){ applyNoPhone(this.checked); applyCurrency(); saveDraft(); });
+if (hasAccountabilityForm) {
+  $('#noPhoneCheck').addEventListener('change', function(){ applyNoPhone(this.checked); applyCurrency(); saveDraft(); });
+}
 
 function combinePhone(p, localKey, ccKey){
   const detected = detectCountryCode(p[localKey]);
@@ -1143,11 +1092,12 @@ function combinePhone(p, localKey, ccKey){
 function collect(){
   const p = { entry_type: entryType };
   $$('#sheet [name]').forEach(el => { p[el.name] = el.type === 'checkbox' ? el.checked : el.value; });
-  p.literature = Array.from($('#litBody').children).map(tr => ({
+  const litBody = $('#litBody');
+  p.literature = litBody ? Array.from(litBody.children).map(tr => ({
     title: tr.querySelector('.lit-title').value.trim(),
     pages: tr.querySelector('.lit-pages').value.trim(),
     author: tr.querySelector('.lit-author').value.trim()
-  }));
+  })) : [];
   p.currency = (!p.no_phone && currencyFor(p.phone_cc)) ||
     currencyFor((COUNTRY_CODES.find(c => c[1] === p.spiritual_nation) || [])[0]) || null;
   p.phone = p.no_phone ? '' : combinePhone(p, 'phone_local', 'phone_cc');
@@ -1184,8 +1134,10 @@ function saveDraft(){
   draftTimer = setTimeout(() => {
     storage.set(DRAFT_KEY, JSON.stringify(collect()));
     const d = $('#draft');
-    d.dataset.on = 'true';
-    setTimeout(() => { d.dataset.on = 'false'; }, 1800);
+    if (d) {
+      d.dataset.on = 'true';
+      setTimeout(() => { d.dataset.on = 'false'; }, 1800);
+    }
   }, 700);
 }
 function clearDraft(){ storage.remove(DRAFT_KEY); }
@@ -1194,42 +1146,24 @@ function clearDraft(){ storage.remove(DRAFT_KEY); }
 // page — its own draft key, its own collect/restore, kept fully separate
 // from the monthly accountability form above.
 const FIN_DRAFT_KEY = 'cmfi-finance-draft-v1';
+// The commitment items are native radio groups (several inputs share one
+// [name]), so the generic [name] collection has to read only the checked
+// one's value, not every element in the group — otherwise the last radio in
+// DOM order would silently win regardless of which one is actually checked.
 function collectFinanceRaw(){
   const p = {};
-  $$('#financeSheet [name]').forEach(el => { p[el.name] = el.value; });
+  $$('#financeSheet [name]').forEach(el => {
+    if (el.type === 'radio') { if (el.checked) p[el.name] = el.value; }
+    else { p[el.name] = el.value; }
+  });
   return p;
 }
 function restoreFinance(p){
   if (!p) return;
-  $$('#financeSheet [name]').forEach(el => { if (p[el.name] !== undefined) el.value = p[el.name]; });
-  syncYesNoCheckboxes();
-}
-// Yes/No fields on the finances form are a pair of checkboxes (not a
-// select): each .yn group carries a hidden input which is what
-// collectFinanceRaw()/restoreFinance() actually read and write — the two
-// checkboxes underneath are display-only and never carry a [name], so they
-// stay out of the generic [name] collection above. Checking one clears the
-// other (a real answer is single-valued); unchecking the checked one clears
-// the hidden value back to "not answered".
-function wireYesNo(){
-  $$('#financeSheet .yn').forEach(group => {
-    const hidden = group.querySelector('input[type="hidden"]');
-    const boxes = Array.from(group.querySelectorAll('input[type="checkbox"]'));
-    boxes.forEach(box => {
-      box.addEventListener('change', () => {
-        if (box.checked) boxes.forEach(other => { if (other !== box) other.checked = false; });
-        const checked = boxes.find(b => b.checked);
-        hidden.value = checked ? checked.dataset.val : '';
-      });
-    });
-  });
-}
-function syncYesNoCheckboxes(){
-  $$('#financeSheet .yn').forEach(group => {
-    const hidden = group.querySelector('input[type="hidden"]');
-    group.querySelectorAll('input[type="checkbox"]').forEach(box => {
-      box.checked = box.dataset.val === hidden.value;
-    });
+  $$('#financeSheet [name]').forEach(el => {
+    if (p[el.name] === undefined) return;
+    if (el.type === 'radio') { el.checked = el.value === p[el.name]; }
+    else { el.value = p[el.name]; }
   });
 }
 // Maps the DOM's fin_-prefixed field names to the clean keys the backend
@@ -1243,15 +1177,16 @@ function financePayload(){
     phone: combinePhone(p, 'fin_phone_local', 'fin_phone_cc'),
     email: p.fin_email,
     nation: p.fin_nation,
-    disciple_maker: p.fin_disciple_maker,
-    budget_commitment: p.fin_budget_commitment,
-    tithe_commitment: p.fin_tithe_commitment,
-    offering_commitment: p.fin_offering_commitment,
-    has_savings: p.fin_has_savings,
-    planned_savings_percentage: p.fin_planned_savings_percentage,
-    is_indebted: p.fin_is_indebted,
-    fasting_commitment: p.fin_fasting_commitment,
-    fasting_encourage_count: p.fin_fasting_encourage_count
+    conversion_date: p.fin_conversion_date,
+    commit_daily_encounter: p.fin_commit_daily_encounter,
+    bible_completions_choice: p.fin_bible_completions_choice,
+    bible_completions_other: p.fin_bible_completions_other,
+    bible_memorization_choice: p.fin_bible_memorization_choice,
+    bible_memorization_portions: p.fin_bible_memorization_portions,
+    idol_uprooting_frequency: p.fin_idol_uprooting_frequency,
+    idol_uprooting_other: p.fin_idol_uprooting_other,
+    bertoua_units_target: p.fin_bertoua_units_target,
+    bertoua_units_other: p.fin_bertoua_units_other
   };
 }
 let finDraftTimer;
@@ -1335,9 +1270,11 @@ document.addEventListener('change', e => {
   if (e.target.name === 'phone_cc' || e.target.id === 'noPhoneCheck') applyCurrency();
 });
 
-$('#beginBtn').addEventListener('click', () => $('#ident').scrollIntoView({ block:'start' }));
-$('#printBtn').addEventListener('click', () => window.print());
-$('#againBtn').addEventListener('click', () => { clearDraft(); location.reload(); });
+if (hasAccountabilityForm) {
+  $('#beginBtn').addEventListener('click', () => $('#ident').scrollIntoView({ block:'start' }));
+  $('#printBtn').addEventListener('click', () => window.print());
+  $('#againBtn').addEventListener('click', () => { clearDraft(); location.reload(); });
+}
 
 function showDone(data){
   const t = I18N[lang];
@@ -1560,50 +1497,53 @@ $('#finSubmitBtn').addEventListener('click', () => {
   submitFinance();
 });
 
-$('#submitBtn').addEventListener('click', () => {
-  const t = I18N[lang];
-  const nameField = $('[name="full_name"]');
-  if (!nameField.value.trim()){
-    say(t.errName, 'bad');
-    nameField.scrollIntoView({ block:'center' });
-    nameField.focus();
-    return;
-  }
-  if ($('#noPhoneCheck').checked) {
-    const localityField = $('[name="locality"]');
-    if (!localityField.value.trim()){
-      say(t.errLocality, 'bad');
-      localityField.scrollIntoView({ block:'center' });
-      localityField.focus();
+if (hasAccountabilityForm) {
+  $('#submitBtn').addEventListener('click', () => {
+    const t = I18N[lang];
+    const nameField = $('[name="full_name"]');
+    if (!nameField.value.trim()){
+      say(t.errName, 'bad');
+      nameField.scrollIntoView({ block:'center' });
+      nameField.focus();
       return;
     }
-  } else {
-    const phoneField = $('[name="phone_local"]');
-    if (!phoneField.value.trim()){
-      say(t.errPhone, 'bad');
-      phoneField.scrollIntoView({ block:'center' });
-      phoneField.focus();
-      return;
+    if ($('#noPhoneCheck').checked) {
+      const localityField = $('[name="locality"]');
+      if (!localityField.value.trim()){
+        say(t.errLocality, 'bad');
+        localityField.scrollIntoView({ block:'center' });
+        localityField.focus();
+        return;
+      }
+    } else {
+      const phoneField = $('[name="phone_local"]');
+      if (!phoneField.value.trim()){
+        say(t.errPhone, 'bad');
+        phoneField.scrollIntoView({ block:'center' });
+        phoneField.focus();
+        return;
+      }
     }
-  }
-  submitReturn({});
-});
+    submitReturn({});
+  });
+}
 
 document.addEventListener('input', e => {
   if (e.target.closest('#financeSheet')) saveFinanceDraft();
-  else { refreshRail(); saveDraft(); }
+  else if (hasAccountabilityForm) { refreshRail(); saveDraft(); }
 });
 document.addEventListener('change', e => {
   if (e.target.closest('#financeSheet')) saveFinanceDraft();
-  else { refreshRail(); saveDraft(); }
+  else if (hasAccountabilityForm) { refreshRail(); saveDraft(); }
 });
 
 applyLang(lang);
-wireYesNo();
-try {
-  const saved = storage.get(DRAFT_KEY);
-  if (saved) { restore(JSON.parse(saved)); refreshRail(); }
-} catch (e) {}
+if (hasAccountabilityForm) {
+  try {
+    const saved = storage.get(DRAFT_KEY);
+    if (saved) { restore(JSON.parse(saved)); refreshRail(); }
+  } catch (e) {}
+}
 try {
   const finSaved = storage.get(FIN_DRAFT_KEY);
   if (finSaved) restoreFinance(JSON.parse(finSaved));

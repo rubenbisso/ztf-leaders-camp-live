@@ -252,8 +252,10 @@ export function buildRow(body) {
 }
 
 // Same idea as FIELD_LABELS/COLUMNS/coerce/buildRow above, but for the
-// independent "Imitators of ZTF in Finances" monthly form — its own table,
-// its own column set, no person linkage.
+// independent "Imitators of ZTF" commitments form — its own table, its own
+// column set, no person linkage. Replaced the earlier financial-commitments
+// content with the paper form's spiritual commitments (daily encounter with
+// God, Bible reading/memorisation targets, idol uprooting, Bertoua message).
 export const FINANCE_FIELD_LABELS = [
   ['submitted_at', 'Date Submitted'],
   ['full_name', 'Name'],
@@ -261,30 +263,34 @@ export const FINANCE_FIELD_LABELS = [
   ['phone', 'Phone'],
   ['email', 'Email'],
   ['nation', 'Nation'],
-  ['disciple_maker', 'Disciple Maker'],
-  ['budget_commitment', 'Commits To Using A Pre-Established Budget'],
-  ['tithe_commitment', 'Commits To Giving The Tithe (10%)'],
-  ['offering_commitment', 'Commits To Adding An Offering'],
-  ['has_savings', 'Has Savings'],
-  ['planned_savings_percentage', 'Planned Savings Percentage (If No Savings)'],
-  ['is_indebted', 'Is Indebted'],
-  ['fasting_commitment', 'Commits To Fasting Three Complete Days Each Month'],
-  ['fasting_encourage_count', 'People Encouraged To Fast Three Days']
+  ['conversion_date', 'Date Of Conversion'],
+  ['commit_daily_encounter', '1. Commits To A Daily Dynamic Encounter With God'],
+  ['bible_completions_choice', '2. Bible Completions Target (Preset: 1, 2 Or 3)'],
+  ['bible_completions_other', '2. Bible Completions Target (Custom)'],
+  ['bible_memorization_choice', '6. Memorisation Commitment'],
+  ['bible_memorization_portions', '6. Memorisation: Portion(s) Specified'],
+  ['idol_uprooting_frequency', '3. Idol Uprooting Frequency (Preset)'],
+  ['idol_uprooting_other', '3. Idol Uprooting Frequency (Other)'],
+  ['bertoua_units_target', '7. Bertoua Message Units Target (Preset: 7, 12 Or 25)'],
+  ['bertoua_units_other', '7. Bertoua Message Units Target (Custom)']
 ];
 
 export const FINANCE_COLUMNS = [
-  'full_name', 'locality', 'phone', 'email', 'nation', 'disciple_maker',
-  'budget_commitment', 'tithe_commitment', 'offering_commitment', 'has_savings', 'planned_savings_percentage',
-  'is_indebted', 'fasting_commitment', 'fasting_encourage_count'
+  'full_name', 'locality', 'phone', 'email', 'nation', 'conversion_date',
+  'commit_daily_encounter',
+  'bible_completions_choice', 'bible_completions_other',
+  'bible_memorization_choice', 'bible_memorization_portions',
+  'idol_uprooting_frequency', 'idol_uprooting_other',
+  'bertoua_units_target', 'bertoua_units_other'
 ];
 
-const FINANCE_INTEGERS = new Set(['fasting_encourage_count']);
-const FINANCE_DECIMALS = new Set(['planned_savings_percentage']);
-// Yes / no fields (checkbox pairs on the form), all nullable: left blank is
-// a real, distinct answer, not "no".
-const FINANCE_TRISTATE = new Set([
-  'budget_commitment', 'tithe_commitment', 'offering_commitment', 'has_savings', 'is_indebted', 'fasting_commitment'
+const FINANCE_INTEGERS = new Set([
+  'bible_completions_choice', 'bible_completions_other',
+  'bertoua_units_target', 'bertoua_units_other'
 ]);
+// Yes / no fields (radio pairs on the form), nullable: left blank is a real,
+// distinct answer, not "no".
+const FINANCE_TRISTATE = new Set(['commit_daily_encounter']);
 
 export function coerceFinance(column, raw) {
   if (FINANCE_TRISTATE.has(column)) {
@@ -295,10 +301,6 @@ export function coerceFinance(column, raw) {
   if (raw === '' || raw === undefined || raw === null) return null;
   if (FINANCE_INTEGERS.has(column)) {
     const n = parseInt(raw, 10);
-    return Number.isFinite(n) && n >= 0 ? n : null;
-  }
-  if (FINANCE_DECIMALS.has(column)) {
-    const n = parseFloat(String(raw).replace(/[\s,]/g, ''));
     return Number.isFinite(n) && n >= 0 ? n : null;
   }
   return String(raw).trim().slice(0, TEXT_LIMIT);
